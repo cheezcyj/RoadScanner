@@ -16,12 +16,12 @@ import com.google.gson.Gson;
 import com.pcwk.ehr.board.domain.BoardVO;
 import com.pcwk.ehr.board.service.BoardService;
 import com.pcwk.ehr.board.domain.DTO;
-import com.pcwk.ehr.cmn.MessageVO;
+import com.pcwk.ehr.board.domain.MessageVO;
 import com.pcwk.ehr.board.domain.PcwkLoger;
-import com.pcwk.ehr.cmn.StringUtil;
-import com.pcwk.ehr.code.domain.CodeVO;
-import com.pcwk.ehr.code.service.CodeService;
-import com.pcwk.ehr.user.domain.UserVO;
+import com.pcwk.ehr.board.domain.StringUtil;
+import com.pcwk.ehr.board.code.CodeVO;
+import com.pcwk.ehr.board.code.CodeService;
+import com.pcwk.ehr.board.domain.UserVO;
 
 @Controller("boardController")
 @RequestMapping("board")
