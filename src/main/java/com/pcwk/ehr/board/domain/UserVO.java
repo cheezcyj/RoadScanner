@@ -44,20 +44,20 @@ public class UserVO extends DTO {
 		this.intLevel = intLevel;
 		
 		//mybatis  -> DAO
-		this.level = Level.valueOf(intLevel);
+//		this.level = Level.valueOf(intLevel);
 	}
 
 	/**
 	 * 현제 Level이 다음 레벨로 변경!
 	 */
 	public void upgradeLevel() {
-		Level nextLevel = this.level.nextLevel();
+//		Level nextLevel = this.level.nextLevel();
 		
-		if(null == nextLevel) {
-			throw new IllegalArgumentException(this.level+"은 업그레이드가 불가능합니다.");
-		}else {
-			this.level = nextLevel;
-		}
+//		if(null == nextLevel) {
+//			throw new IllegalArgumentException(this.level+"은 업그레이드가 불가능합니다.");
+//		}else {
+//			this.level = nextLevel;
+//		}
 	}
 	
 
