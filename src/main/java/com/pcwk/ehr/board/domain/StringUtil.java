@@ -1,4 +1,4 @@
-package com.pcwk.ehr.cmn;
+package com.pcwk.ehr.board.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

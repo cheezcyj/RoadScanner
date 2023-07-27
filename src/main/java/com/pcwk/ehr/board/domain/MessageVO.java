@@ -1,4 +1,4 @@
-package com.pcwk.ehr.cmn;
+package com.pcwk.ehr.board.domain;
 
 public class MessageVO extends DTO {
 	private String msgId;//메시지ID

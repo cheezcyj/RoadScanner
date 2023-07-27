@@ -1,6 +1,8 @@
-package com.pcwk.ehr.user.domain;
+package com.pcwk.ehr.board.domain;
 
-import com.pcwk.ehr.cmn.DTO;
+import java.util.logging.Level;
+
+import com.pcwk.ehr.board.domain.DTO;
 
 public class UserVO extends DTO {
 	private String userId  ;//회원id

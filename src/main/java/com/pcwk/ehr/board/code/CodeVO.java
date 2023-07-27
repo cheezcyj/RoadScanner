@@ -1,6 +1,6 @@
-package com.pcwk.ehr.code.domain;
+package com.pcwk.ehr.board.code;
 
-import com.pcwk.ehr.cmn.DTO;
+import com.pcwk.ehr.board.domain.DTO;
 
 public class CodeVO extends DTO {
 

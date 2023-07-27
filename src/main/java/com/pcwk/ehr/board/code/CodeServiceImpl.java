@@ -1,4 +1,4 @@
-package com.pcwk.ehr.code.service;
+package com.pcwk.ehr.board.code;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.code.dao.CodeDao;
-import com.pcwk.ehr.code.domain.CodeVO;
+import com.pcwk.ehr.board.code.CodeDao;
+import com.pcwk.ehr.board.code.CodeVO;
 
 @Service
 public class CodeServiceImpl implements CodeService {
