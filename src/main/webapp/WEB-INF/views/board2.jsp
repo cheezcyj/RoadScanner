@@ -50,7 +50,7 @@
 
             <div class="text-center mb-3">
                 <button type="button" class="btn btn-primary me-2" onclick="location.href='/';">목록</button>
-                <button type="button" class="btn btn-primary me-2" onclick="location.href='/';">게시글쓰기</button>
+                <button type="button" class="btn btn-primary me-2" onclick="location.href='/board/write'">게시글쓰기</button>
                 <button type="button" class="btn btn-primary" onclick="showAnswerForm()" id="answerButton">답변하기</button>
             </div>
         </form>
