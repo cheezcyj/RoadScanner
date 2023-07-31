@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<dbconfig>
+    <dburl>jdbc:oracle:thin:@192.168.0.123:1521:XE</dburl>
+    <username>f1</username>
+    <password>4444</password>
+</dbconfig>
