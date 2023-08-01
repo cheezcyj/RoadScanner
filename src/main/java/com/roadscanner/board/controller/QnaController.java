@@ -11,13 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.roadscanner.board.domain.Qna;
 import com.roadscanner.board.service.QnaService;
 import com.roadscanner.board.service.QnaServiceImpl;
 import com.roadscanner.board.util.OracleDbUtil;
 
-@WebServlet("/qna/*")
+@Controller
+@RequestMapping("/qna")
 public class QnaController extends HttpServlet {
+	
+    @GetMapping("/detail")
+    public String detailView() {
+    	return "/board/Qna_detail";
+    }
+
     private static final long serialVersionUID = 1L;
     private QnaService qnaService;
 
@@ -86,7 +97,7 @@ public class QnaController extends HttpServlet {
             int uIdx = Integer.parseInt(uIdxStr);
             Qna qna = qnaService.getQna(qIdx, rId, uIdx);
             if (qna != null) {
-                request.setAttribute("qna", qna);
+                request.setAttribute("qna", qna); // qna 객체를 request에 담음
                 request.getRequestDispatcher("/WEB-INF/views/qna/view.jsp").forward(request, response);
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);

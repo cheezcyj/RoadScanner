@@ -35,8 +35,10 @@ public class QnaServiceImpl implements QnaService {
     }
 
     @Override
-    public void createQna(Qna qna) throws SQLException {
+    public boolean createQna(Qna qna) throws SQLException {
         qnaDao.createQna(qna);
+        
+		return false;
     }
 }
 

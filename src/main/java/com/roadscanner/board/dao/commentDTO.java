@@ -1,4 +1,4 @@
-package com.roadscanner.comment.dao;
+package com.roadscanner.board.dao;
 
 public class commentDTO {
 
