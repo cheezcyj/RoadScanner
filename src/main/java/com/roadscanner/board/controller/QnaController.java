@@ -26,7 +26,7 @@ public class QnaController extends HttpServlet {
 	
     @GetMapping("/detail")
     public String detailView() {
-    	return "/board/Qna_detail";
+    	return "/qna/qna_detail";
     }
 
     private static final long serialVersionUID = 1L;

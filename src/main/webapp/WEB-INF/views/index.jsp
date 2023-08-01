@@ -17,7 +17,7 @@
 </head>
 <body>
 <h1>로드스캐너 홈페이지</h1>
-    <a href="${CP}/qna">Q&A 게시판 보러 가기</a>
+    <li><a href="/detail">게시물 상세페이지</a></li>
     <button id="fetchDataButton">Fetch Data</button>
     <div id="dataContainer"></div>
 
