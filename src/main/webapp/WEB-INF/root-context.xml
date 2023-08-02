@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/cloud/aws/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/cloud/aws/context http://www.springframework.org/schema/cloud/aws/context/spring-cloud-aws-context-1.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        
+        
+        <!-- mybatis설정 -->
+        <!-- mybatis db연결 객체  -->
+        <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+            <constructor-arg index="0" ref="sqlSessionFactoryBean"></constructor-arg>
+        </bean>
+        
+        <!-- *.xml mybatis설정 파일 read
+            mybatis-config.xml
+            mapper: anno.xml
+         -->
+        <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+            <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+        </bean>
+        
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+            <property name="url" value="jdbc:oracle:thin:@192.168.0.123:1521:XE"></property>
+            <property name="username" value="f1"></property>
+            <property name="password" value="4444"></property>
+        </bean>
+        
+         <!-- JavaMailSenderImpl -->
+		  <bean id="mailSenderImpl"
+		    class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		    <property name="host" value="smtp.naver.com" />
+		    <property name="port" value="465" />
+		    <property name="username" value="dh103504@naver.com" />
+		    <property name="password" value="dhehd125%" />
+		    <property name="defaultEncoding" value="utf-8" />
+		    <property name="javaMailProperties">
+		      <props>
+		        <prop key="mail.smtp.host">smtp.naver.com</prop>
+		        <prop key="mail.smtp.port">465</prop>
+		        <prop key="mail.smtp.auth">true</prop>
+		        <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+		        <prop key="mail.smtp.ssl.enable">true</prop>
+		        <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+		        <prop key="mail.debug">true</prop>
+		      </props>
+		    </property>
+  </bean>     
+
+</beans>
