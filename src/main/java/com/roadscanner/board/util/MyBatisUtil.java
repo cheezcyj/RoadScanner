@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class MyBatisUtil {
     private static SqlSessionFactory sqlSessionFactory;
@@ -23,5 +26,15 @@ public class MyBatisUtil {
     public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
     }
+
+    public static Connection getConnection() throws SQLException {
+        // Replace the following information with your Oracle database connection details
+        String url = "jdbc:oracle:thin:@192.168.0.123:1521:XE";
+        String username = "F1";
+        String password = "4444";
+
+        return DriverManager.getConnection(url, username, password);
+    }
+
 }
 

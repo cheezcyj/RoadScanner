@@ -6,30 +6,61 @@
 
     <!-- 게시물 생성 -->
     <insert id="createQna" parameterType="com.roadscanner.board.domain.Qna">
-        INSERT INTO F1.QNA (Q_IDX, R_ID, U_IDX, Q_DIV, Q_READ_CNT, Q_TITLE, Q_CONTENTS, Q_REG_DATE)
-        VALUES (F1.Q_IDX_SEQ.NEXTVAL, #{rId}, #{uIdx}, #{qDiv}, #{qReadCnt}, #{qTitle}, #{qContents}, SYSDATE)
+        INSERT INTO F1.QNA (
+        Q_IDX, 
+        R_ID, 
+        U_IDX, 
+        Q_DIV, 
+        Q_READ_CNT, 
+        Q_TITLE, 
+        Q_CONTENTS, 
+        Q_REG_DATE
+        )
+        VALUES (
+        F1.Q_IDX_SEQ.NEXTVAL, 
+        #{rId}, 
+        #{uIdx}, 
+        #{qDiv}, 
+        #{qReadCnt}, 
+        #{qTitle}, 
+        #{qContents}, 
+        SYSDATE
+        )
     </insert>
 
     <!-- 게시물 조회 -->
     <select id="getQna" parameterType="com.roadscanner.board.domain.Qna"
         resultType="com.roadscanner.board.domain.Qna">
-        SELECT * FROM F1.QNA WHERE Q_IDX = #{qIdx} AND R_ID = #{rId} AND U_IDX = #{uIdx}
+        SELECT * 
+        FROM F1.QNA 
+        WHERE Q_IDX = #{qIdx} 
+        AND R_ID = #{rId} 
+        AND U_IDX = #{uIdx}
     </select>
 
     <!-- 게시물 목록 조회 -->
     <select id="getQnaList" resultType="com.roadscanner.board.domain.Qna">
-        SELECT * FROM F1.QNA
+        SELECT * 
+        FROM F1.QNA
     </select>
 
     <!-- 게시물 수정 -->
     <update id="updateQna" parameterType="com.roadscanner.board.domain.Qna">
-        UPDATE F1.QNA SET Q_TITLE = #{qTitle}, Q_CONTENTS = #{qContents}, Q_MOD_DATE = SYSDATE
-        WHERE Q_IDX = #{qIdx} AND R_ID = #{rId} AND U_IDX = #{uIdx}
+        UPDATE F1.QNA 
+        SET Q_TITLE = #{qTitle}, 
+        Q_CONTENTS = #{qContents}, 
+        Q_MOD_DATE = SYSDATE
+        WHERE Q_IDX = #{qIdx} 
+        AND R_ID = #{rId} 
+        AND U_IDX = #{uIdx}
     </update>
 
     <!-- 게시물 삭제 -->
     <delete id="deleteQna" parameterType="com.roadscanner.board.domain.Qna">
-        DELETE FROM F1.QNA WHERE Q_IDX = #{qIdx} AND R_ID = #{rId} AND U_IDX = #{uIdx}
+        DELETE FROM F1.QNA 
+        WHERE Q_IDX = #{qIdx} 
+        AND R_ID = #{rId} 
+        AND U_IDX = #{uIdx}
     </delete>
 
 </mapper>

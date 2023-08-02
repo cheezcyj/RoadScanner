@@ -8,14 +8,14 @@
       <dataSource type="POOLED">
         <!-- 데이터베이스 연결 정보를 입력해주세요 -->
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-        <property name="username" value="your_username"/>
-        <property name="password" value="your_password"/>
+        <property name="url" value="jdbc:oracle:thin:@192.168.0.123:1521:XE"/>
+        <property name="username" value="F1"/>
+        <property name="password" value="4444"/>
       </dataSource>
     </environment>
   </environments>
   <mappers>
     <!-- 여기에 SQL 매퍼 파일의 경로를 추가해주세요 -->
-    <mapper resource="com/roadscanner/board/dao/qna-mapper.xml"/>
+    <mapper resource="com/roadscanner/board/dao/qna_mapper.xml"/>
   </mappers>
 </configuration>
