@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.roadscanner</groupId>
     <artifactId>roadscanner</artifactId>
-    <packaging>war</packaging>
+    <packaging>war</packaging>   
     <version>1.0-SNAPSHOT</version>
     <name>RoadScanner Maven Webapp</name>
     <url>http://maven.apache.org</url>

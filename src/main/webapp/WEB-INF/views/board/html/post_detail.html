@@ -42,8 +42,10 @@
             <div class="text-center mb-3">
                 <button type="button" class="btn btn-primary me-2" onclick="location.href='/';">목록</button>
                 <button type="button" class="btn btn-primary me-2" onclick="location.href='/';">게시글쓰기</button>
-                <button type="button" class="btn btn-primary" onclick="showAnswerForm()">답변하기</button>
-            </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                <!-- 답변하기 버튼을 답변 개수가 1개 미만일 때만 활성화합니다 -->
+                <button class="btn btn-primary" type="button" onclick="showAnswerForm()" id="answerButton">답변하기</button>
+            </div></div>
         </form>
 
         <div style="padding: 10px 0;"></div>
@@ -64,7 +66,7 @@
             </div>
 
             <div class="text-center">
-                <button type="button" class="btn btn-primary" onclick="submitAnswer()">답변 등록</button>
+                <button type="button" class="btn btn-primary" onclick="submitAnswer()">수정 완료</button>
             </div>
         </form>
     </div>
@@ -72,64 +74,111 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        function showAnswerForm() {
-            document.getElementById("answerForm").style.display = "block";
-        }
-
-        function submitAnswer() {
-            const answerName = document.getElementById("answerName").value;
-            const answerContent = document.getElementById("answerContent").value;
-
-            if (answerName && answerContent) {
-                const answerSection = document.getElementById("answerSection");
-                const answerForm = document.getElementById("answerForm");
-
-                // 답변 내용 생성 및 답변 섹션에 추가
-                const answerElement = document.createElement("div");
-                answerElement.classList.add("mb-3");
-                answerElement.innerHTML = `
-                    <h2>등록된 답변</h2>
-                    <div style="padding: 10px 0;"></div>
-                    <h6>답변 관리자: ${answerName}</h6>
-                    <textarea class="form-control" aria-label="Disabled input example" disabled readonly rows="5">${answerContent}</textarea>
-                    <div style="padding: 8px 0;"></div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                        <button class="btn btn-secondary btn-sm me-2" type="button">삭제</button>
-                        <button class="btn btn-secondary btn-sm" type="button">수정</button>
-                    </div>
-                `;
-
-                answerSection.appendChild(answerElement);
-
-                // 입력 필드 초기화 및 답변 작성 폼 숨기기
-                document.getElementById("answerName").value = "";
-                document.getElementById("answerContent").value = "";
-                answerForm.style.display = "none";
-            }
-        }
-
-        function editAnswer(btn) {
-            const answerElement = btn.parentElement.parentElement;
-            const answerName = answerElement.querySelector("h3").innerText;
-            const answerContent = answerElement.querySelector("textarea").value;
-
-            // 수정할 답변의 이름과 내용을 답변 작성 폼에 세팅
-            document.getElementById("answerName").value = answerName;
-            document.getElementById("answerContent").value = answerContent;
-
-            // 답변 작성 폼 보이기
-            document.getElementById("answerForm").style.display = "block";
-
-            // 기존 답변 삭제
-            answerElement.remove();
-        }
-
-        function deleteAnswer(btn) {
-            const answerElement = btn.parentElement.parentElement;
-            answerElement.remove();
-        }
-    </script>
+	<script>
+	    // 답변 개수를 저장하는 변수를 추가합니다
+	    let answerCount = 0;
+	
+	    function showAnswerForm() {
+	        document.getElementById("answerForm").style.display = "block";
+	        document.getElementById("answerButton").disabled = true; // 답변하기 버튼 비활성화
+	        document.body.style.overflow = "hidden"; // 스크롤 방지
+	    }
+	
+	    function submitAnswer() {
+	        const answerName = document.getElementById("answerName").value;
+	        const answerContent = document.getElementById("answerContent").value;
+	
+	        // 답변 내용이 비어있는지 검증합니다
+	        if (answerContent.trim() === '') {
+	            alert("답변 내용을 입력하세요.");
+	            return;
+	        }
+	
+	        // 이름이 입력되지 않았을 때, 이름을 입력하도록 요청하는 검증합니다
+	        if (answerName.trim() === '') {
+	            alert("이름을 입력하세요.");
+	            return;
+	        }
+	
+	        const answerSection = document.getElementById("answerSection");
+	
+	        // 답변 개수가 1개 이상이면 추가 등록을 막습니다
+	        if (answerCount >= 1) {
+	            alert("답변은 한 개까지만 등록할 수 있습니다.");
+	            return;
+	        }
+	
+	        // 답변 내용 생성 및 답변 섹션에 추가
+	        const answerElement = document.createElement("div");
+	        answerElement.classList.add("mb-3");
+	        answerElement.innerHTML = `
+	            <h2>등록된 답변</h2>
+	            <div style="padding: 10px 0;"></div>
+	            <h6>${answerCount === 0 ? '답변 관리자: ' : ''}${answerName}</h6>
+	            <textarea class="form-control" aria-label="Disabled input example" disabled readonly rows="5">${answerContent}</textarea>
+	            <div style="padding: 8px 0;"></div>
+	            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+	                <button class="btn btn-secondary btn-sm me-2" type="button" onclick="deleteAnswer(this)">삭제</button>
+	                <button class="btn btn-secondary btn-sm" type="button" onclick="editAnswer(this)">수정</button>
+	            </div>
+	        `;
+	
+	        answerSection.appendChild(answerElement);
+	
+	        // 입력 필드를 초기화하고 답변 작성 폼을 숨깁니다
+	        document.getElementById("answerName").value = "";
+	        document.getElementById("answerContent").value = "";
+	        document.getElementById("answerForm").style.display = "none";
+	
+	        answerCount++;
+	
+	        // 답변이 등록되었으므로 답변하기 버튼을 비활성화합니다
+	        document.getElementById("answerButton").disabled = true;
+	    }
+	
+	    function editAnswer(btn) {
+	        const answerElement = btn.parentElement.parentElement;
+	        const answerName = answerElement.querySelector("h6").innerText;
+	
+	        // '답변 관리자:' 텍스트를 제거하여 이름만 가져옵니다
+	        const nameWithoutPrefix = answerName.replace("답변 관리자: ", "");
+	        const answerContent = answerElement.querySelector("textarea").value;
+	
+	        // Set the name and content of the answer to be edited in the answer writing form
+	        document.getElementById("answerName").value = nameWithoutPrefix;
+	        document.getElementById("answerContent").value = answerContent;
+	
+	        // show response form
+	        document.getElementById("answerForm").style.display = "block";
+	
+	        // disable submit button while editing answer
+	        document.getElementById("answerButton").disabled = true;
+	
+	        // delete old answer
+	        answerElement.remove();
+	        answerCount--; // 수정한 답변을 삭제했으므로 답변 개수를 감소시킵니다
+	
+	        // 답변이 등록되었으므로 답변하기 버튼을 비활성화합니다
+	        document.getElementById("answerButton").disabled = true;
+	        
+	        // 스크롤 방지 해제
+	        document.body.style.overflow = "auto";
+	    }
+	
+	    function deleteAnswer(btn) {
+	        const answerElement = btn.parentElement.parentElement;
+	        answerElement.remove();
+	        answerCount--; // 답변이 삭제되면 답변 개수를 감소시킵니다
+	
+	        // 등록된 답변이 없을 경우에만 답변하기 버튼을 활성화합니다
+	        if (answerCount === 0) {
+	            document.getElementById("answerButton").disabled = false;
+	        }
+	        
+	        // 스크롤 방지 해제
+	        document.body.style.overflow = "auto";
+	    }
+	</script>
 
 </body>
 
