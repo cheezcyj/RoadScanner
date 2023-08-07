@@ -1,16 +1,4 @@
-<c:set var="CP" value="${pageContext.request.contextPath }"/>
-<%
- String strReferer = request.getHeader("referer");
- if(strReferer == null){
-%>
- <script language="javascript">
-  alert("접속을 차단합니다.");
-  document.location.href="${CP}/login";
- </script>
-<%
- return;
- }
-%>  
+<c:set var="CP" value="${pageContext.request.contextPath }"/>  
 <!DOCTYPE html>
 <html>
     <head>
