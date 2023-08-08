@@ -79,51 +79,17 @@
         </tr>
       </thead>
       <tbody>
-       <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변대기${question.category}</a></td>                                                          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
-          <td style="display:none;">1</td>
-       </tr>
-       <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">11</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변대기</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">컴퓨터 이상</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">che*******</td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">2023/07/25</td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">99</td>
-          <td style="display:none;">1</td>
-        </tr>
-        <tr class="table-secondary">
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변완료${question.category}</a></td>                                                          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
-          <td style="display:none;">1</td>
-        </tr>
-        <tr class="table-secondary">
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">9</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변완료</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;"></a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author"></td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate"></td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt"></td>
-          <td style="display:none;">1</td>
-        </tr>
-        <tr class="table-secondary">
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">8</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변완료</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;"></a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author"></td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate"></td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt"></td>
-          <td style="display:none;">1</td>
-       </tr>
+        <c:forEach items="${questionList}" var="question">
+          <tr class="${question.category === '답변대기' ? 'table-secondary' : 'table-light'}">
+            <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
+            <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">${question.category}</td>                                                          
+            <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
+            <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
+            <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
+            <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
+            <td style="display:none;">1</td>
+          </tr>
+        </c:forEach>
       </tbody>
     </table>
     <!-- board table end ------------------------------------------------------------>

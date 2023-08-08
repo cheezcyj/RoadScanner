@@ -91,75 +91,55 @@
       </thead>
       
       <tbody>
-       <!-- 루프를 사용하여 테이블 행을 생성 -->
-       <!-- 실제로 사용하는 기술에 따라 루프 구조를 변경해야 함 -->
-       <!-- JavaScript에서의 루프 예시 -->
-       
        <script>
-        <!-- 공지 게시물 먼저 출력 -->
-         for (let i = 0; i < question.length; i++) {
-           if (question[i].category === '공지') {
-             document.write(`
-               <tr>
-            	 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
-                 <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
-                 <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
-                 <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
-                 <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
-                 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
-                 <td style="display:none;">${question[i].hiddenValue}</td>
-               </tr>
-             `);
-           }
-         }
-         
-         // 나머지 게시물 출력
-         for (let i = 0; i < question.length; i++) {
-           if (question[i].category !== '공지') {
-             document.write(`
-               <tr>
-                 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
-                 <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
-                 <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
-                 <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
-                 <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
-                 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
-                 <td style="display:none;">${question[i].hiddenValue}</td>
-               </tr>
-             `);
-           }
-         }
-       </script>
+          // 공지 게시물 먼저 출력
+          for (let i = 0; i < question.length; i++) {
+            if (question[i].category === '공지') {
+              document.write(`
+                <tr>
+                  <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
+                  <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
+                  <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
+                  <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
+                  <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
+                  <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
+                  <td style="display:none;">${question[i].hiddenValue}</td>
+                </tr>
+              `);
+            }
+          }
+          
+          // 나머지 게시물 출력
+          for (let i = 0; i < question.length; i++) {
+            if (question[i].category !== '공지') {
+              document.write(`
+                <tr>
+                  <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
+                  <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
+                  <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
+                  <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
+                  <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
+                  <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
+                  <td style="display:none;">${question[i].hiddenValue}</td>
+                </tr>
+              `);
+            }
+          }
+        </script>
        
-       <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">공지${question.category}</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>
-          <td style="display:none;">1</td>
-        </tr>
+        <!-- c:forEach를 사용하여 게시글 목록 생성 -->
+        <c:forEach var="post" items="${question}">
+          <tr>
+            <td class="text-center col-sm-1 col-md-1 col-lg-1">${post.no}</td>
+            <td class="text-center col-sm-2 col-md-2 col-lg-1">${post.category}</td>
+            <td class="text-center col-sm-5 col-md-5 col-lg-5">${post.title}</td>
+            <td class="text-center col-sm-1 col-md-2 col-lg-2">${post.id}</td>
+            <td class="text-center col-sm-2 col-md-1 col-lg-2">${post.createDate}</td>
+            <td class="text-center col-sm-1 col-md-1 col-lg-1">${post.views}</td>
+            <td style="display:none;">${post.hiddenValue}</td>
+          </tr>
+        </c:forEach>
         
-        <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변대기${question.category}</a></td>                                                          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
-          <td style="display:none;">1</td>
-        </tr>
-        
-        <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변완료${question.category}</a></td>                                                          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>              
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
-          <td style="display:none;">1</td>
-        </tr>
       </tbody>
     </table>
     <!-- // 게시판 테이블 끝 -------------------------------------------------------->
@@ -222,4 +202,5 @@
 <script src="/resources/js/qna.js"></script>
   
 </body>
+</html>
 </html>
