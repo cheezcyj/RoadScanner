@@ -30,9 +30,18 @@
     <!-- 검색 form -->
     <form name="searchFrm">
       <div class="row g-1 d-flex justify-content-end mt-0 mb-3">  
+        <!-- 분류 셀렉트 박스 -->
+        <div class="col-auto">
+          <select class="form-select" name="category" id="category">
+            <option value="">--분류--</option>
+            <option value="답변대기">답변대기</option>
+            <option value="답변완료">답변완료</option>
+          </select>
+        </div>
+        <!-- 검색 셀렉트 박스 -->      
         <div class="col-auto">
           <select class="form-select" name="searchDiv" id="searchDiv">
-            <option value="">전체</option>
+            <option value="">--전체--</option>
             <option value="">제목</option>
             <option value="">내용</option>
             <option value="">제목+내용</option>
@@ -51,7 +60,7 @@
         </div>
         
         <div class="col-auto">   
-          <a href="#" class="btn btn-primary" onclick="location.href='/board/write'">글쓰기</a>
+          <a class="btn btn-primary" href="/board/write">글쓰기</a>
         </div>
       </div>
     </form>
@@ -71,14 +80,14 @@
       </thead>
       <tbody>
        <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">12</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변대기</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">모르겠어요</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">dev*******</td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">16:10</td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">33</td>
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
+          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변대기${question.category}</a></td>                                                          
+          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
+          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
+          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
           <td style="display:none;">1</td>
-        </tr>
+       </tr>
        <tr>
           <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">11</td>
           <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변대기</a></td>          
@@ -89,12 +98,12 @@
           <td style="display:none;">1</td>
         </tr>
         <tr class="table-secondary">
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">10</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1 table-secondary" id="postClass">답변완료</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;"></a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author"></td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate"></td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt"></td>
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
+          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변완료${question.category}</a></td>                                                          
+          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
+          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
+          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
           <td style="display:none;">1</td>
         </tr>
         <tr class="table-secondary">

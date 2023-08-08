@@ -20,29 +20,30 @@
 
         <form>
             <h2 class="mb-4">Q&A 게시판</h2>
-
+            
+            <input type="hidden" id="no" value="${question.no}">
             <div class="mb-3">
-                <input class="form-control" type="text" value="제목" aria-label="Disabled input example" disabled readonly>
+                <input class="form-control" type="text" value="${question.title}" aria-label="Disabled input example" disabled readonly>
             </div>
 
             <div class="row mb-3">
-                <div class="col">작성자:</div>
-                <div class="col-md-auto">작성일:</div>
-                <div class="col-md-auto">조회수:</div>
+                <div class="col">작성자: ${question.id}</div>
+                <div class="col-md-auto">작성일: ${question.createDate}</div>
+                <div class="col-md-auto">조회수: ${question.views}</div>
             </div>
 
             <div class="mb-3">
-                <textarea class="form-control" aria-label="Disabled input example" disabled readonly rows="5">내용</textarea>
+                <textarea class="form-control" aria-label="Disabled input example" disabled readonly rows="5">${question.content}</textarea>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                 <button class="btn btn-secondary btn-sm me-2" type="button">삭제</button>
-                <button class="btn btn-secondary btn-sm" type="button">수정</button>
+                <a href="/qna/update/${question.no}" class="btn btn-secondary btn-sm" type="button">수정</a>
             </div>
 
             <div class="text-center mb-3">
-                <button type="button" class="btn btn-primary me-2" onclick="location.href='/';">목록</button>
-                <button type="button" class="btn btn-primary me-2" onclick="location.href='/';">게시글쓰기</button>
+                <button type="button" class="btn btn-primary me-2" onclick="location.href='/qna';">목록</button>
+                <button type="button" class="btn btn-primary me-2" onclick="location.href='/write';">게시글쓰기</button>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                 <!-- 답변하기 버튼을 답변 개수가 1개 미만일 때만 활성화합니다 -->
                 <button class="btn btn-primary" type="button" onclick="showAnswerForm()" id="answerButton">답변하기</button>
@@ -59,7 +60,7 @@
 
             <div class="mb-3">
                 <label for="answerName" class="form-label">답변 관리자 이름</label>
-                <input type="text" class="form-control" id="answerName" required>
+                <input type="text" class="form-control" id="answerName" value="${answer.id}" required>
             </div>
 
             <div class="mb-3">
@@ -73,9 +74,11 @@
         </form>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- 부트스트랩 JS 및 Popper.js 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/js/qna.js"></script>
+    
     <script>
         // 답변 개수를 저장하는 변수를 추가합니다
         let answerCount = 0;
@@ -145,17 +148,17 @@
             const nameWithoutPrefix = answerName.replace("답변 관리자: ", "");
             const answerContent = answerElement.querySelector("textarea").value;
     
-            // Set the name and content of the answer to be edited in the answer writing form
+            // 답변 작성 양식에서 수정할 답안의 이름과 내용을 설정합니다
             document.getElementById("answerName").value = nameWithoutPrefix;
             document.getElementById("answerContent").value = answerContent;
     
-            // show response form
+            // 답변 양식 표시
             document.getElementById("answerForm").style.display = "block";
     
-            // disable submit button while editing answer
+            // 답변을 편집하는 동안 제출 버튼 비활성화
             document.getElementById("answerButton").disabled = true;
     
-            // delete old answer
+            // 이전 답변 삭제
             answerElement.remove();
             answerCount--; // 수정한 답변을 삭제했으므로 답변 개수를 감소시킵니다
     

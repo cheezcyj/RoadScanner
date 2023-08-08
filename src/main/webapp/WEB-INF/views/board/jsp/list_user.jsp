@@ -30,12 +30,32 @@
     <!-- 검색 form -->
     <form name="searchFrm">
       <div class="row g-1 d-flex justify-content-end mt-0 mb-3">  
+        <!-- 게시물 목록 수 선택 셀렉트 박스 -->
+        <div class="col-auto">
+          <select class="form-select" id="itemsPerPage">
+            <option value="10">10개씩 보기</option>
+            <option value="30">30개씩 보기</option>
+            <option value="50">50개씩 보기</option>
+            <option value="100">100개씩 보기</option>
+            <option value="200">200개씩 보기</option>
+          </select>
+        </div>
+        <!-- 분류 셀렉트 박스 -->
+        <div class="col-auto">
+          <select class="form-select" name="category" id="category">
+            <option value="">--분류--</option>
+            <option value="공지">공지</option>
+            <option value="답변대기">답변대기</option>
+            <option value="답변완료">답변완료</option>
+          </select>
+        </div>
+        <!-- 검색 셀렉트 박스 -->
         <div class="col-auto">
           <select class="form-select" name="searchDiv" id="searchDiv">
-            <option value="">전체</option>
-            <option value="">제목</option>
-            <option value="">내용</option>
-            <option value="">제목+내용</option>
+            <option value="">--전체--</option>
+            <option value="제목">제목</option>
+            <option value="내용">내용</option>
+            <option value="제목+내용">제목+내용</option>
           </select>
         </div>
         
@@ -51,13 +71,13 @@
         </div>
         
         <div class="col-auto">   
-          <a href="#" class="btn btn-primary" onclick="location.href='/board/write'">글쓰기</a>
+          <a class="btn btn-primary" href="/board/write">글쓰기</a>
         </div>
       </div>
     </form>
     <!--// 검색 form end -------------------------------------------------------->
     
-    <!-- board table -->
+    <!-- 게시판 테이블 -->
     <table class="table table-hover" id="boardTable">
       <thead class="table-light">
         <tr>
@@ -69,60 +89,137 @@
           <th class="text-center">조회수</th>
         </tr>
       </thead>
+      
       <tbody>
+       <!-- 루프를 사용하여 테이블 행을 생성 -->
+       <!-- 실제로 사용하는 기술에 따라 루프 구조를 변경해야 함 -->
+       <!-- JavaScript에서의 루프 예시 -->
+       
+       <script>
+        <!-- 공지 게시물 먼저 출력 -->
+         for (let i = 0; i < question.length; i++) {
+           if (question[i].category === '공지') {
+             document.write(`
+               <tr>
+            	 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
+                 <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
+                 <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
+                 <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
+                 <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
+                 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
+                 <td style="display:none;">${question[i].hiddenValue}</td>
+               </tr>
+             `);
+           }
+         }
+         
+         // 나머지 게시물 출력
+         for (let i = 0; i < question.length; i++) {
+           if (question[i].category !== '공지') {
+             document.write(`
+               <tr>
+                 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
+                 <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
+                 <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
+                 <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
+                 <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
+                 <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
+                 <td style="display:none;">${question[i].hiddenValue}</td>
+               </tr>
+             `);
+           }
+         }
+       </script>
+       
        <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">2</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">공지</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">와! 로드스캐너 서비스 런칭합니다.</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">admin</td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">2023/07/19</td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">33</td>
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>
+          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">공지${question.category}</a></td>          
+          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
+          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>
+          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>
           <td style="display:none;">1</td>
         </tr>
-       <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">3</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변대기</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">오븐 어려웡</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">dev*******</td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">2023/07/25</td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">99</td>
-          <td style="display:none;">1</td>
-        </tr>
+        
         <tr>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">1</td>
-          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="postClass">답변완료</a></td>          
-          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">컴퓨터 이상</a></td>
-          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">che*******</td>
-          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">2023/07/23</td>
-          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">55</td>
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
+          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변대기${question.category}</a></td>                                                          
+          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
+          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
+          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
+          <td style="display:none;">1</td>
+        </tr>
+        
+        <tr>
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="postNum">${question.no}</td>                                                                       
+          <td class="text-center col-sm-2 col-md-2 col-lg-1" id="category">답변완료${question.category}</a></td>                                                          
+          <td class="text-center col-sm-5 col-md-5 col-lg-5" id="postTitle"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>              
+          <td class="text-center col-sm-1 col-md-2 col-lg-2" id="author">${question.id}</td>                                                                        
+          <td class="text-center col-sm-2 col-md-1 col-lg-2" id="postDate">${question.createDate}</td>                                                              
+          <td class="text-center col-sm-1 col-md-1 col-lg-1" id="readCnt">${question.views}</td>                                                                    
           <td style="display:none;">1</td>
         </tr>
       </tbody>
     </table>
-    <!-- board table end ------------------------------------------------------------>
-    
-    <!-- pagination -->
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <!-- pagination end ------------------------------------------------------->
-    
-  </div>
+    <!-- // 게시판 테이블 끝 -------------------------------------------------------->
+       
+        <!-- pagination -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            
+            <!-- JavaScript로 페이지 숫자 동적 생성 -->
+            <script>
+              // 서버에서 가져온 총 데이터 개수
+              const totalDataCount = /* 서버에서 가져온 총 데이터 개수 */;
+              const itemsPerPage = 10; // 페이지당 아이템 개수
+              const totalPages = Math.ceil(totalDataCount / itemsPerPage); // 총 페이지 개수
+              const currentPage = 1; // 현재 페이지 번호
+              
+              for (let i = 2; i <= totalPages; i++) {
+                if (i === currentPage) {
+                  document.write(`
+                    <li class="page-item active"><a class="page-link" href="#">${i}</a></li>
+                  `);
+                } else {
+                  document.write(`
+                    <li class="page-item"><a class="page-link" href="#">${i}</a></li>
+                  `);
+                }
+              }
+            </script>
+            
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- pagination end -------------------------------------------------------->
+    </div>
   <!-- container end ---------------------------------------------------------->
+  
+<!-- 부트스트랩 JS 및 Popper.js 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/js/qna.js"></script>
   
 </body>
 </html>
