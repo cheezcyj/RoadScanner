@@ -129,13 +129,13 @@
         <!-- c:forEach를 사용하여 게시글 목록 생성 -->
 	    <c:forEach items="${question}" var="question">
 	      <tr>
-	        <td class="text-center col-sm-1 col-md-1 col-lg-1">${post.no}</td>
-	        <td class="text-center col-sm-2 col-md-2 col-lg-1">${post.category}</td>
-	        <td class="text-center col-sm-5 col-md-5 col-lg-5">${post.title}</td>
-	        <td class="text-center col-sm-1 col-md-2 col-lg-2">${post.id}</td>
-	        <td class="text-center col-sm-2 col-md-1 col-lg-2">${post.createDate}</td>
-	        <td class="text-center col-sm-1 col-md-1 col-lg-1">${post.views}</td>
-	        <td style="display:none;">${post.hiddenValue}</td>
+	        <td class="text-center col-sm-1 col-md-1 col-lg-1">${question.no}</td>
+	        <td class="text-center col-sm-2 col-md-2 col-lg-1">${question.category}</td>
+	        <td class="text-center col-sm-5 col-md-5 col-lg-5">${question.title}</td>
+	        <td class="text-center col-sm-1 col-md-2 col-lg-2">${question.id}</td>
+	        <td class="text-center col-sm-2 col-md-1 col-lg-2">${question.createDate}</td>
+	        <td class="text-center col-sm-1 col-md-1 col-lg-1">${question.views}</td>
+	        <td style="display:none;">1</td>
 	      </tr>
 	    </c:forEach>
 	    
