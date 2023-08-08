@@ -12,23 +12,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="${CP}/resources/js/jquery-3.7.0.js"></script>
 <script src="${CP}/resources/js/util.js"></script>
-<title>Q&A</title>
+<title>게시판 목록</title>
 </head>
 <body>
   <header class="bg-light text-center p-4">
       <h1>로드스캐너</h1>
   </header>
   
-  <div class="container">
+  <div class="container my-4">
+  
     <!-- 제목 -->
     <div class="page-header">
-      <h2>Q&A 게시판</h2>
+     <h2 class="mb-4">Q&A 게시판</h2>
     </div>
     <!-- 제목 end --------------------------------------------------------------->
     
     <!-- 검색 form -->
     <form name="searchFrm">
-      <div class="row g-1 d-flex justify-content-end">  
+      <div class="row g-1 d-flex justify-content-end mt-0 mb-3">  
         <div class="col-auto">
           <select class="form-select" name="searchDiv" id="searchDiv">
             <option value="">전체</option>
@@ -37,16 +38,18 @@
             <option value="">제목+내용</option>
           </select>
         </div>
+        
         <div class="col-auto">
-          <div class="input-group">
-				    <span class="input-group-text" id="basic-addon1">
-	            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" >
-	               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-	            </svg>
-	          </span>
-	          <input type="text" class="form-control" id="searchWord" placeholder="검색어를 입력하세요.">
-			    </div>
-			  </div>
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" >
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                    </svg>
+                </span>
+                <input type="text" class="form-control" id="searchWord" placeholder="검색어를 입력하세요.">
+            </div>
+        </div>
+        
         <div class="col-auto">   
           <a href="#" class="btn btn-primary" onclick="location.href='/board/write'">글쓰기</a>
         </div>
