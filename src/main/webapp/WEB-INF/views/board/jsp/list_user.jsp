@@ -128,7 +128,7 @@
         </script>
        
         <!-- c:forEach를 사용하여 게시글 목록 생성 -->
-        <c:forEach var="post" items="${question}">
+        <c:forEach items="${question}" var="question">
           <tr>
             <td class="text-center col-sm-1 col-md-1 col-lg-1">${post.no}</td>
             <td class="text-center col-sm-2 col-md-2 col-lg-1">${post.category}</td>
@@ -202,5 +202,4 @@
 <script src="/resources/js/qna.js"></script>
   
 </body>
-</html>
 </html>
