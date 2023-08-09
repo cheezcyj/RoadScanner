@@ -99,7 +99,7 @@
                 <tr>
                   <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
                   <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
-                  <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
+                  <td class="text-center col-sm-5 col-md-5 col-lg-5"><a href="#" style="text-decoration-line: none;">${question[i].title}</a></td>
                   <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
                   <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
                   <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
@@ -116,7 +116,7 @@
                 <tr>
                   <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].no}</td>
                   <td class="text-center col-sm-2 col-md-2 col-lg-1">${question[i].category}</td>
-                  <td class="text-center col-sm-5 col-md-5 col-lg-5">${question[i].title}</td>
+                  <td class="text-center col-sm-5 col-md-5 col-lg-5"><a href="#" style="text-decoration-line: none;">${question[i].title}</a></td>
                   <td class="text-center col-sm-1 col-md-2 col-lg-2">${question[i].id}</td>
                   <td class="text-center col-sm-2 col-md-1 col-lg-2">${question[i].createDate}</td>
                   <td class="text-center col-sm-1 col-md-1 col-lg-1">${question[i].views}</td>
@@ -132,7 +132,7 @@
           <tr>
             <td class="text-center col-sm-1 col-md-1 col-lg-1">${question.no}</td>
             <td class="text-center col-sm-2 col-md-2 col-lg-1">${question.category}</td>
-            <td class="text-center col-sm-5 col-md-5 col-lg-5">${question.title}</td>
+            <td class="text-center col-sm-5 col-md-5 col-lg-5"><a href="#" style="text-decoration-line: none;">${question.title}</a></td>
             <td class="text-center col-sm-1 col-md-2 col-lg-2">${question.id}</td>
             <td class="text-center col-sm-2 col-md-1 col-lg-2">${question.createDate}</td>
             <td class="text-center col-sm-1 col-md-1 col-lg-1">${question.views}</td>
