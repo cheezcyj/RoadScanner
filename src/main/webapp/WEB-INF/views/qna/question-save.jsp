@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>로드스캐너 - 게시판 등록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>로드스캐너 - 게시판 등록</title>
 </head>
 <body>
     <form class="container mt-5" id="question-form">
@@ -24,7 +24,7 @@
         </div>
         <div class="mb-3">
             <label for="idx" class="form-label">첨부파일:</label>
-            <input type="text" id="idx" class="form-control">
+            <input type="file" id="idx" name="file" class="form-control">
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용:</label>

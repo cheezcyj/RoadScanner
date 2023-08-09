@@ -21,10 +21,10 @@ public class QuestionController {
         model.addAttribute("questions", questionService.findAll());
         return "qna/index";
     }
-    
+
     @GetMapping("/list")
     public String questionList() {
-        return "qna/list_user";
+        return "qna/list";
     }
     
     @GetMapping("/listadmin")
@@ -34,14 +34,19 @@ public class QuestionController {
 
     @GetMapping("/write")
     public String questionWrite() {
-        return "qna/question_write";
+        return "qna/write";
     }
 
+    @GetMapping("/writeadmin")
+    public String questionWriteA() {
+        return "qna/write_admin";
+    }
+    
     @GetMapping("/{no}")
     public String detail(@PathVariable Long no, Model model) {
         QuestionResponseDTO dto = questionService.findByNo(no);
         model.addAttribute("question", dto);
-        return "qna/question-detail";
+        return "qna/detail";
     }
 
     @GetMapping("/update/{no}")

@@ -8,12 +8,50 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+<style>
+    /* 메뉴에 마우스 올렸을 때 밑줄 적용 */
+    .nav-item:hover .nav-link {
+        text-decoration: underline;
+    }
+</style>
 <title>관리자 - 게시판 목록</title>
 </head>
 <body>
-  <header class="bg-light text-center p-4">
-      <h1>로드스캐너</h1>
-  </header>
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <div class="container">
+                <a class="navbar-brand" href="/qna">ROADSCANNER</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/qna">홈 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/list">게시판</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/listadmin">(관리자)게시판</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/write">게시글 쓰기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/writeadmin">(관리자)게시글 쓰기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">파일 업로드하기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">로그인</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
   
   <div class="container my-4">
     <div class="page-header">
@@ -81,23 +119,55 @@
       </tbody>
     </table>
     
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+        <!-- pagination -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            
+            <!-- JavaScript로 페이지 숫자 동적 생성 -->
+            <script>
+              // 서버에서 가져온 총 데이터 개수
+              const totalDataCount = /* 서버에서 가져온 총 데이터 개수 */;
+              const itemsPerPage = 10; // 페이지당 아이템 개수
+              const totalPages = Math.ceil(totalDataCount / itemsPerPage); // 총 페이지 개수
+              const currentPage = 1; // 현재 페이지 번호
+              
+              for (let i = 2; i <= totalPages; i++) {
+                if (i === currentPage) {
+                  document.write(`
+                    <li class="page-item active"><a class="page-link" href="#">${i}</a></li>
+                  `);
+                } else {
+                  document.write(`
+                    <li class="page-item"><a class="page-link" href="#">${i}</a></li>
+                  `);
+                }
+              }
+            </script>
+            
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- pagination end -------------------------------------------------------->
   </div>
 </body>
 </html>

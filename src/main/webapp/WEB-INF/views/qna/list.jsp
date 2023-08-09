@@ -12,12 +12,50 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="${CP}/resources/js/jquery-3.7.0.js"></script>
 <script src="${CP}/resources/js/util.js"></script>
+<style>
+    /* 메뉴에 마우스 올렸을 때 밑줄 적용 */
+    .nav-item:hover .nav-link {
+        text-decoration: underline;
+    }
+</style>
 <title>게시판 목록</title>
 </head>
 <body>
-  <header class="bg-light text-center p-4">
-      <h1>로드스캐너</h1>
-  </header>
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <div class="container">
+                <a class="navbar-brand" href="/qna">ROADSCANNER</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/qna">홈 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/list">게시판</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/listadmin">(관리자)게시판</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/write">게시글 쓰기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/writeadmin">(관리자)게시글 쓰기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">파일 업로드하기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">로그인</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
   
   <div class="container my-4">
   
