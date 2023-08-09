@@ -21,10 +21,20 @@ public class QuestionController {
         model.addAttribute("questions", questionService.findAll());
         return "qna/index";
     }
+    
+    @GetMapping("/list")
+    public String questionList() {
+        return "qna/list_user";
+    }
+    
+    @GetMapping("/listadmin")
+    public String questionListA() {
+        return "qna/list_admin";
+    }
 
-    @GetMapping("/save")
-    public String QuestionSave() {
-        return "qna/question-save";
+    @GetMapping("/write")
+    public String questionWrite() {
+        return "qna/question_write";
     }
 
     @GetMapping("/{no}")
