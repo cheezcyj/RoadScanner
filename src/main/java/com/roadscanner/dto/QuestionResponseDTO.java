@@ -32,9 +32,15 @@ public class QuestionResponseDTO {
         this.title = vo.getTitle();
         this.id = vo.getId();
         this.idx = vo.getIdx();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss");
         this.createDate = vo.getCreateDate().format(formatter);
-        this.updateDate = vo.getUpdateDate().format(formatter);
+
+        if (vo.getUpdateDate() != null && !vo.getUpdateDate().equals(vo.getCreateDate())) {
+            this.updateDate = vo.getUpdateDate().format(formatter);
+        } else {
+            this.updateDate = null; // 수정일이 없는 경우
+        }
+
         this.views = vo.getViews();
         this.content = vo.getContent();
     }

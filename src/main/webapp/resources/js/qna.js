@@ -61,7 +61,7 @@ const main = {
             data: JSON.stringify(data)
         }).done(function () {
             alert("글이 수정되었습니다.");
-            window.location.href = '/qna';
+            window.location.href = '/qna/' + no; // 수정된 페이지로 리다이렉트
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

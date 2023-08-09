@@ -24,7 +24,17 @@ public class QuestionListResponseDTO {
         this.category = vo.getCategory();
         this.title = vo.getTitle();
         this.id = vo.getId();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime createDate = vo.getCreateDate();
+        DateTimeFormatter formatter;
+
+        if (now.toLocalDate().equals(createDate.toLocalDate())) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+        } else {
+            formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        }
+
         this.createDate = vo.getCreateDate().format(formatter);
         this.views = vo.getViews();
     }

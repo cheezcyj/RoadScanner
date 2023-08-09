@@ -44,3 +44,44 @@ ALTER TABLE QUESTION
                     );
 
 COMMIT;
+
+DROP INDEX PK_ANSWER;
+
+/* 답변 */
+DROP TABLE ANSWER
+    CASCADE CONSTRAINTS;
+
+/* 답변 */
+CREATE TABLE ANSWER (
+                        no NUMBER(10) NOT NULL, /* 게시글번호 */
+                        id VARCHAR2(20), /* 답변작성자 */
+                        content CLOB, /* 답변내용 */
+                        create_date DATE, /* 답변작성일 */
+                        update_date DATE /* 답변수정일 */
+);
+
+COMMENT ON COLUMN ANSWER.id IS '관리자';
+
+CREATE UNIQUE INDEX PK_ANSWER
+    ON ANSWER (
+               no ASC
+        );
+
+ALTER TABLE ANSWER
+    ADD
+        CONSTRAINT PK_ANSWER
+            PRIMARY KEY (
+                         no
+                );
+
+ALTER TABLE ANSWER
+    ADD
+        CONSTRAINT FK_QUESTION_TO_ANSWER
+            FOREIGN KEY (
+                         no
+                )
+                REFERENCES QUESTION (
+                                     no
+                    ) ON DELETE CASCADE;
+
+COMMIT;

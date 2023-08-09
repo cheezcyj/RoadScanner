@@ -1,5 +1,6 @@
 package com.roadscanner.controller.qna;
 
+import com.roadscanner.dto.PaginationDTO;
 import com.roadscanner.dto.QuestionResponseDTO;
 import com.roadscanner.service.qna.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @RequestMapping("/qna")
@@ -17,8 +19,32 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("questions", questionService.findAll());
+    public String index(Model model,
+                        @RequestParam(defaultValue = "1") int page,
+                        @RequestParam(defaultValue = "10") int size) {
+        // 페이지 번호가 유효한지 확인
+        if (page < 1) {
+            page = 1;
+        }
+
+        PaginationDTO pagination = new PaginationDTO(page, size);
+        model.addAttribute("questions", questionService.findAllWithPaging(pagination));
+
+        int totalQuestions = questionService.countQuestions();
+        int totalPages = (int) Math.ceil((double) totalQuestions / size);
+
+        // 총 페이지 수가 0이면, 페이지 번호도 0으로 설정
+        if (totalPages == 0) {
+            page = 0;
+        }
+        // 현재 페이지 번호가 총 페이지 수보다 크면, 현재 페이지 번호를 총 페이지 수로 설정
+        else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("page", page);
+
         return "qna/index";
     }
 

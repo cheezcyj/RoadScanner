@@ -2,12 +2,10 @@ package com.roadscanner.service.qna;
 
 import com.roadscanner.dao.qna.QuestionDAO;
 import com.roadscanner.domain.qna.QuestionVO;
-import com.roadscanner.dto.QuestionResponseDTO;
-import com.roadscanner.dto.QuestionSaveRequestDTO;
-import com.roadscanner.dto.QuestionListResponseDTO;
-import com.roadscanner.dto.QuestionUpdateRequestDTO;
+import com.roadscanner.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +15,30 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionDAO questionDAO;
+
+    // 전체조회 + 페이징 추가 정리 필요
+    @Override
+    public List<QuestionListResponseDTO> findAllWithPaging(PaginationDTO pagination) {
+        List<QuestionVO> questions = questionDAO.findAllWithPaging(pagination);
+        List<QuestionListResponseDTO> dto = new ArrayList<>();
+
+        for (QuestionVO question : questions) {
+            dto.add(new QuestionListResponseDTO(question));
+        }
+        return dto;
+    }
+
+    // 전체 게시글 반환
+    @Override
+    public int countQuestions() {
+        return questionDAO.countQuestions();
+    }
+
+    // 조회수 증가
+    @Override
+    public void increaseViews(Long no) {
+        questionDAO.increaseViews(no);
+    }
 
     @Override
     public List<QuestionListResponseDTO> findAll() {
@@ -28,7 +50,6 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return dto;
     }
-
 
     @Override
     public Long save(QuestionSaveRequestDTO dto) {
