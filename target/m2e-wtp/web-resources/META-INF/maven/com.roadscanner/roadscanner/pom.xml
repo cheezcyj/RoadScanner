@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.roadscanner</groupId>
     <artifactId>roadscanner</artifactId>
-    <packaging>war</packaging>   
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>RoadScanner Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -19,8 +19,8 @@
 
         <log4j-core.version>2.17.1</log4j-core.version> <!-- log4j core 버전 정보를 정의함. -->
         <ojdbc8.version>21.1.0.0</ojdbc8.version>       <!-- ojdbc8의 버전 정보를 정의함. -->
-        <commons-dbcp.version>1.4</commons-dbcp.version>
-        <junit.version>4.13.1</junit.version> <!-- junit의 버전 정보를 정의함. -->
+<!--        <commons-dbcp.version>1.4</commons-dbcp.version>-->
+        <junit.jupiter.version>5.7.2</junit.jupiter.version> <!-- junit의 버전 정보를 정의함. -->
 
         <org.mybatis-version>3.5.11</org.mybatis-version>  <!-- mybatis 사용 -->
         <mybatis-spring-version>2.0.6</mybatis-spring-version>
@@ -106,6 +106,15 @@
             <artifactId>ojdbc8</artifactId>
             <version>${ojdbc8.version}</version>
         </dependency>
+
+        <!--    테스트 용 데이터 베이스(H2) 설정에 따른 의존성 추가     -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- spring-context-support -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -119,11 +128,24 @@
             <version>${org.springframework-version}</version>
         </dependency>
         <!-- commons-dbcp -->
+<!--        <dependency>-->
+<!--            <groupId>commons-dbcp</groupId>-->
+<!--            <artifactId>commons-dbcp</artifactId>-->
+<!--            <version>${commons-dbcp.version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>${commons-dbcp.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.8.0</version> <!-- 현재 가장 최신 버전을 사용하십시오 -->
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+
         <!-- spring-test -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -234,13 +256,28 @@
             <version>1.2</version>
         </dependency>
 
-        <!-- junit -->
+        <!-- JUnit Jupiter (API, Engine) -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version> <!-- 위에서 정의한 라이브러리 버전을 가져온다. -->
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit Vintage Engine -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
