@@ -17,14 +17,14 @@
         <header>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
             <div class="container">
-                <a class="navbar-brand" href="#">ROADSCANNER</a>
+                <a class="navbar-brand" href="/qna">ROADSCANNER</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">홈 <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/qna">홈 <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/qna/list">게시판</a>
@@ -53,7 +53,7 @@
     <div class="container my-4">
     
         <form>
-            <h2 class="mb-4">Q&A 게시판</h2>
+            <h2 class="mb-4">관리자 전용 게시판</h2>
             
             <div class="mb-3 row">
                 <label for="postType" class="col-sm-2 col-form-label">분류</label>
@@ -93,7 +93,7 @@
             </div>
             
             <div class="text-center">
-                <button type="button" class="btn btn-secondary me-2" onclick="location.href='/';">취소</button>
+                <button type="button" class="btn btn-secondary me-2" onclick="location.href='/qna/list';">취소</button>
                 <button type="button" class="btn btn-primary me-2">작성완료</button>
             </div>
         </form>

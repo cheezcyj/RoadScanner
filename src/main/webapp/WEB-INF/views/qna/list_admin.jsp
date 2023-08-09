@@ -63,6 +63,7 @@
         <div class="col-auto">
           <select class="form-select" name="category" id="category">
             <option value="">--분류--</option>
+            <option value="공지">공지</option>
             <option value="답변대기">답변대기</option>
             <option value="답변완료">답변완료</option>
           </select>
@@ -88,7 +89,7 @@
         </div>
         
         <div class="col-auto">   
-          <a class="btn btn-primary" href="/board/write">글쓰기</a>
+          <a class="btn btn-primary" href="/qna/writeadmin">공지글쓰기</a>
         </div>
       </div>
     </form>
