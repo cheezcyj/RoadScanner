@@ -56,7 +56,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/qna/main">홈 <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/qna/main">홈</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/qna/listtest">(테스트)게시판</a>
@@ -151,8 +151,10 @@
       });
     </script>
 
-    <footer class="text-dark text-center py-3 position-absolute w-100" style="bottom: 0; background-color: #e3f2fd;">
-        &copy; 2023 ROADSCANNER. All Rights Reserved.
+    <footer class="py-3 my-4 mt-auto">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      </ul>
+      <p class="text-center text-body-secondary">&copy; 2023 F1 RoadScanner Project, All rights reserved.</p>
     </footer>
 
 	<!-- 부트스트랩 JS 및 Popper.js 추가 -->

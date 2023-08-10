@@ -56,7 +56,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/qna/main">홈 <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/qna/main">홈</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/qna/listtest">(테스트)게시판</a>
@@ -82,8 +82,8 @@
     </nav>
     <main class="container mt-5" style="margin-bottom: 100px;">
         <h1>환영합니다!</h1>
-        <p>ROADSCANNER 메인페이지입니다.</p>
-        <br>목록은 네비게이션바에 있습니다.</br>
+        <p>ROADSCANNER 메인페이지입니다.
+        <br><br>(목록은 네비게이션바에 있습니다)</p>
     </main>
 
     <footer class="py-3 my-4 mt-auto">
