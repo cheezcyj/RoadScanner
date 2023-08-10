@@ -84,3 +84,53 @@ const main = {
 };
 
 main.init();
+
+
+const answer = {
+
+    init: function() {
+        const _this = this;
+        $('#btn-answer-save').on('click', function(e) {
+            e.preventDefault();
+            _this.save();
+        });
+    },
+
+    save: function() {
+        const no = $('#no').val();
+
+        // 사용자가 입력한 답변 내용
+        const answerData = {
+            no: no,
+            id: $('#id').val(),
+            content: $('#answer-content').val()
+        };
+
+        // 답변 등록 Ajax 요청
+        $.ajax({
+            type: 'POST',
+            url: '/api/qna/' + no + '/saveAnswer', // 답변 등록 API 엔드포인트
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(answerData),
+        }).done(function() {
+            alert('답변이 등록되었습니다.');
+            // 답변 등록 후, 답변 목록을 다시 불러와서 화면 갱신
+            window.location.href = '/qna/' + no;
+        }).fail(function(error) {
+            alert('답변 등록에 실패했습니다.');
+            console.error(error + answerData);
+        });
+    },
+
+    load: function() {
+            // Ajax 요청을 통해 댓글을 불러오고 HTML에서 댓글 섹션을 업데이트
+            $.get('/api/qna/' + no + '/answer', function(data) {
+                // 데이터를 처리하고 HTML에서 댓글 섹션을 업데이트
+                $('#answer-section').html(data);
+            });
+    }
+};
+
+// 초기화 함수 호출
+answer.init();
