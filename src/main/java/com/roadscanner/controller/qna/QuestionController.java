@@ -48,31 +48,19 @@ public class QuestionController {
         return "qna/index";
     }
 
-    @GetMapping("/list")
-    public String questionList() {
-        return "qna/list";
-    }
-    
-    @GetMapping("/listadmin")
-    public String questionListA() {
-        return "qna/list_admin";
+    @GetMapping("/save")
+    public String QuestionSave() {
+        return "qna/question-save";
     }
 
-    @GetMapping("/write")
-    public String questionWrite() {
-        return "qna/write";
-    }
-
-    @GetMapping("/writeadmin")
-    public String questionWriteA() {
-        return "qna/write_admin";
-    }
-    
     @GetMapping("/{no}")
     public String detail(@PathVariable Long no, Model model) {
+        // 조회수 증가
+        questionService.increaseViews(no);
+
         QuestionResponseDTO dto = questionService.findByNo(no);
         model.addAttribute("question", dto);
-        return "qna/detail";
+        return "qna/question-detail";
     }
 
     @GetMapping("/update/{no}")
