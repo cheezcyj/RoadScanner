@@ -1,12 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="ko">
-
+<html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
     /* 메뉴에 마우스 올렸을 때 밑줄 적용 */
     .nav-item:hover .nav-link {
@@ -27,7 +22,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/qna">홈 <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/qna/main">홈 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/listtest">(테스트)게시판</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/qna/list">게시판</a>
@@ -216,7 +214,43 @@
             
         }
     </script>
+    
+	<script>
+	  // 햄버거 버튼과 네비게이션 바 요소 가져오기
+	  const navbarToggler = document.querySelector(".navbar-toggler");
+	  const navbarCollapse = document.querySelector(".navbar-collapse");
+	
+	  // 햄버거 버튼 클릭 시 동작 정의
+	  navbarToggler.addEventListener("click", () => {
+	      if (navbarCollapse.classList.contains("show")) {
+	          // 네비게이션 바가 열려있을 때 누르면 닫힘
+	          navbarCollapse.classList.remove("show");
+	      } else {
+	          // 네비게이션 바가 닫혀있을 때 누르면 열림
+	          navbarCollapse.classList.add("show");
+	      }
+	  });
+	</script>
+    
+    <footer class="text-dark text-center py-3 position-absolute w-100" style="bottom: 0; background-color: #e3f2fd;">
+        &copy; 2023 ROADSCANNER. All Rights Reserved.
+    </footer>
+
+	<!-- 부트스트랩 JS 및 Popper.js 추가 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	    const navbarToggler = document.querySelector(".navbar-toggler");
+	    const navbarCollapse = document.querySelector(".navbar-collapse");
+	
+	    navbarToggler.addEventListener("click", () => {
+	        if (navbarCollapse.classList.contains("show")) {
+	            navbarCollapse.classList.remove("show");
+	        } 
+	    });
+	});
+	</script>
 
 </body>
-
 </html>

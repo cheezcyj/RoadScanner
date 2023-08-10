@@ -8,9 +8,7 @@
         text-decoration: underline;
     }
 </style>
-<title>관리자 - 글쓰기</title>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>로드스캐너</title>
 </head>
 <body>
     <header>
@@ -51,55 +49,85 @@
             </div>
         </nav>
     </header>
-    
-    <div class="container my-4">
-    
-        <form>
-            <h2 class="mb-4">관리자 전용 게시판</h2>
-            
-            <div class="mb-3 row">
-                <label for="postType" class="col-sm-2 col-form-label">분류</label>
-                <div class="col-sm-10">
-                    <select class="form-select" id="postType">
-                        <option selected>공지</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="mb-3 row">
-                <label for="postTitle" class="col-sm-2 col-form-label">제목</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="postTitle" value="${question.title}">
-                </div>
-            </div>
-            
-            <div class="mb-3 row">
-                <label for="author" class="col-sm-2 col-form-label">작성자</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="author" value="[admin]${question.id}" readonly>
-                </div>
-            </div>
-            
-            <div class="mb-3 row">
-                <label for="attachment" class="col-sm-2 col-form-label">첨부파일</label>
-                <div class="col-sm-10">
-                    <input type="file" class="form-control" id="attachment">
-                </div>
-            </div>
-            
-            <div class="mb-3 row">
-                <label for="content" class="col-sm-2 col-form-label">내용</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="content" rows="10">${question.content}</textarea>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <button type="button" class="btn btn-secondary me-2" onclick="location.href='/qna/list';">취소</button>
-                <button type="button" class="btn btn-primary me-2">작성완료</button>
-            </div>
-        </form>
+<div class="container mt-4">
+    <h1>Q&A 게시판</h1>
+    <div class="mb-3">
+        <a href="/qna/save" class="btn btn-primary" role="button">글쓰기</a>
     </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>분류</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${questions}" var="question">
+            <c:choose>
+                <c:when test="${question.category == 10}">
+                    <tr class="table-info">
+                        <td>${question.no}</td>
+                        <td><span class="badge bg-primary">공지</span></td>
+                        <td><a href="/qna/${question.no}" class="text-dark qna-link notice-title">${question.title}</a></td>
+                        <td>${question.id}</td>
+                        <td>${question.createDate}</td>
+                        <td>${question.views}</td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td>${question.no}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${question.category == 20}">
+                                    <span class="badge bg-success">답변완료</span>
+                                </c:when>
+                                <c:when test="${question.category == 30}">
+                                    <span class="badge bg-light text-dark">답변대기</span>
+                                </c:when>
+                            </c:choose>
+                        </td>
+                        <td><a href="/qna/${question.no}" class="text-dark qna-link">${question.title}</a></td>
+                        <td>${question.id}</td>
+                        <td>${question.createDate}</td>
+                        <td>${question.views}</td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        </tbody>
+    </table><!-- ... -->
+    <!-- 생략 -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- 이전 페이지 버튼 -->
+            <li class="page-item ${page <= 1 ? 'disabled' : ''}">
+                <a class="page-link" href="${page > 1 ? '/qna?page='.concat(page - 1).concat('&size=10') : '#'}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <!-- 페이지 번호 -->
+            <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                <li class="page-item"><a class="page-link" href="/qna?page=${pageNum}&size=10">${pageNum}</a></li>
+            </c:forEach>
+            <!-- 다음 페이지 버튼 -->
+            <li class="page-item ${page >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="${page < totalPages ? '/qna?page='.concat(page + 1).concat('&size=10') : '#'}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+        <!-- 마지막 페이지 안내 메시지 -->
+        <c:if test="${page == totalPages}">
+            <p class="text-center">마지막 페이지입니다.</p>
+        </c:if>
+    </nav>
+    <!-- 생략 -->
+</div>
 
     <script>
       // 햄버거 버튼과 네비게이션 바 요소 가져오기

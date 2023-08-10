@@ -2,16 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<script src="${CP}/resources/js/jquery-3.7.0.js"></script>
-<script src="${CP}/resources/js/util.js"></script>
 <style>
     /* 메뉴에 마우스 올렸을 때 밑줄 적용 */
     .nav-item:hover .nav-link {
@@ -31,7 +21,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/qna">홈 <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/qna/main">홈 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna/listtest">(테스트)게시판</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/qna/list">게시판</a>
@@ -234,10 +227,42 @@
     </div>
   <!-- container end ---------------------------------------------------------->
   
-<!-- 부트스트랩 JS 및 Popper.js 추가 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/js/qna.js"></script>
+    <script>
+      // 햄버거 버튼과 네비게이션 바 요소 가져오기
+      const navbarToggler = document.querySelector(".navbar-toggler");
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+    
+      // 햄버거 버튼 클릭 시 동작 정의
+      navbarToggler.addEventListener("click", () => {
+          if (navbarCollapse.classList.contains("show")) {
+              // 네비게이션 바가 열려있을 때 누르면 닫힘
+              navbarCollapse.classList.remove("show");
+          } else {
+              // 네비게이션 바가 닫혀있을 때 누르면 열림
+              navbarCollapse.classList.add("show");
+          }
+      });
+    </script>
   
+    <footer class="text-dark text-center py-3 position-absolute w-100" style="bottom: 0; background-color: #e3f2fd;">
+        &copy; 2023 ROADSCANNER. All Rights Reserved.
+    </footer>
+
+	<!-- 부트스트랩 JS 및 Popper.js 추가 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	    const navbarToggler = document.querySelector(".navbar-toggler");
+	    const navbarCollapse = document.querySelector(".navbar-collapse");
+	
+	    navbarToggler.addEventListener("click", () => {
+	        if (navbarCollapse.classList.contains("show")) {
+	            navbarCollapse.classList.remove("show");
+	        } 
+	    });
+	});
+	</script>
+
 </body>
 </html>

@@ -69,5 +69,35 @@ public class QuestionController {
         model.addAttribute("question", dto);
         return "qna/question-update";
     }
+    
+    @GetMapping("/main")
+    public String QuestionMain() {
+        return "qna/main";
+    }
+    
+    @GetMapping("/listtest")
+    public String QuestionListT() {
+        return "qna/list_test";
+    }
+    
+    @GetMapping("/list")
+    public String QuestionList() {
+        return "qna/list";
+    }
+    
+    @GetMapping("/listadmin")
+    public String QuestionListA() {
+        return "qna/list_admin";
+    }
+    
+    @GetMapping("/write")
+    public String QuestionWrite() {
+        return "qna/write";
+    }
+    
+    @GetMapping("/writeadmin")
+    public String QuestionWriteA() {
+        return "qna/write_admin";
+    }
 
 }
