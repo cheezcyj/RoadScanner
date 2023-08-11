@@ -10,7 +10,7 @@
         text-decoration: underline;
     }
 </style>
-    <title>관리자 - 글쓰기</title>
+    <title>게시판 글쓰기</title>
 </head>
 <nav class="navbar navbar-expand-md mb-4" style="background-color: white;">
   <div class="container-fluid">
@@ -88,21 +88,12 @@
                 </ul>
             </div>
         </div>
-    </nav>    
+    </nav>
     <div class="container my-4">
     
         <form>
-            <h2 class="mb-4">관리자 전용 게시판</h2>
-            
-            <div class="mb-3 row">
-                <label for="postType" class="col-sm-2 col-form-label">분류</label>
-                <div class="col-sm-10">
-                    <select class="form-select" id="postType">
-                        <option selected>공지</option>
-                    </select>
-                </div>
-            </div>
-            
+            <h2 class="mb-4">Q&A 게시판</h2>
+
             <div class="mb-3 row">
                 <label for="postTitle" class="col-sm-2 col-form-label">제목</label>
                 <div class="col-sm-10">
@@ -113,7 +104,7 @@
             <div class="mb-3 row">
                 <label for="author" class="col-sm-2 col-form-label">작성자</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="author" value="[admin]${question.id}" readonly>
+                    <input type="text" class="form-control" id="author" value="${question.id}" readonly>
                 </div>
             </div>
             
@@ -133,11 +124,25 @@
             
             <div class="text-center">
                 <button type="button" class="btn btn-secondary me-2" onclick="location.href='/qna/list';">취소</button>
-                <button type="button" class="btn btn-primary me-2">작성완료</button>
+                <button type="submit" class="btn btn-primary me-2">작성완료</button>
             </div>
         </form>
     </div>
 
+    <!-- JavaScript -->
+    <script>
+        function validateForm() {
+            var postTitle = document.getElementById("postTitle").value;
+            var content = document.getElementById("content").value;
+            
+            if (postTitle.trim() === "" || content.trim() === "") {
+                alert("제목과 내용을 입력해주세요.");
+                return false; // 폼 제출 중지
+            }
+            return true; // 폼 제출 진행
+        }
+    </script>
+    
     <script>
       // 햄버거 버튼과 네비게이션 바 요소 가져오기
       const navbarToggler = document.querySelector(".navbar-toggler");
@@ -161,21 +166,21 @@
       <p class="text-center text-body-secondary">&copy; 2023 F1 RoadScanner Project, All rights reserved.</p>
     </footer>
 
-	<!-- 부트스트랩 JS 및 Popper.js 추가 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<script>
-	document.addEventListener("DOMContentLoaded", () => {
-	    const navbarToggler = document.querySelector(".navbar-toggler");
-	    const navbarCollapse = document.querySelector(".navbar-collapse");
-	
-	    navbarToggler.addEventListener("click", () => {
-	        if (navbarCollapse.classList.contains("show")) {
-	            navbarCollapse.classList.remove("show");
-	        } 
-	    });
-	});
-	</script>
+    <!-- 부트스트랩 JS 및 Popper.js 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const navbarToggler = document.querySelector(".navbar-toggler");
+        const navbarCollapse = document.querySelector(".navbar-collapse");
+    
+        navbarToggler.addEventListener("click", () => {
+            if (navbarCollapse.classList.contains("show")) {
+                navbarCollapse.classList.remove("show");
+            } 
+        });
+    });
+    </script>
 
 </body>
 </html>

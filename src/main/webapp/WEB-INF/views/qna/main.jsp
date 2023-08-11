@@ -33,7 +33,7 @@
       <form class="d-flex" role="search">
         <!-- 로그인 세션 X -->
         <c:if test="${user ne null}">
-          <button type="button" id="login" onClick="window.location.reload()" class="btn btn-outline-primary me-2">Login</button>
+          <button type="button" id="login" onclick="location.href='${CP}/login'" class="btn btn-outline-primary me-2">Login</button>
         </c:if>
         
         <!-- 로그인 세션 O -->
@@ -72,6 +72,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/qna/writeadmin">(관리자)게시글 쓰기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/detail">글상세보기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/mod">글수정</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/modadmin">(관리자)글수정</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">파일 업로드하기</a>
