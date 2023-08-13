@@ -160,21 +160,21 @@
       <p class="text-center text-body-secondary">&copy; 2023 F1 RoadScanner Project, All rights reserved.</p>
     </footer>
 
-	<!-- 부트스트랩 JS 및 Popper.js 추가 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<script>
-	document.addEventListener("DOMContentLoaded", () => {
-	    const navbarToggler = document.querySelector(".navbar-toggler");
-	    const navbarCollapse = document.querySelector(".navbar-collapse");
-	
-	    navbarToggler.addEventListener("click", () => {
-	        if (navbarCollapse.classList.contains("show")) {
-	            navbarCollapse.classList.remove("show");
-	        } 
-	    });
-	});
-	</script>
+    <!-- 부트스트랩 JS 및 Popper.js 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const navbarToggler = document.querySelector(".navbar-toggler");
+        const navbarCollapse = document.querySelector(".navbar-collapse");
+    
+        navbarToggler.addEventListener("click", () => {
+            if (navbarCollapse.classList.contains("show")) {
+                navbarCollapse.classList.remove("show");
+            } 
+        });
+    });
+    </script>
 
 </body>
 </html>

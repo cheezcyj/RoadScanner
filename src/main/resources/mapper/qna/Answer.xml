@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roadscanner.dao.qna.AnswerDAO">
+
+    <!-- 답변 등록 -->
+    <insert id="save">
+        INSERT INTO answer (
+            no,
+            id,
+            content
+        ) VALUES (
+            #{no},
+            #{id},
+            #{content}
+        )
+    </insert>
+
+    <!-- 답변 삭제 -->
+    <delete id="delete">
+        DELETE FROM answer
+        WHERE no = #{no}
+    </delete>
+
+    <!-- 답변 수정 -->
+    <update id="update">
+        UPDATE answer
+        SET
+            content = #{content},
+            update_date = CURRENT_TIMESTAMP
+        WHERE no = #{no}
+    </update>
+
+    <!-- 답변 조회 -->
+    <select id="findByNo" resultType="AnswerVO">
+        SELECT
+            no,
+            id,
+            content,
+            create_date AS "createDate(java.time.LocalDateTime)",
+            CASE
+            WHEN update_date IS NOT NULL THEN update_date
+            END AS "updateDate(java.time.LocalDateTime)"
+        FROM answer
+        WHERE no = #{no}
+    </select>
+
+</mapper>

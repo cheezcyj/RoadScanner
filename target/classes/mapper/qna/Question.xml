@@ -2,16 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.roadscanner.dao.qna.QuestionDAO">
 
-<!--     질문 작성/저장 -->
-<!--    <insert id="save" useGeneratedKeys="true" keyProperty="no">-->
-<!--        INSERT INTO QUESTION (category, id, title, content)-->
-<!--        VALUES (#{category}, #{id}, #{title}, #{content})-->
-<!--    </insert>-->
+<!-- 질문 작성/저장 -->
+    <!--insert id="save" useGeneratedKeys="true" keyProperty="no">
+        INSERT INTO QUESTION (category, id, title, content)
+        VALUES (#{category}, #{id}, #{title}, #{content})
+    </insert>-->
 
     <!-- 오라클 insert 확인 O-->
+<!--    <insert id="save">-->
+<!--        INSERT INTO QUESTION (no, category, id, title, content)-->
+<!--        VALUES (QUESTION_SEQ.NEXTVAL, #{category}, #{id}, #{title}, #{content})-->
+<!--    </insert>-->
+
     <insert id="save">
         INSERT INTO QUESTION (no, category, id, title, content)
-        VALUES (QUESTION_SEQ.NEXTVAL, #{category}, #{id}, #{title}, #{content})
+        VALUES (#{no}, #{category}, #{id}, #{title}, #{content})
     </insert>
 
 

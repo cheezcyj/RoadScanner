@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
-<configuration>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
     <!-- 기본 설정 -->
     <settings>
         <setting name="logImpl" value="LOG4J2"/>
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
 
-    <!-- 팀별 추가 설정 -->
     <typeAliases>
+        <typeAlias type="com.roadscanner.domain.MemberVO" alias="MemberVO"/>
         <typeAlias type="com.roadscanner.domain.qna.QuestionVO" alias="QuestionVO" />
+        <typeAlias type="com.roadscanner.domain.qna.AnswerVO" alias="AnswerVO" />
     </typeAliases>
 
     <!-- 날짜타입 핸들러 추가 -->
