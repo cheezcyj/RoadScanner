@@ -62,22 +62,31 @@
                         <a class="nav-link" href="/qna/listtest">(테스트)게시판</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/qna/{no}">(테스트)글상세보기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/save">(테스트)글쓰기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/update/{no}">(테스트)글수정</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/qna/list">게시판</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qna/listadmin">(관리자)게시판</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qna/write">게시글 쓰기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qna/writeadmin">(관리자)게시글 쓰기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/qna/detail">글상세보기</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/qna/write">글쓰기</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/qna/mod">글수정</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/listadmin">(관리자)게시판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qna/writeadmin">(관리자)글쓰기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/qna/modadmin">(관리자)글수정</a>
