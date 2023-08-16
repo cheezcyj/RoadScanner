@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.roadscanner.cmn.MessageVO;
-import com.roadscanner.domain.MemberVO;
+import com.roadscanner.domain.user.MemberVO;
 import com.roadscanner.service.user.UserService;
 
 @Controller
@@ -28,7 +28,7 @@ public class WithdrawController {
     @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
     public String withdrawPageStart() {
         System.out.println("회원 탈퇴 페이지로 이동...");
-        return "withdraw";
+        return "/login/withdraw";
     }
 
     /**

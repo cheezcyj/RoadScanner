@@ -28,19 +28,20 @@
         <log4jdbc-version>1.16</log4jdbc-version>
         <gson.version>2.10.1</gson.version>
 
+    <!-- AWS S3 -->
         <spring-cloud-aws-autoconfigure.version>1.2.1.RELEASE</spring-cloud-aws-autoconfigure.version>
         <spring-cloud-aws-context.version>1.2.1.RELEASE</spring-cloud-aws-context.version>
         <spring-cloud-starter-aws.version>2.0.1.RELEASE</spring-cloud-starter-aws.version>
+    <s3-version>2.17.81</s3-version>
+
+    <!-- FileUpload 기능 -->
+    <commons-fileupload-version>1.4</commons-fileupload-version>
+    <commons-io-version>2.11.0</commons-io-version>
     </properties>
 
 
     <dependencies>
     <!-- 추가본 -->
-    <dependency>
-	    <groupId>commons-fileupload</groupId>
-	    <artifactId>commons-fileupload</artifactId>
-	    <version>1.4</version>
-	</dependency>
     <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-dbcp2</artifactId>
@@ -73,6 +74,23 @@
             <artifactId>spring-cloud-aws-autoconfigure</artifactId>
             <version>${spring-cloud-aws-autoconfigure.version}</version>
         </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>s3</artifactId>
+      <version>${s3-version}</version>
+    </dependency>
+    
+    <!-- FileUpload 기능 -->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io-version}</version>
+    </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>

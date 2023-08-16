@@ -29,7 +29,7 @@ public class MailSendService {
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 		
-		message.setFrom("dh103504@naver.com"); // email-config에 설정한 자신의 이메일 주소를 입력
+		message.setFrom("sitery@naver.com"); // email-config에 설정한 자신의 이메일 주소를 입력
 		message.setTo(email);
 		message.setSubject("회원 가입 인증 이메일 입니다.");// 이메일 제목
 		message.setText("홈페이지를 방문해주셔서 감사합니다.\n" 
@@ -44,7 +44,7 @@ public class MailSendService {
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 		
-		message.setFrom("dh103504@naver.com"); // email-config에 설정한 자신의 이메일 주소를 입력
+		message.setFrom("sitery@naver.com"); // email-config에 설정한 자신의 이메일 주소를 입력
 		message.setTo(email);
 		message.setSubject("[RoadScanner] ID 찾기 요청 메일");// 이메일 제목
 		message.setText("저희 서비스를 이용해주셔서 감사합니다. \n" 
@@ -59,7 +59,7 @@ public class MailSendService {
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 		
-		message.setFrom("dh103504@naver.com"); // email-config에 설정한 자신의 이메일 주소를 입력
+		message.setFrom("sitery@naver.com"); // email-config에 설정한 자신의 이메일 주소를 입력
 		message.setTo(email);
 		message.setSubject("[RoadScanner] Password 찾기 요청 메일");// 이메일 제목
 		message.setText("저희 서비스를 이용해주셔서 감사합니다. \n" 

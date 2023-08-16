@@ -10,24 +10,14 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     
-        <!-- *.xml mybatis설정 파일 read
-            mybatis-config.xml
-            mapper: anno.xml
-         -->
-
-<!--        <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
-<!--            <property name="dataSource" ref="dataSource"/>-->
-<!--            <property name="configLocation" value="classpath:mybatis-config.xml"></property>-->
-<!--            <property name="mapperLocations" value="classpath:mapper/*.xml"></property>-->
-<!--        </bean>-->
 
          <!-- JavaMailSenderImpl -->
 		  <bean id="mailSenderImpl"
 		    class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		    <property name="host" value="smtp.naver.com" />
 		    <property name="port" value="465" />
-		    <property name="username" value="dh103504@naver.com" />
-		    <property name="password" value="dhehd125%" />
+		    <property name="username" value="sitery@naver.com" />
+		    <property name="password" value="LD6RFT6GH3MB" />
 		    <property name="defaultEncoding" value="utf-8" />
 		    <property name="javaMailProperties">
 		      <props>
@@ -65,23 +55,6 @@
         <property name="username" value="f1"/>
         <property name="password" value="4444"/>
     </bean>
-    
-    <!-- 팀 기본 데이터 베이스 설정 데이터 소스 변동유무 X 222222 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:XE"/>
-        <property name="username" value="scott"/>
-        <property name="password" value="pcwk"/>
-    </bean> -->
-
-    <!-- 태근 추가 설정, 프로퍼티 파일 추가 -->
-<!--    <context:property-placeholder location="classpath:application-${spring.profiles.active}.properties" />-->
-<!--    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
-<!--        <property name="driverClassName" value="${database.driverClassName}"/>-->
-<!--        <property name="url" value="${database.url}"/>-->
-<!--        <property name="username" value="${database.username}"/>-->
-<!--        <property name="password" value="${database.password}"/>-->
-<!--    </bean> &ndash;&gt;-->
 
     <!-- 매퍼 스캔할 수 있도록 지정 변동유무 O-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

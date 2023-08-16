@@ -3,7 +3,7 @@ package com.roadscanner.service.user;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.roadscanner.domain.MemberVO;
+import com.roadscanner.domain.user.MemberVO;
 
 public interface UserService {
 	

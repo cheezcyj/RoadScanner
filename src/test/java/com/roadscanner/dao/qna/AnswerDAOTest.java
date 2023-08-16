@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.roadscanner.domain.qna.AnswerVO;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations =
@@ -21,8 +22,8 @@ import com.roadscanner.domain.qna.AnswerVO;
                 "file:src/main/webapp/WEB-INF/root-context.xml",
                 "file:src/main/resources/mybatis-config.xml"
         })
+@Transactional
 public class AnswerDAOTest {
-    Logger LOG = LogManager.getLogger(getClass());
 
     @Autowired
     private AnswerDAO dao;
@@ -30,39 +31,40 @@ public class AnswerDAOTest {
     AnswerVO answer;
     private Long no;
 
+    // 메서드 수행 전 답변 등록
     @Before
     public void setUp() throws Exception {
 
-        answer = new AnswerVO(228L, "testtest", "답변 등록 테스트");
+        answer = new AnswerVO(229L, "admin", "답변 등록 테스트");
+
+        dao.save(answer);
 
     } // add()
 
-//    @After
-//    public void tearDown() throws Exception {
-//
-//        no = answer.getNo();
-//
-//        // 삭제
-//        dao.delete(no);
-//
-//        // 삭제 후 확인
-//        AnswerVO deletedAnswer = dao.findByNo(no);
-//
-//    } // delete()
 
+    // 삭제
+    @Test
+    //@Ignore
+    public void delete() {
+
+        no = answer.getNo();  // answer의 no값 가져오기
+        dao.delete(no);
+
+        // 삭제 후 확인
+        AnswerVO deletedAnswer = dao.findByNo(no);
+
+    } // delete()
+
+
+    // 수정
     @Test
     //@Ignore
     public void update() {
     	
-    	answer.setNo(228L); // 게시글 번호 설정
-    	
-        dao.delete(228L);
-        dao.save(answer); // 먼저 답변을 등록합니다.
-        
-        no = answer.getNo(); // no 값을 가져옵니다.
+        no = answer.getNo();
         
         // 등록 데이터 조회
-        AnswerVO getVO = dao.findByNo(answer.getNo());
+        AnswerVO getVO = dao.findByNo(no);
         
         // 데이터 비교
         isSameData(getVO, answer);
@@ -82,16 +84,12 @@ public class AnswerDAOTest {
     } // update()
 
 
+    // 조회
     @Test
-    @Ignore
+    //@Ignore
     public void findByNo() throws Exception {
     	
-    	dao.delete(answer.getNo());
-    	dao.save(answer);
-        
-    	// 조회
         no = answer.getNo();
-        
         AnswerVO outVO = dao.findByNo(no);
         
         // 조회 데이터 비교

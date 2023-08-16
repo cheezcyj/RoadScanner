@@ -54,7 +54,7 @@ public class QuestionController {
     }
 
     @GetMapping("/{no}")
-    public String detailT(@PathVariable Long no, Model model) {
+    public String detail(@PathVariable Long no, Model model) {
         // 조회수 증가
         questionService.increaseViews(no);
 
@@ -64,12 +64,12 @@ public class QuestionController {
     }
 
     @GetMapping("/update/{no}")
-    public String questionUpdateT(@PathVariable Long no, Model model) {
+    public String questionUpdate(@PathVariable Long no, Model model) {
         QuestionResponseDTO dto = questionService.findByNo(no);
         model.addAttribute("question", dto);
         return "qna/question-update";
     }
-    
+
     @GetMapping("/main")
     public String QuestionMain() {
         return "qna/main";

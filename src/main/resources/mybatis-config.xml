@@ -10,9 +10,11 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.roadscanner.domain.MemberVO" alias="MemberVO"/>
+        <typeAlias type="com.roadscanner.domain.user.MemberVO"></typeAlias>
         <typeAlias type="com.roadscanner.domain.qna.QuestionVO" alias="QuestionVO" />
         <typeAlias type="com.roadscanner.domain.qna.AnswerVO" alias="AnswerVO" />
+        <typeAlias type="com.roadscanner.domain.result.ResultImgVO" alias="ResultImgVO" />
+        <typeAlias type="com.roadscanner.domain.upload.FileUploadVO" alias="FileUploadVO"/>
     </typeAliases>
 
     <!-- 날짜타입 핸들러 추가 -->

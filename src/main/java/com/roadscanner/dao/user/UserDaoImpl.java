@@ -9,13 +9,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.roadscanner.domain.MemberVO;
+import com.roadscanner.domain.user.MemberVO;
 
 
 
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
-	final String NAMESPACE = "mapper.Member";
+	final String NAMESPACE = "com.roadscanner.dao.user.UserDao";
 	final String DOT = ".";
 
 	@Autowired
@@ -83,7 +83,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int addUser(MemberVO user) throws SQLException {
+	public int insertOne(MemberVO user) throws SQLException {
 		System.out.println("============================================");
 		System.out.println("MembershipDaoImpl addUser()");
 		System.out.println("============================================");

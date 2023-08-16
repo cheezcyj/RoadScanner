@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
-    <!-- 해당 설정파일에서 사용하는 프로퍼티 -->
-    <Properties>
+  <!-- 해당 설정파일에서 사용하는 프로퍼티 -->
+  <Properties>
+  
         <Property name="logNm">Pilldex_Log</Property>
-        >>>>>>> c4e61d30204294959446c10433f9724632592f40
         <Property name="layoutPattern">[%d{yyyyMMdd HH:mm:ss}] %-5p %C{1}.%M(%F:%L) - %m%n</Property>
 
     </Properties>

@@ -3,7 +3,7 @@ package com.roadscanner.dao.user;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.roadscanner.domain.MemberVO;
+import com.roadscanner.domain.user.MemberVO;
 
 
 
@@ -98,7 +98,7 @@ public interface UserDao {
 	 * @return 1: 성공 , 0: 실패
 	 * @throws SQLException
 	 */
-	public int addUser(MemberVO user) throws SQLException;
+	public int insertOne(MemberVO user) throws SQLException;
 
 	/**
 	 * 계정 단건 삭제
