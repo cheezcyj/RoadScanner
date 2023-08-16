@@ -1,4 +1,4 @@
-package com.roadscanner.dto;
+package com.roadscanner.dto.qna;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

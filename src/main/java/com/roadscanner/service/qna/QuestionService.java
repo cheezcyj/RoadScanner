@@ -1,8 +1,12 @@
 package com.roadscanner.service.qna;
 
-import com.roadscanner.dto.*;
-
 import java.util.List;
+
+import com.roadscanner.dto.qna.PaginationDTO;
+import com.roadscanner.dto.qna.QuestionListResponseDTO;
+import com.roadscanner.dto.qna.QuestionResponseDTO;
+import com.roadscanner.dto.qna.QuestionSaveRequestDTO;
+import com.roadscanner.dto.qna.QuestionUpdateRequestDTO;
 
 public interface QuestionService{
 

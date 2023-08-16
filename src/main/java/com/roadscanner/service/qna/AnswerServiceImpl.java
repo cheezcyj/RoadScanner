@@ -3,9 +3,9 @@ package com.roadscanner.service.qna;
 import com.roadscanner.dao.qna.AnswerDAO;
 import com.roadscanner.dao.qna.QuestionDAO;
 import com.roadscanner.domain.qna.AnswerVO;
-import com.roadscanner.dto.AnswerResponseDTO;
-import com.roadscanner.dto.AnswerSaveRequestDTO;
-import com.roadscanner.dto.AnswerUpdateRequestDTO;
+import com.roadscanner.dto.qna.AnswerResponseDTO;
+import com.roadscanner.dto.qna.AnswerSaveRequestDTO;
+import com.roadscanner.dto.qna.AnswerUpdateRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

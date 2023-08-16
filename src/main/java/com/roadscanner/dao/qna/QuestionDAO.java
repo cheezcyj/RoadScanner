@@ -2,7 +2,7 @@ package com.roadscanner.dao.qna;
 
 import com.roadscanner.cmn.BaseRepository;
 import com.roadscanner.domain.qna.QuestionVO;
-import com.roadscanner.dto.PaginationDTO;
+import com.roadscanner.dto.qna.PaginationDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

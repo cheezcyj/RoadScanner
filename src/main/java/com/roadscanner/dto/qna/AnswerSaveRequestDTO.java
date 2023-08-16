@@ -1,4 +1,4 @@
-package com.roadscanner.dto;
+package com.roadscanner.dto.qna;
 
 import com.roadscanner.domain.qna.AnswerVO;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.roadscanner.controller.qna;
 
-import com.roadscanner.dto.AnswerResponseDTO;
-import com.roadscanner.dto.QuestionResponseDTO;
+import com.roadscanner.dto.qna.AnswerResponseDTO;
+import com.roadscanner.dto.qna.QuestionResponseDTO;
 import com.roadscanner.service.qna.AnswerService;
 import com.roadscanner.service.qna.QuestionService;
 import lombok.RequiredArgsConstructor;
