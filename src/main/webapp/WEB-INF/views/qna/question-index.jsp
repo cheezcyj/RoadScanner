@@ -56,7 +56,7 @@
                         <a class="nav-link" href="/qna/listtest">(테스트)게시판</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/qna/{no}">(테스트)글상세보기</a>
+                        <a class="nav-link" href="/qna/${question.no}">(테스트)글상세보기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/qna/save">(테스트)글쓰기</a>
