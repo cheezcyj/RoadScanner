@@ -36,10 +36,8 @@
             no,
             id,
             content,
-            create_date AS "createDate(java.time.LocalDateTime)",
-            CASE
-            WHEN update_date IS NOT NULL THEN update_date
-            END AS "updateDate(java.time.LocalDateTime)"
+            create_date AS createDate,
+            update_date AS updateDate
         FROM answer
         WHERE no = #{no}
     </select>

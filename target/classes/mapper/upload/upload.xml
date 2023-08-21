@@ -2,17 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.roadscanner.dao.upload.FileUploadDao">
   
-  <!-- 피드백 월별 그래프 -->
-  <select id="monthlyFeedback" parameterType="FileUploadVO" resultType="FileUploadVO">
+  <!-- 피드백 분기별 그래프 -->
+  <select id="quarterlyFeedback" parameterType="FileUploadVO" resultType="FileUploadVO">
     SELECT
-        TO_CHAR(upload_date, 'MM/DD') AS uploadDate,
+        TO_CHAR(upload_date, 'Q') AS uploadDate,
         COUNT(DECODE(u1, 1, 1)) AS u1,
         COUNT(DECODE(u2, 1, 1)) AS u2
     FROM
         upload_image
-    WHERE TO_CHAR(upload_date, 'MM') = TO_CHAR(TO_DATE(#{uploadDate}), 'MM')
-    GROUP BY TO_CHAR(upload_date, 'MM/DD')
-    ORDER BY uploadDate
+    GROUP BY TO_CHAR(upload_date, 'Q')
   </select>
   
   <!-- 피드백 누적 그래프, 표 -->
@@ -24,66 +22,72 @@
         upload_image
   </select>
   
-  <!-- 카테고리별 사진 목록 조회 -->
-  <select id="doRetrieveByCategory" parameterType="FileUploadVO" resultType="FileUploadVO">
-    SELECT A.*, B.*
-        FROM (
+  <!-- 사진 목록 조회 -->
+  <select id="doRetrieve" parameterType="FileUploadVO" resultType="FileUploadVO">
+    <choose>
+      <when test="category == 10 || category == 20 || category == 30">
+        SELECT A.*, B.*
+        FROM(
             SELECT
-                TT1.rnum AS num,
+                TT1.idx,
+                TT1.id,
+                TO_CHAR(TT1.upload_date, 'YYYY-MM-DD HH24:MI:SS') AS upload_date,
                 TT1.category,
                 TT1.name,
-                TT1.url
-            FROM (
-                SELECT ROWNUM AS rnum, T1.*
-                FROM (
+                TT1.url,
+                TT1.checked
+            FROM(
+                SELECT T1.*
+                FROM(
                     SELECT *
                     FROM upload_image
                     WHERE category = #{category}
-                    AND checked = 0
+                    AND NOT(checked = 1)
                     ORDER BY upload_date DESC
                 )T1
                 <![CDATA[ WHERE ROWNUM <= #{pageSize} * (#{pageNo} - 1) + #{pageSize} ]]>
             )TT1
-            <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
+            <![CDATA[ WHERE ROWNUM >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
         )A
         CROSS JOIN
         (
             SELECT COUNT(*) AS totalCnt
             FROM upload_image
             WHERE category = #{category}
-            AND checked = 0
+            AND NOT(checked = 1)
         )B
-  </select>
-  
-  <!-- 업로드된 사진 전체 목록 조회 (카테고리: 10, 20, 30) -->
-  <select id="doRetrieve" parameterType="FileUploadVO" resultType="FileUploadVO">
-    SELECT A.*, B.*
-        FROM (
+      </when>
+      <otherwise>
+        SELECT A.*, B.*
+        FROM(
             SELECT
-                TT1.rnum AS num,
+                TT1.idx,
+                TT1.id,
+                TO_CHAR(TT1.upload_date, 'YYYY-MM-DD HH24:MI:SS') AS upload_date,
                 TT1.category,
                 TT1.name,
-                TT1.url
-            FROM (
-                SELECT ROWNUM AS rnum, T1.*
-                FROM (
-                SELECT *
+                TT1.url,
+                TT1.checked
+            FROM(
+                SELECT T1.*
+                FROM(
+                    SELECT *
                     FROM upload_image
-                    WHERE category in (10, 20, 30)
-                    AND checked = 0
+                    WHERE NOT(checked = 1)
                     ORDER BY upload_date DESC
                 )T1
                 <![CDATA[ WHERE ROWNUM <= #{pageSize} * (#{pageNo} - 1) + #{pageSize} ]]>
             )TT1
-            <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
+            <![CDATA[ WHERE ROWNUM >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
         )A
         CROSS JOIN
         (
             SELECT COUNT(*) AS totalCnt
             FROM upload_image
-            WHERE category in (10, 20, 30)
-            AND checked = 0
+            WHERE NOT(checked = 1)
         )B
+      </otherwise>
+    </choose>  
   </select>
   
   <!-- 사진 상세 조회 -->
@@ -102,7 +106,14 @@
     FROM
         upload_image
     WHERE
+    <choose>
+      <when test="name != null">
         name = #{name}
+      </when>
+      <otherwise>
+        idx = #{idx}
+      </otherwise>
+    </choose>
   </select>
   
   <!-- 사진 수정 -->
@@ -138,7 +149,7 @@
     ) VALUES (
         upload_seq.NEXTVAL, <!-- upload_seq.NEXTVAL -->
         #{id},
-        10,
+        #{category},
         SYSDATE,
         #{name},
         #{url},
