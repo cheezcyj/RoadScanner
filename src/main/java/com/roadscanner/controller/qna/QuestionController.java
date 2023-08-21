@@ -65,7 +65,7 @@ public class QuestionController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("page", page);
 
-        return "qna/index";
+        return "qna/question-index";
     }
 
     /**
