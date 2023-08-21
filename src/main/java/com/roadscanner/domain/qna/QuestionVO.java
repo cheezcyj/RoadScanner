@@ -1,23 +1,28 @@
 package com.roadscanner.domain.qna;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-// domain 클래스 => 데이터베이스랑 1대1 매칭
-@Getter @Setter
+/**
+ * Domain 클래스, 데이터베이스와 매칭
+ */
+@Data
 @NoArgsConstructor
 public class QuestionVO {
 
     private Long no; // 번호
     private Integer category; // 카테고리
     private Integer views; // 조회수
-    private Long idx; // 이미지ID
     private String id; // 사용자 아이디 -> userId
     private String title; // 제목
     private String content; // 내용
+    private String originalFilename; // 원본 파일명
+    private String storeFilename; // 서버에 저장되는 파일명
+    private String imageUrl; // S3에 저장된 URL
     private LocalDateTime createDate; // 작성일
     private LocalDateTime updateDate; // 수정일
 
@@ -33,8 +38,12 @@ public class QuestionVO {
     public void update(Integer category, String title, Long idx, String content) {
         this.category = category;
         this.title = title;
-        this.idx = idx;
         this.content = content;
+    }
+
+    // 게시글 분류만 변경하는 메서드
+    public void updateCategory(Integer category) {
+        this.category = category;
     }
 
 }

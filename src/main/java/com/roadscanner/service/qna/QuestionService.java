@@ -1,33 +1,37 @@
 package com.roadscanner.service.qna;
 
-import java.util.List;
+import com.roadscanner.domain.qna.QuestionVO;
+import com.roadscanner.dto.qna.*;
 
-import com.roadscanner.dto.qna.PaginationDTO;
-import com.roadscanner.dto.qna.QuestionListResponseDTO;
-import com.roadscanner.dto.qna.QuestionResponseDTO;
-import com.roadscanner.dto.qna.QuestionSaveRequestDTO;
-import com.roadscanner.dto.qna.QuestionUpdateRequestDTO;
+import java.io.IOException;
+import java.util.List;
 
 public interface QuestionService{
 
     /**
      * 게시글 작성
      */
-    Long save(QuestionSaveRequestDTO dto);
+
+    List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch);
+
+    void save(QuestionSaveRequestDTO dto) throws IOException;
 
     QuestionResponseDTO findByNo(Long no);
 
-    List<QuestionListResponseDTO> findAll();
+//    List<QuestionListResponseDTO> findAll();
 
     Long update(Long no, QuestionUpdateRequestDTO dto);
 
     Long delete(Long no);
 
     // 안녕하세요. 저는 페이징을 위해 태어났어요.
-    List<QuestionListResponseDTO> findAllWithPaging(PaginationDTO pagination);
+//    List<QuestionListResponseDTO> findAllWithPaging(PaginationDTO pagination);
 
-    int countQuestions();
+    int countQuestions(QuestionSearchCond searchCond);
 
     void increaseViews(Long no);
+
+    // 질문글 분류 변경
+//    Long updateCategory(Long no);
 
 }

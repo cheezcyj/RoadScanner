@@ -16,6 +16,7 @@ public class AnswerVO {
     private LocalDateTime createDate;  // 작성일
     private LocalDateTime updateDate;  // 수정일
 
+    // 필수로 값이 주입되야 하는 필드만 생성
     public AnswerVO(Long no, String id, String content) {
         this.no = no;
         this.id = id;

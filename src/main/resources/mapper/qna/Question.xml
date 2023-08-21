@@ -4,15 +4,9 @@
 
     <!-- 오라클 insert 확인 O-->
     <insert id="save">
-
-        INSERT INTO QUESTION (no, category, id, idx, title, content)
-        VALUES (QUESTION_SEQ.NEXTVAL, #{category}, #{id}, #{idx}, #{title}, #{content})
+        insert into QUESTION(category, id, title, content, original_filename, store_filename, image_url)
+        VALUES (#{category}, #{id}, #{title}, #{content}, #{originalFilename}, #{storeFilename}, #{imageUrl})
     </insert>
-
-<!--    <insert id="save">-->
-<!--        INSERT INTO QUESTION (no, category, id, title, content)-->
-<!--        VALUES (#{no}, #{category}, #{id}, #{title}, #{content})-->
-<!--    </insert>-->
 
     <!-- no로 질문 조회 오라클 O-->
     <select id="findByNo" resultType="QuestionVO">
@@ -20,13 +14,12 @@
             no,
             category,
             views,
-            idx,
             id,
             title,
             content,
             create_date AS createDate,
-            update_date AS updateDate
---         update_date AS updateDate
+            update_date AS updateDate,
+            image_url AS imageUrl
         FROM QUESTION
         WHERE no = #{no}
     </select>
@@ -35,32 +28,47 @@
     <select id="findAll" resultType="QuestionVO">
         SELECT *
         FROM (
-        SELECT a.*, rownum rnum
-        FROM (
-        SELECT
-        no,
-        category,
-        views,
-        idx,
-        id,
-        title,
-        content,
-        create_date AS createDate,
-        update_date AS updateDate
-        FROM QUESTION
-        <where>
-            <if test="searchCond.searchType == 'title'">
-                title LIKE '%' || #{searchCond.keyword} || '%'
-            </if>
-            <if test="searchCond.searchType == 'content'">
-                content LIKE '%' || #{searchCond.keyword} || '%'
-            </if>
-            <if test="searchCond.searchType == 'both'">
-                (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')
-            </if>
-        </where>
-        ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC
-        ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
+            SELECT a.*, rownum rnum
+            FROM (
+                SELECT
+                no,
+                category,
+                views,
+                id,
+                title,
+                content,
+                create_date AS createDate,
+                update_date AS updateDate
+                FROM QUESTION
+<!--        <where>-->
+<!--            <if test="searchCond.searchType == 'title'">-->
+<!--                title LIKE '%' || #{searchCond.keyword} || '%'-->
+<!--            </if>-->
+<!--            <if test="searchCond.searchType == 'content'">-->
+<!--                content LIKE '%' || #{searchCond.keyword} || '%'-->
+<!--            </if>-->
+<!--            <if test="searchCond.searchType == 'both'">-->
+<!--                (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')-->
+<!--            </if>-->
+<!--            <if test="searchCond.category != null">-->
+<!--                AND category = #{searchCond.category}-->
+<!--            </if>-->
+<!--        </where>-->
+                WHERE 1=1
+                <if test="searchCond.category != null">
+                    AND category = #{searchCond.category}
+                </if>
+                <if test="searchCond.searchType == 'title' and searchCond.keyword != null">
+                    AND title LIKE '%' || #{searchCond.keyword} || '%'
+                </if>
+                <if test="searchCond.searchType == 'content' and searchCond.keyword != null">
+                    AND content LIKE '%' || #{searchCond.keyword} || '%'
+                </if>
+                <if test="searchCond.searchType == 'both' and searchCond.keyword != null">
+                    AND (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')
+                </if>
+                ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC
+            ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
         ) WHERE rnum &gt; #{pagination.start}
     </select>
 
@@ -69,7 +77,7 @@
         UPDATE QUESTION
         SET
             category = #{category},
-            idx = #{idx},
+--             image_url = #{imageURL},
             title = #{title},
             content = #{content},
             update_date = CURRENT_TIMESTAMP
@@ -105,17 +113,31 @@
 
     <select id="countQuestions" resultType="int">
         SELECT count(*) FROM question
-        <where>
-            <if test="searchType == 'title'">
-                title LIKE '%' || #{keyword} || '%'
-            </if>
-            <if test="searchType == 'content'">
-                content LIKE '%' || #{keyword} || '%'
-            </if>
-            <if test="searchType == 'both'">
-                (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')
-            </if>
-        </where>
+        WHERE 1=1
+        <if test="category != null">
+            AND category = #{category}
+        </if>
+        <if test="searchType == 'title' and keyword != null">
+            AND title LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'content' and keyword != null">
+            AND content LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'both' and keyword != null">
+            AND (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')
+        </if>
+<!--        <where>-->
+<!--            <if test="searchType == 'title'">-->
+<!--                title LIKE '%' || #{keyword} || '%'-->
+<!--            </if>-->
+<!--            <if test="searchType == 'content'">-->
+<!--                content LIKE '%' || #{keyword} || '%'-->
+<!--            </if>-->
+<!--            <if test="searchType == 'both'">-->
+<!--                (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')-->
+<!--            </if>-->
+<!--        </where>-->
+
     </select>
 
     <!-- 조회수 증가 -->
