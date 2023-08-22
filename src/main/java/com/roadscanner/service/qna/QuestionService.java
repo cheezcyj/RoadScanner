@@ -6,11 +6,9 @@ import com.roadscanner.dto.qna.*;
 import java.io.IOException;
 import java.util.List;
 
-public interface QuestionService{
+public interface QuestionService {
 
-    /**
-     * 게시글 작성
-     */
+    List<QuestionListResponseDTO> findNotice();
 
     List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch);
 
@@ -18,7 +16,9 @@ public interface QuestionService{
 
     QuestionResponseDTO findByNo(Long no);
 
-    Long update(Long no, QuestionUpdateRequestDTO dto);
+//    List<QuestionListResponseDTO> findAll();
+
+    Long update(Long no, QuestionUpdateRequestDTO dto) throws IOException;
 
     Long delete(Long no);
 

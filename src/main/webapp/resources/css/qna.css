@@ -1,6 +1,95 @@
+.qna-title-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.qna-title-link:hover {
+    color: inherit;
+}
+    
+
+
+/* ------index.jsp------ */
 .qna-link {
     text-decoration: none; /* 언더라인 제거 */
 }
 .notice-title {
     font-weight: bold; /* 공지 제목 굵게 표시 */
 }
+#category {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#searchType {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#keyword {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+.table-group-divider {border-color: #DCDCDC;}
+#gongTable {background-color: #F0F0F0;}
+#gong {background-color: #F87217;}
+#wan {background-color: #024089;}
+#dae {
+    background-color: #E0EAF5;
+    color: black;
+}
+/* ------//index.jsp end------ */
+
+
+
+/* ------question-detail.jsp------ */
+#detailImage {width: 500px;}
+#answer-content {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#answer-update-content {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#href {
+    text-decoration: none;
+    color: inherit;
+}
+#btn-mod {background-color: #DCDCDC;}
+#btn-delete {background-color: #DCDCDC;}
+#btn-answer-update-form {background-color: #DCDCDC;}
+#btn-answer-delete {background-color: #DCDCDC;}
+#btn-answer-save {background-color: #DCDCDC;}
+#btn-answer-cancel {background-color: #DCDCDC;}
+#btn-answer-updated {background-color: #DCDCDC;}
+/* ------//question-detail.jsp end------ */
+
+
+
+/* ------question-save,update.jsp------ */
+#title {
+    outline:none;
+    box-shadow:none;
+}
+#attachFile {
+    outline:none;
+    box-shadow:none;
+}
+#content {
+    outline:none;
+    box-shadow:none;
+}
+#btn-save {
+    background-color: #024089;
+    color: white;
+    outline:none;
+}
+#btn-update {
+    background-color: #024089;
+    color:white;
+}
+/* ------//question-save,update.jsp end------ */

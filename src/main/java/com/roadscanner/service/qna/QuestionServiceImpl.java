@@ -25,6 +25,18 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     private final QuestionDAO questionDAO;
 
     @Override
+    public List<QuestionListResponseDTO> findNotice() {
+        List<QuestionVO> questionNoticeList = questionDAO.findNotice();
+        List<QuestionListResponseDTO> dtoList = new ArrayList<>();
+
+        for (QuestionVO question : questionNoticeList) {
+            dtoList.add(new QuestionListResponseDTO(question));
+        }
+
+        return dtoList;
+    }
+
+    @Override
     public List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch) {
         List<QuestionVO> questionList = questionDAO.findAll(pagination, questionSearch);
         List<QuestionListResponseDTO> dtoList = new ArrayList<>();
@@ -60,8 +72,8 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
         vo.setContent(request.getContent());
 
         if (attachFile != null) {
-            vo.setOriginalFilename(attachFile.getUploadFileName());
-            vo.setStoreFilename(attachFile.getStoreFileName());
+            vo.setOriginalFilename(attachFile.getUploadFilename());
+            vo.setStoreFilename(attachFile.getStoreFilename());
             vo.setImageUrl(attachFile.getUrl());
         }
 
@@ -80,12 +92,48 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     }
 
     @Override
-    public Long update(Long no, QuestionUpdateRequestDTO dto) {
-        // findById 메서드를 완성 시켜야함 단건 조회후 수정
+    @Transactional
+    public Long update(Long no, QuestionUpdateRequestDTO request) throws IOException {
+
         QuestionVO vo = questionDAO.findByNo(no);
+
+        LOG.debug("데이터베이스에 있던 이미지 이름={}", vo.getStoreFilename());
+
+        /**
+         * 2023.08.22(화) S3에 파일 삭제하는것에 문제가 있음 확인 필요.
+         * 주석으로 처리해둠
+         */
+
+//        if (vo.getStoreFilename() != null) {
+//            fileStore.deleteFile(vo.getStoreFilename());
+//        }
+
+        // 파일을 S3에 업로드
+        UploadFile attachFile = null;
+        if (request.getAttachFile() != null && !request.getAttachFile().isEmpty()) {
+            attachFile = fileStore.storeFile(request.getAttachFile());
+            vo.setOriginalFilename(attachFile.getUploadFilename());
+            vo.setStoreFilename(attachFile.getStoreFilename());
+            vo.setImageUrl(attachFile.getUrl());
+        }
+
+
+//        if (attachFile != null) {
+//            vo.setOriginalFilename(attachFile.getUploadFilename());
+//            vo.setStoreFilename(attachFile.getStoreFilename());
+//            vo.setImageUrl(attachFile.getUrl());
+//        }
+
+        LOG.debug("사용자 요청={}", request);
+        // 제목 및 내용 수정
+        vo.setTitle(request.getTitle());
+        vo.setContent(request.getContent());
+
+        LOG.debug("데이터베이스에 수정될 내용={}", vo);
         questionDAO.update(vo);
         return no;
     }
+
     @Override
     public Long delete(Long no) {
         questionDAO.delete(no);

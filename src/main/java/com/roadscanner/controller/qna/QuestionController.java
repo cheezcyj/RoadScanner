@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -33,11 +34,6 @@ public class QuestionController {
                         @RequestParam(defaultValue = "") String keyword,
                         @RequestParam(required = false) Integer category) {
 
-        // 페이지 번호가 유효한지 확인
-        if (page < 1) {
-            page = 1;
-        }
-
         QuestionSearchCond searchCond = new QuestionSearchCond();
         searchCond.setSearchType(searchType);
         searchCond.setKeyword(keyword);
@@ -45,7 +41,10 @@ public class QuestionController {
 
         int totalQuestions = questionService.countQuestions(searchCond);
 
-//        model.addAttribute("questions", questionService.findAllWithPaging(pagination));
+        // 페이지 번호가 유효한지 확인
+        if (page < 1) {
+            page = 1;
+        }
 
         // 총 페이지 수가 0이면, 페이지 번호도 0으로 설정
         if (totalQuestions == 0) {
@@ -68,8 +67,13 @@ public class QuestionController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
 
-        return "qna/question-index";
+        // 공지사항 목록을 조회해서 모델에 추가
+        List<QuestionListResponseDTO> notice = questionService.findNotice();
+        model.addAttribute("notice", notice);
+
+        return "qna/index";
     }
+
 
     /**
      * 로그인 한 유저는 세션에 저장되어 있음.
@@ -96,7 +100,6 @@ public class QuestionController {
         AnswerResponseDTO answerDto = answerService.findByNo(no);
         model.addAttribute("answer", answerDto);
         model.addAttribute("user", memberVO); // 현재 로그인한 사용자 정보를 모델에 추가
-        // model.addAttribute("answerId", memberVO.getId());
 
         return "qna/question-detail";
     }

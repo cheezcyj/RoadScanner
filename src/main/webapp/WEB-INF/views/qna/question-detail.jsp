@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/resources/css/qna.css" rel="stylesheet">
     <title>로드스캐너</title>
 
     <!-- 부트스트랩 CSS 추가 -->
@@ -11,7 +12,7 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">Q&A 게시판</h1>
+        <h1 class="mb-4"><a href="/qna" class="qna-title-link">Q&A 게시판</a></h1>
         <div class="card mb-5">
             <input type="hidden" id="no" value="${question.no}">
             <div class="card-header">
@@ -34,7 +35,7 @@
                     <div class="card">
                         <div class="card-body">
                             <c:if test="${question.imageUrl != null}">
-                                <input type="image" id="detailImage" src="${question.imageUrl}" style="width: 500px;">
+                                <input type="image" id="detailImage" src="${question.imageUrl}">
                             </c:if>
                             <p class="card-text">${question.content}</p>
                         </div>
@@ -48,10 +49,8 @@
                 <c:when test="${user.id == question.id}">
                     <div class="row mx-2 mb-2">
                         <div class="col-auto">
-		                    <a href="/qna/update/${question.no}" class="btn"
-		                        style="background-color: #DCDCDC;">수정</a>
-		                    <button type="button" id="btn-delete" class="btn"
-		                        style="background-color: #DCDCDC;">삭제</button>
+		                    <a href="/qna/update/${question.no}" class="btn" id="btn-mod">수정</a>
+		                    <button type="button" id="btn-delete" class="btn">삭제</button>
 		                </div>
 		                <div class="col-auto ms-auto">
 		                    <a href="/qna" class="btn btn-secondary">목록</a>
@@ -100,10 +99,8 @@
                         <c:when test="${user.grade == 2}">
                             <div class="row m-2 mt-1">
                                 <div class="col-auto">
-                                    <button type="button" id="btn-answer-update-form" class="btn"
-                                            style="background-color: #DCDCDC;">수정</button>
-                                    <button type="button" id="btn-answer-delete" class="btn"
-                                            style="background-color: #DCDCDC;">삭제</button>
+                                    <button type="button" id="btn-answer-update-form" class="btn">수정</button>
+                                    <button type="button" id="btn-answer-delete" class="btn">삭제</button>
                                 </div>
                             </div>
                         </c:when>
@@ -124,13 +121,11 @@
                             <h4 class="card-title mb-0">답변</h4>
                         </div>
                         <div class="mt-2 mb-2 mx-4">
-                            <textarea class="form-control" id="answer-content"
-                                      rows="5" style="border-color:secondary; outline:none; box-shadow:none;" placeholder="내용을 입력하세요."></textarea>
+                            <textarea class="form-control" id="answer-content" rows="5" placeholder="내용을 입력하세요."></textarea>
                         </div>
                         <div class="mb-2 mx-4">
                             <button type="reset" id="btn-answer-reset" class="btn btn-secondary">취소</button>
-                            <button type="submit" id="btn-answer-save" class="btn"
-                                    style="background-color: #DCDCDC;" value="등록">등록</button>
+                            <button type="submit" id="btn-answer-save" class="btn" value="등록">등록</button>
                         </div>
                     </div>
                 </div>
@@ -139,8 +134,7 @@
 
         <!-- 관리자일 경우에만 답변 수정 form 표시 -->
         <c:if test="${user.grade == 2}">
-            <form id="answer-update-form" class="pb-0 mb-0"
-                  style="display: none;">
+            <form id="answer-update-form" class="pb-0 mb-0" style="display: none;">
                 <div class="mb-5">
                     <div class="card">
                         <div class="card-header">
@@ -152,16 +146,14 @@
                         </div>
 
                         <div class="mt-2 mb-2 mx-4">
-                            <textarea class="form-control" id="answer-update-content"
-                                      rows="5" style="border-color:secondary; outline:none; box-shadow:none;" placeholder="내용을 입력하세요.">${answer.content}</textarea>
+                            <textarea class="form-control" id="answer-update-content" placeholder="내용을 입력하세요.">${answer.content}</textarea>
                         </div>
 
                         <div class="mb-2 mx-4">
-                            <a href="/qna/${question.no}" style="text-decoration: none; color: inherit;">
-                              <button type="button" class="btn" style="background-color: #DCDCDC;">취소</button>
+                            <a href="/qna/${question.no}" id="href">
+                              <button type="button" class="btn" id="btn-answer-cancel">취소</button>
                             </a>
-                            <button type="submit" id="btn-answer-updated" class="btn"
-                                    style="background-color: #DCDCDC;" value="수정">완료</button>
+                            <button type="submit" id="btn-answer-updated" class="btn" value="수정">완료</button>
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,8 @@
             content,
             create_date AS createDate,
             update_date AS updateDate,
+            original_filename AS originalFilename,
+            store_filename AS storeFilename,
             image_url AS imageUrl
         FROM QUESTION
         WHERE no = #{no}
@@ -31,17 +33,20 @@
             SELECT a.*, rownum rnum
             FROM (
                 SELECT
-                no,
-                category,
-                views,
-                id,
-                title,
-                content,
-                create_date AS createDate,
-                update_date AS updateDate
+                    no,
+                    category,
+                    views,
+                    id,
+                    title,
+                    content,
+                    create_date AS createDate,
+                    update_date AS updateDate
                 FROM QUESTION
 
                 WHERE 1=1
+                <if test="searchCond.category == null">
+                    AND category != 10
+                </if>
                 <if test="searchCond.category != null">
                     AND category = #{searchCond.category}
                 </if>
@@ -54,7 +59,7 @@
                 <if test="searchCond.searchType == 'both' and searchCond.keyword != null">
                     AND (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')
                 </if>
-                ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC
+                ORDER BY no DESC
             ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
         ) WHERE rnum &gt; #{pagination.start}
     </select>
@@ -64,10 +69,12 @@
         UPDATE QUESTION
         SET
             category = #{category},
---             image_url = #{imageURL},
             title = #{title},
             content = #{content},
-            update_date = CURRENT_TIMESTAMP
+            update_date = CURRENT_TIMESTAMP,
+            image_url = #{imageUrl},
+            original_filename = #{originalFilename},
+            store_filename = #{storeFilename}
         WHERE no = #{no}
     </update>
 
@@ -75,28 +82,6 @@
     <delete id="delete">
         DELETE FROM QUESTION WHERE no = #{no}
     </delete>
-
-    <!-- 페이징 구현 -->
-<!--    <select id="findAllWithPaging" resultType="QuestionVO">-->
-<!--        SELECT *-->
-<!--        FROM (SELECT a.*, rownum rnum-->
-<!--              FROM (SELECT-->
-<!--                        no,-->
-<!--                        category,-->
-<!--                        views,-->
-<!--                        title,-->
-<!--                        id,-->
-<!--                        create_date AS createDate,-->
-<!--                        update_date AS updateDate-->
-<!--                    FROM QUESTION-->
-<!--                    ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC-->
-<!--                   ) a WHERE rownum &lt;= #{start} + #{size}-->
-<!--             ) WHERE rnum &gt; #{start}-->
-<!--    </select>-->
-
-<!--    <select id="countQuestions" resultType="int">-->
-<!--        SELECT count(*) FROM question-->
-<!--    </select>-->
 
     <!-- 조건에 해당하는 게시글 개수 -->
     <select id="countQuestions" resultType="int">
@@ -114,17 +99,6 @@
         <if test="searchType == 'both' and keyword != null">
             AND (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')
         </if>
-<!--        <where>-->
-<!--            <if test="searchType == 'title'">-->
-<!--                title LIKE '%' || #{keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchType == 'content'">-->
-<!--                content LIKE '%' || #{keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchType == 'both'">-->
-<!--                (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')-->
-<!--            </if>-->
-<!--        </where>-->
     </select>
 
     <!-- 조회수 증가 -->
@@ -149,7 +123,15 @@
 
     <!-- 공지사항 조회 -->
     <select id="findNotice" resultType="QuestionVO">
-        SELECT *
+        SELECT
+            no,
+            category,
+            views,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
         FROM QUESTION
         WHERE category = 10
         ORDER BY no DESC

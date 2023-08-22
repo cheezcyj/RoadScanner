@@ -11,8 +11,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class UploadFile {
 
-    private String uploadFileName;
-    private String storeFileName;
+    private String uploadFilename;
+    private String storeFilename;
     private String url;
 
 }
