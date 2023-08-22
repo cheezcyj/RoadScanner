@@ -40,20 +40,7 @@
                 create_date AS createDate,
                 update_date AS updateDate
                 FROM QUESTION
-<!--        <where>-->
-<!--            <if test="searchCond.searchType == 'title'">-->
-<!--                title LIKE '%' || #{searchCond.keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchCond.searchType == 'content'">-->
-<!--                content LIKE '%' || #{searchCond.keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchCond.searchType == 'both'">-->
-<!--                (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')-->
-<!--            </if>-->
-<!--            <if test="searchCond.category != null">-->
-<!--                AND category = #{searchCond.category}-->
-<!--            </if>-->
-<!--        </where>-->
+
                 WHERE 1=1
                 <if test="searchCond.category != null">
                     AND category = #{searchCond.category}
@@ -111,6 +98,7 @@
 <!--        SELECT count(*) FROM question-->
 <!--    </select>-->
 
+    <!-- 조건에 해당하는 게시글 개수 -->
     <select id="countQuestions" resultType="int">
         SELECT count(*) FROM question
         WHERE 1=1
@@ -137,7 +125,6 @@
 <!--                (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')-->
 <!--            </if>-->
 <!--        </where>-->
-
     </select>
 
     <!-- 조회수 증가 -->
@@ -159,5 +146,14 @@
             )
         WHERE no = #{no}
     </update>
+
+    <!-- 공지사항 조회 -->
+    <select id="findNotice" resultType="QuestionVO">
+        SELECT *
+        FROM QUESTION
+        WHERE category = 10
+        ORDER BY no DESC
+        FETCH FIRST 3 ROWS ONLY
+    </select>
 
 </mapper>

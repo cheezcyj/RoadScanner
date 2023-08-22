@@ -124,33 +124,29 @@
             role="button">글쓰기</a>
     </div>
 
-     <!-- 페이징 -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-               <!-- 이전 페이지 버튼 -->
-               <li class="page-item ${page <= 1 ? 'disabled' : ''}">
-                   <a class="page-link" href="${page > 1 ? '/qna?page='.concat(page - 1).concat('&size=10').concat('&searchType=').concat(searchType).concat('&keyword=').concat(keyword).concat('&category=').concat(category) : '#'}" aria-label="Previous">
-                       <span aria-hidden="true">&laquo;</span>
-                   </a>
-               </li>
-               <!-- 페이지 번호 -->
-               <c:forEach begin="1" end="${totalPages}" var="pageNum">
-                   <li class="page-item ${pageNum == page ? 'active' : ''}">
+    <!-- 페이징 -->
+    <div class="pagination">
+        <!-- 처음과 이전 버튼 -->
+        <a href="?page=1&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">&lt&lt</a>
+        <a href="?page=${page - 1 < 1 ? 1 : page - 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">&lt</a>
 
-                   </li>
-               </c:forEach>
-               <!-- 다음 페이지 버튼 -->
-               <li class="page-item ${page >= totalPages ? 'disabled' : ''}">
-                   <a class="page-link" href="${page < totalPages ? '/qna?page='.concat(page + 1).concat('&size=10').concat('&searchType=').concat(searchType).concat('&keyword=').concat(keyword).concat('&category=').concat(category) : '#'}" aria-label="Next">
-                       <span aria-hidden="true">&raquo;</span>
-                   </a>
-               </li>
-            </ul>
-            <!-- 마지막 페이지 안내 메시지 -->
-            <c:if test="${page == totalPages}">
-                <p class="text-center">마지막 페이지입니다.</p>
-            </c:if>
-        </nav>
+        <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}">
+            <c:choose>
+                <c:when test="${i == page}">
+                    <span>${i}</span> <!-- 현재 페이지 -->
+                </c:when>
+                <c:otherwise>
+                    <a href="?page=${i}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">${i}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <!-- 다음과 마지막 버튼 -->
+        <a href="?page=${page + 1 > pagination.totalPage ? pagination.totalPage : page + 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">&gt</a>
+        <a href="?page=${pagination.totalPage}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">&gt&gt</a>
+    </div>
     <!-- // 페이징 end -->
+
+
 </body>
 </html>

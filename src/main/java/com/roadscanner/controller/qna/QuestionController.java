@@ -32,6 +32,7 @@ public class QuestionController {
                         @RequestParam(defaultValue = "") String searchType,
                         @RequestParam(defaultValue = "") String keyword,
                         @RequestParam(required = false) Integer category) {
+
         // 페이지 번호가 유효한지 확인
         if (page < 1) {
             page = 1;
@@ -42,28 +43,30 @@ public class QuestionController {
         searchCond.setKeyword(keyword);
         searchCond.setCategory(category); // 카테고리 설정
 
-        PaginationDTO pagination = new PaginationDTO(page, size);
-        model.addAttribute("questions", questionService.findAll(pagination, searchCond));
+        int totalQuestions = questionService.countQuestions(searchCond);
+
 //        model.addAttribute("questions", questionService.findAllWithPaging(pagination));
 
-        int totalQuestions = questionService.countQuestions(searchCond);
-        int totalPages = (int) Math.ceil((double) totalQuestions / size);
-
         // 총 페이지 수가 0이면, 페이지 번호도 0으로 설정
-//        if (totalPages == 0) {
-//            page = 0;
-//        }
         if (totalQuestions == 0) {
-            totalPages = 0;
             page = 0;
         }
+
+        PaginationDTO pagination = new PaginationDTO(page, size, totalQuestions);
+
         // 현재 페이지 번호가 총 페이지 수보다 크면, 현재 페이지 번호를 총 페이지 수로 설정
-        else if (page > totalPages) {
-            page = totalPages;
+        if (page > pagination.getTotalPage()) {
+            page = pagination.getTotalPage();
         }
 
-        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("questions", questionService.findAll(pagination, searchCond));
+        model.addAttribute("pagination", pagination);
         model.addAttribute("page", page);
+
+        // 검색 조건 추가
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("category", category);
 
         return "qna/question-index";
     }

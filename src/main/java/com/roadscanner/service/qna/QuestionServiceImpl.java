@@ -27,13 +27,13 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     @Override
     public List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch) {
         List<QuestionVO> questionList = questionDAO.findAll(pagination, questionSearch);
-        List<QuestionListResponseDTO> dto = new ArrayList<>();
+        List<QuestionListResponseDTO> dtoList = new ArrayList<>();
 
         for (QuestionVO question : questionList) {
-            dto.add(new QuestionListResponseDTO(question));
+            dtoList.add(new QuestionListResponseDTO(question));
         }
 
-        return dto;
+        return dtoList;
     }
 
     /**
@@ -101,12 +101,5 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     public void increaseViews(Long no) {
         questionDAO.increaseViews(no);
     }
-
-    // 게시글 분류(category) 변경
-//    @Override
-//    public Long updateCategory(Long no) {
-//        questionDAO.updateCategory(no);
-//        return no;
-//    }
 
 }

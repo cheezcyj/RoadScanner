@@ -18,8 +18,6 @@ public interface QuestionService{
 
     QuestionResponseDTO findByNo(Long no);
 
-//    List<QuestionListResponseDTO> findAll();
-
     Long update(Long no, QuestionUpdateRequestDTO dto);
 
     Long delete(Long no);
@@ -30,8 +28,5 @@ public interface QuestionService{
     int countQuestions(QuestionSearchCond searchCond);
 
     void increaseViews(Long no);
-
-    // 질문글 분류 변경
-//    Long updateCategory(Long no);
 
 }
