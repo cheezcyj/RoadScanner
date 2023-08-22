@@ -43,6 +43,39 @@
 
 
 
+/* ------paging------ */
+.pagination li a {
+        display: block;
+        padding: 5px 10px;
+        background-color: #dcdcdc;
+        border-radius: 3px;
+        text-decoration: none;
+        color: #000; /* 버튼 텍스트 색상 */
+    }
+
+    .pagination li a:hover {
+        background-color: #aaaaaa; /* 마우스 호버 시 배경색 */
+    }
+
+    .pagination li.active a {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .pagination li.disabled a {
+        pointer-events: none;
+        background-color: #f1f1f1;
+        color: #999; /* 비활성 버튼 텍스트 색상 */
+    }
+
+    .pagination li a:focus {
+        background-color: #dcdcdc; /* 포커스 시 배경색 */
+        outline: none;
+    }
+/* ------//paging end------ */
+
+
+
 /* ------question-detail.jsp------ */
 #detailImage {width: 500px;}
 #answer-content {
