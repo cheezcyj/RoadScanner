@@ -65,7 +65,7 @@
     color: white; /* 원하는 글자색으로 변경 */
 }
 .page-item .page-link:hover {
-	color: black;
+    color: black;
 }
 /* ------//paging end------ */
 

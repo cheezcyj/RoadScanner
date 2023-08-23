@@ -1,16 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="/resources/css/qna.css" rel="stylesheet">
-    <title>로드스캐너</title>
-
-    <!-- 부트스트랩 CSS 추가 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<%@include file ="/WEB-INF/views/layout/header.jsp" %>
 <body>
+<%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
     <div class="container mt-4">
         <h1 class="mb-4"><a href="/qna" class="qna-title-link">Q&A 게시판</a></h1>
         <div class="card mb-5">
@@ -170,13 +162,5 @@
                 </div>
             </form>
         </c:if>
-
     </div>
-
-<!-- 부트스트랩 JS 및 Popper.js 추가 -->
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/js/qna.js"></script>
-
-</body>
-</html>
+<%@include file ="/WEB-INF/views/layout/footer.jsp" %>

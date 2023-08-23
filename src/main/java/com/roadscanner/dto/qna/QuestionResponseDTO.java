@@ -1,18 +1,17 @@
 package com.roadscanner.dto.qna;
 
 import com.roadscanner.domain.qna.QuestionVO;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
 
-@Getter
-@Setter
+/**
+ * 상세화면을 정의
+ */
+@Data
 public class QuestionResponseDTO {
-
-    /**
-     * 상세화면을 정의하는 DTO
-     */
 
     private Long no;
     private Integer category;
@@ -22,6 +21,8 @@ public class QuestionResponseDTO {
     private String updateDate;
     private int views;
     private String content;
+    private String originalFilename; // 원본 파일명
+    private String storeFilename; // 서버에 저장되는 파일명
     private String imageUrl;
 
     public QuestionResponseDTO(QuestionVO vo) {
@@ -41,10 +42,13 @@ public class QuestionResponseDTO {
         this.views = vo.getViews();
         this.content = vo.getContent();
 
+        this.originalFilename = vo.getOriginalFilename();
+        this.storeFilename = vo.getStoreFilename();
+
         if (vo.getImageUrl() != null) {
             this.imageUrl = vo.getImageUrl();
         } else {
-            this.imageUrl = null; // 수정일이 없는 경우
+            this.imageUrl = null;
         }
 
     }

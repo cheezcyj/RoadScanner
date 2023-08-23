@@ -32,7 +32,8 @@ public class QuestionController {
                         @RequestParam(defaultValue = "10") int size,
                         @RequestParam(defaultValue = "") String searchType,
                         @RequestParam(defaultValue = "") String keyword,
-                        @RequestParam(required = false) Integer category) {
+                        @RequestParam(required = false) Integer category,
+                        @SessionAttribute("user") MemberVO memberVO) {
 
         QuestionSearchCond searchCond = new QuestionSearchCond();
         searchCond.setSearchType(searchType);
@@ -70,6 +71,9 @@ public class QuestionController {
         // 공지사항 목록을 조회해서 모델에 추가
         List<QuestionListResponseDTO> notice = questionService.findNotice();
         model.addAttribute("notice", notice);
+
+        // user 등급 추가
+        model.addAttribute("user", memberVO);
 
         return "qna/index";
     }

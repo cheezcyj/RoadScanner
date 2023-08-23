@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>로드스캐너 - 게시판</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/qna.css" rel="stylesheet">
-
-</head>
+<%@include file ="/WEB-INF/views/layout/header.jsp" %>
 <body>
+<%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
     <div class="container mt-4">
         <h1 class="mb-4"><a href="/qna/my" class="qna-title-link">내 문의글 보기</a></h1>
 
@@ -19,7 +14,6 @@
                     <div class="col-auto mx-1">
                         <select name="category" id="category" class="form-select" style="border-color:secondary; outline:none; box-shadow:none;">
                             <option value="">전체</option>
-<%--                            <option value="10" ${category == 10 ? 'selected' : ''}>공지</option>--%>
                             <option value="20" ${category == 20 ? 'selected' : ''}>답변완료</option>
                             <option value="30" ${category == 30 ? 'selected' : ''}>답변대기</option>
                         </select>
@@ -89,18 +83,18 @@
                 <!-- 기존 질문 목록 출력 -->
                 <c:forEach items="${questions}" var="question">
                     <c:choose>
-<%--                        <c:when test="${question.category == 10}">--%>
-<%--                            <tr class="table" style="background-color: #F0F0F0;">--%>
-<%--                                <td class="text-center">${question.no}</td>--%>
-<%--                                <td class="text-center">--%>
-<%--                                <span class="badge" style="background-color: #F87217; color: white;">공지</span></td>--%>
-<%--                                <td><a href="/qna/${question.no}"--%>
-<%--                                    class="text-dark qna-link notice-title">${question.title}</a></td>--%>
-<%--                                <td class="text-center">${question.id}</td>--%>
-<%--                                <td class="text-center">${question.createDate}</td>--%>
-<%--                                <td class="text-center">${question.views}</td>--%>
-<%--                            </tr>--%>
-<%--                        </c:when>--%>
+    <%--                        <c:when test="${question.category == 10}">--%>
+    <%--                            <tr class="table" style="background-color: #F0F0F0;">--%>
+    <%--                                <td class="text-center">${question.no}</td>--%>
+    <%--                                <td class="text-center">--%>
+    <%--                                <span class="badge" style="background-color: #F87217; color: white;">공지</span></td>--%>
+    <%--                                <td><a href="/qna/${question.no}"--%>
+    <%--                                    class="text-dark qna-link notice-title">${question.title}</a></td>--%>
+    <%--                                <td class="text-center">${question.id}</td>--%>
+    <%--                                <td class="text-center">${question.createDate}</td>--%>
+    <%--                                <td class="text-center">${question.views}</td>--%>
+    <%--                            </tr>--%>
+    <%--                        </c:when>--%>
                         <c:when test="${question.category != 10}">
                             <tr>
                                 <td class="text-center">${question.no}</td>
@@ -139,12 +133,12 @@
                 <!-- 첫 페이지 및 이전 페이지 링크 -->
                 <li class="page-item ${pagination.page <= 1 ? 'disabled' : ''}">
                     <a class="page-link" href="?page=1&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="First">
-                        &laquo;&laquo;
+                        &laquo;
                     </a>
                 </li>
                 <li class="page-item ${pagination.page <= 1 ? 'disabled' : ''}">
                     <a class="page-link" href="?page=${pagination.page - 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Previous">
-                        &laquo;
+                        &lt;
                     </a>
                 </li>
                 <!-- 페이지 번호 링크 -->
@@ -156,17 +150,16 @@
                 <!-- 다음 페이지 및 마지막 페이지 링크 -->
                 <li class="page-item ${pagination.page >= pagination.totalPage ? 'disabled' : ''}">
                     <a class="page-link" href="?page=${pagination.page + 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Next">
-                        &raquo;
+                        &gt;
                     </a>
                 </li>
                 <li class="page-item ${pagination.page >= pagination.totalPage ? 'disabled' : ''}">
                     <a class="page-link" href="?page=${pagination.totalPage}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Last">
-                        &raquo;&raquo;
+                        &raquo;
                     </a>
                 </li>
             </ul>
         </nav>
         <!-- 페이징 끝 -->
     </div>
-</body>
-</html>
+<%@include file ="/WEB-INF/views/layout/footer.jsp" %>

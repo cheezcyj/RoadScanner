@@ -1,14 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>로드스캐너 - 게시판 등록</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/qna.css" rel="stylesheet">
-</head>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file ="/WEB-INF/views/layout/header.jsp" %>
 <body>
+<%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
     <form class="container mt-4" id="question-form">
         <h1 class="mb-4"><a href="/qna" class="qna-title-link">Q&A 게시판</a></h1>
         <div class="row align-items-center">
@@ -59,8 +53,4 @@
             <button type="submit" id="btn-save" class="btn" value="저장">등록</button>
         </div>
     </form>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/js/qna.js"></script>
-</body>
-</html>
+    <%@include file ="/WEB-INF/views/layout/footer.jsp" %>

@@ -16,6 +16,46 @@ const main = {
                 _this.delete();
             }
         });
+
+        $('#btn-delete-selected').on('click', function () {
+            // console.log('select button clicked');
+            if (confirm('선택한 항목을 삭제하시겠습니까?')) {
+                const checkedItems = $('.delete-checkbox:checked');
+                    const totalItems = checkedItems.length;
+                    let deletedItems = 0;
+
+
+                checkedItems.each(function(index) {
+                    const no = $(this).val();
+                    _this.deleteItem(no, function() {
+                        deletedItems++;
+                        if (deletedItems === totalItems) {
+                            alert('선택한 항목이 삭제되었습니다.');
+                            window.location.reload();
+                        }
+                    });
+                });
+            }
+        });
+
+        $('#select-all').on('click', function() {
+            // #select-all이 체크되면 모든 .delete-checkbox의 상태를 #select-all과 동일하게 설정
+            $('.delete-checkbox').prop('checked', $(this).prop('checked'));
+            showDeleteBtn();
+        });
+
+        $('.delete-checkbox').on('change', function() {
+            showDeleteBtn();
+        });
+
+        // 페이지 로드시 체크박스 선택 상태에 따른 버튼 표시 상태 초기화
+        showDeleteBtn();
+
+        // toggle-notice 버튼에 대한 클릭 이벤트 리스너 추가
+        $('#toggle-notice').on('click', function () {
+            $('.notice-row').toggle();  // 공지사항 섹션의 표시 상태를 토글
+        });
+
     },
 
     save: function () {
@@ -115,6 +155,18 @@ const main = {
             window.location.href = '/qna';
         }).fail(function (error) {
             alert('글 삭제 실패했습니다.');
+            console.error(error);
+        });
+    },
+
+    deleteItem: function (no, callback) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/qna/' + no,
+        }).done(function () {
+            if (callback) callback();
+        }).fail(function (error) {
+            alert('삭제에 실패했습니다.');
             console.error(error);
         });
     }
@@ -290,3 +342,11 @@ function validateForm() {
 
     return true;
 }
+
+function showDeleteBtn() {
+     if ($('.delete-checkbox:checked').length > 0) {
+         $('#btn-delete-selected').show();
+     } else {
+         $('#btn-delete-selected').hide();
+     }
+ }
