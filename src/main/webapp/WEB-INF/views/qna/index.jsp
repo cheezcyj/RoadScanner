@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>로드스캐너 - 게시판</title>
@@ -131,40 +132,44 @@
             role="button">글쓰기</a>
     </div>
 
-    <!-- 페이징 시작 -->
-	<nav aria-label="Page navigation">
-	    <ul class="pagination justify-content-center">
-	        <!-- 첫 페이지 및 이전 페이지 링크 -->
-	        <li class="page-item ${pagination.page <= 1 ? 'disabled' : ''}">
-	            <a class="page-link" href="?page=1&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="First">
-	                &laquo;&laquo;
-	            </a>
-	        </li>
-	        <li class="page-item ${pagination.page <= 1 ? 'disabled' : ''}">
-	            <a class="page-link" href="?page=${pagination.page - 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Previous">
-	                &laquo;
-	            </a>
-	        </li>
-	        <!-- 페이지 번호 링크 -->
-	        <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}">
-	            <li class="page-item ${i == pagination.page ? 'active' : ''}">
-	                <a class="page-link" href="?page=${i}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">${i}</a>
-	            </li>
-	        </c:forEach>
-	        <!-- 다음 페이지 및 마지막 페이지 링크 -->
-	        <li class="page-item ${pagination.page >= pagination.totalPage ? 'disabled' : ''}">
-	            <a class="page-link" href="?page=${pagination.page + 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Next">
-	                &raquo;
-	            </a>
-	        </li>
-	        <li class="page-item ${pagination.page >= pagination.totalPage ? 'disabled' : ''}">
-	            <a class="page-link" href="?page=${pagination.totalPage}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Last">
-	                &raquo;&raquo;
-	            </a>
-	        </li>
-	    </ul>
-	</nav>
-	<!-- 페이징 끝 -->
+<!-- 페이징 시작 -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <!-- 맨 처음 페이지 링크 -->
+        <li class="page-item ${pagination.page <= 1 ? 'disabled' : ''}">
+            <a class="page-link" href="?page=1&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="First">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <!-- 이전 페이지 링크 -->
+        <li class="page-item ${pagination.page <= 1 ? 'disabled' : ''}">
+            <a class="page-link" href="?page=${pagination.page - 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Previous">
+                <span aria-hidden="true">&lsaquo;</span>
+            </a>
+        </li>
+
+        <!-- 페이지 번호 링크 -->
+        <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}">
+            <li class="page-item ${i == pagination.page ? 'active' : ''}">
+                <a class="page-link" href="?page=${i}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}">${i}</a>
+            </li>
+        </c:forEach>
+
+        <!-- 다음 페이지 링크 -->
+        <li class="page-item ${pagination.page >= pagination.totalPage ? 'disabled' : ''}">
+            <a class="page-link" href="?page=${pagination.page + 1}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Next">
+                <span aria-hidden="true">&rsaquo;</span>
+            </a>
+        </li>
+        <!-- 맨 마지막 페이지 링크 -->
+        <li class="page-item ${pagination.page >= pagination.totalPage ? 'disabled' : ''}">
+            <a class="page-link" href="?page=${pagination.totalPage}&size=${pagination.size}&searchType=${searchType}&keyword=${keyword}&category=${category}" aria-label="Last">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- 페이징 끝 -->
 
 </body>
 </html>
