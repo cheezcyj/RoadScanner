@@ -74,6 +74,57 @@ public class QuestionController {
         return "qna/index";
     }
 
+    @GetMapping("/my")
+    public String findMyQuestion(Model model,
+                                 @RequestParam(defaultValue = "1") int page,
+                                 @RequestParam(defaultValue = "10") int size,
+                                 @RequestParam(defaultValue = "") String searchType,
+                                 @RequestParam(defaultValue = "") String keyword,
+                                 @RequestParam(required = false) Integer category,
+                                 @SessionAttribute("user") MemberVO memberVO) {
+
+        QuestionSearchCond searchCond = new QuestionSearchCond();
+
+        searchCond.setSearchType(searchType);
+        searchCond.setKeyword(keyword);
+        searchCond.setCategory(category); // 카테고리 설정
+        searchCond.setId(memberVO.getId());  // user 정보 설정
+
+        int totalQuestions = questionService.countMyQuestions(searchCond);
+
+        // 페이지 번호가 유효한지 확인
+        if (page < 1) {
+            page = 1;
+        }
+
+        // 총 페이지 수가 0이면, 페이지 번호도 0으로 설정
+        if (totalQuestions == 0) {
+            page = 0;
+        }
+
+        PaginationDTO pagination = new PaginationDTO(page, size, totalQuestions);
+
+        // 현재 페이지 번호가 총 페이지 수보다 크면, 현재 페이지 번호를 총 페이지 수로 설정
+        if (page > pagination.getTotalPage()) {
+            page = pagination.getTotalPage();
+        }
+
+        // user 정보 추가
+        String id = memberVO.getId();
+
+        model.addAttribute("questions", questionService.findMyQuestion(id, pagination, searchCond));
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("page", page);
+
+        // 검색 조건 추가
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("category", category);
+
+        return "qna/my-question";
+
+    }
+
 
     /**
      * 로그인 한 유저는 세션에 저장되어 있음.

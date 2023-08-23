@@ -18,11 +18,27 @@ public interface QuestionDAO extends BaseRepository<QuestionVO> {
      * 게시판에 추가로 필요한 메소드명만 정의할 것(예, 조회수, 검색)
      */
 
-    int countQuestions(QuestionSearchCond searchCond); // 전체 게시글 수 반환
 
-    void increaseViews(Long no); // 조회수 증가 메서드
+    /**
+     * 전체 게시글 수 반환
+     * @param searchCond
+     */
+    int countQuestions(QuestionSearchCond searchCond);
 
-    void updateCategory(Long no);  // 질문글 분류 변경
+
+    /**
+     * 조회수 증가
+     * @param no
+     */
+    void increaseViews(Long no);
+
+
+    /**
+     * 질문글 분류 변경
+     * @param no
+     */
+    void updateCategory(Long no);
+
 
     /**
      * 페이징과 검색 조건을 적용하여 데이터 조회
@@ -31,11 +47,28 @@ public interface QuestionDAO extends BaseRepository<QuestionVO> {
      */
     List<QuestionVO> findAll(@Param("pagination") PaginationDTO pagination, @Param("searchCond") QuestionSearchCond searchCond);
 
+
     /**
      * 공지사항 조회
-     * @param
      * @return
      */
     List<QuestionVO> findNotice();
+
+    /**
+     * 내 글 보기
+     * @param id
+     * @param pagination
+     * @param searchCond
+     * @return
+     */
+    List<QuestionVO> findMyQuestion(@Param("id") String id, @Param("pagination") PaginationDTO pagination, @Param("searchCond") QuestionSearchCond searchCond);
+
+    /**
+     * 내 글 개수 세기
+     * @param searchCond
+     * @return
+     */
+    int countMyQuestions(QuestionSearchCond searchCond);
+
 
 }

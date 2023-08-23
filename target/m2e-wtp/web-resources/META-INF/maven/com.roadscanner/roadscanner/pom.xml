@@ -332,7 +332,22 @@
 			<version>4.5.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- 서버 측 유효성 검증을 위한 추가 Bean Validation -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.5.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

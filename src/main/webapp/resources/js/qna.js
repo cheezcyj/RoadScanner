@@ -19,6 +19,8 @@ const main = {
     },
 
     save: function () {
+        if (!validateForm()) return; // 검증 실패 시 함수 종료
+
         const data = new FormData();
         data.append('category', $('#category').val());
         data.append('id', $('#id').val());
@@ -29,7 +31,7 @@ const main = {
         if (file) { // 파일이 존재하는 경우에만 추가
             data.append('attachFile', file);
         }
-
+        
         $.ajax({
             type: 'POST',
             enctype: 'multipart/form-data', // 이 부분 추가
@@ -41,12 +43,34 @@ const main = {
             alert('글이 등록되었습니다.');
             window.location.href = '/qna';
         }).fail(function (error) {
+            const errors = error.responseJSON; // 서버에서 전달된 에러메시지
             alert("등록 실패했습니다.");
-            console.error(error);
-        });
+            // 제목 오류 메시지 처리
+
+            if (errors.title) { // 'error'가 아닌 'errors'를 사용
+                $('#title').addClass('field-error'); // input 필드에 클래스 추가
+                $('#title-error').text(errors.title).addClass('field-error');
+            }
+
+            // 내용 오류 메시지 처리
+            if (errors.content) {
+                $('#content').addClass('field-error');
+                $('#content-error').text(errors.content).addClass('field-error');
+            }
+
+            // 이미지 파일 오류 메시지 처리
+            if (errors.attachFile) {
+                $('#attachFile').addClass('field-error');
+                $('#attachFile-error').text(errors.attachFile).addClass('field-error');
+            }
+        })
+        console.error(error);
     },
 
     update : function () {
+
+        if (!validateForm()) return; // 검증 실패 시 함수 종료
+
         const data = new FormData();
         data.append('no', $('#no').val());
         data.append('category', $('#category').val());
@@ -73,7 +97,10 @@ const main = {
             window.location.href = '/qna/' + no; // 수정된 페이지로 리다이렉트
         }).fail(function (error) {
             alert("수정 실패했습니다.");
-            alert(JSON.stringify(error));
+            const responseJSON = JSON.parse(error.responseText);
+            responseJSON.forEach(function (errorMessage) {
+                alert(errorMessage);
+            });
         });
     },
 
@@ -219,3 +246,47 @@ const answer = {
 // 초기화 함수 호출
 // main.init();
 answer.init();
+
+function validateForm() {
+    // 제목 길이 검증
+    const title = $('#title').val();
+    if (title.length > 15) {
+        alert('제목은 15글자 이하여야 합니다.');
+        $('#title').focus(); // 제목 입력 필드에 포커스
+        return false;
+    }
+
+    // 제목과 내용이 비어있는지 검증
+    const content = $('#content').val();
+    if (!title) {
+        alert('제목은 필수입니다.');
+        $('#title').focus(); // 제목 입력 필드에 포커스
+        return false;
+    }
+
+    if (!content) {
+        alert('내용은 필수입니다.');
+        $('#content').focus(); // 내용 입력 필드에 포커스
+        return false;
+    }
+
+    // 이미지 파일 검증
+    const file = $('#attachFile')[0].files[0];
+    if (file) {
+        if (!file.type.match('image.*')) {
+            alert('유효한 이미지 파일만 업로드할 수 있습니다.');
+            $('#attachFile').focus(); // 파일 입력 필드에 포커스
+            return false;
+        }
+
+        // 파일 크기 검증 (5MB 이하)
+        const fileSizeMB = file.size / (1024 * 1024);
+        if (fileSizeMB > 5) {
+            alert('파일 크기는 5MB 이하여야 합니다.');
+            $('#attachFile').focus(); // 파일 입력 필드에 포커스
+            return false;
+        }
+    }
+
+    return true;
+}

@@ -25,6 +25,24 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     private final QuestionDAO questionDAO;
 
     @Override
+    public List<QuestionListResponseDTO> findMyQuestion(String id, PaginationDTO pagination, QuestionSearchCond searchCond) {
+        List<QuestionVO> questionList = questionDAO.findMyQuestion(id, pagination, searchCond);
+        List<QuestionListResponseDTO> dtoList = new ArrayList<>();
+
+        for (QuestionVO question : questionList) {
+            dtoList.add(new QuestionListResponseDTO(question));
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public int countMyQuestions(QuestionSearchCond searchCond) {
+            return questionDAO.countMyQuestions(searchCond);
+
+    }
+
+    @Override
     public List<QuestionListResponseDTO> findNotice() {
         List<QuestionVO> questionNoticeList = questionDAO.findNotice();
         List<QuestionListResponseDTO> dtoList = new ArrayList<>();

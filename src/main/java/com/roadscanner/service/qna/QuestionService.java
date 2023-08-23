@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface QuestionService {
 
+    List<QuestionListResponseDTO> findMyQuestion(String id, PaginationDTO pagination, QuestionSearchCond searchCond);
+
+    int countMyQuestions(QuestionSearchCond searchCond);
+
     List<QuestionListResponseDTO> findNotice();
 
     List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch);
@@ -16,14 +20,9 @@ public interface QuestionService {
 
     QuestionResponseDTO findByNo(Long no);
 
-//    List<QuestionListResponseDTO> findAll();
-
     Long update(Long no, QuestionUpdateRequestDTO dto) throws IOException;
 
     Long delete(Long no);
-
-    // 안녕하세요. 저는 페이징을 위해 태어났어요.
-//    List<QuestionListResponseDTO> findAllWithPaging(PaginationDTO pagination);
 
     int countQuestions(QuestionSearchCond searchCond);
 
