@@ -1,5 +1,5 @@
 # Project - RoadScanner
-![cheese-istock](https://github.com/cheezcyj/F1_JAGUP/assets/133944035/28a895e0-aee6-4238-bf37-200866abd3a9)
+![car](https://github.com/cheezcyj/F1_JAGUP/assets/133944035/7568a3ef-0e0f-4242-a8a1-42c500531d23)
 
 ## 목록
 > * 프로젝트 개요
@@ -16,14 +16,14 @@
 |프로젝트 목표|ㅇ|
 
 ## 프로젝트 기획
-[기획서](https://google.com, "google link")
-[회의록](https://google.com, "google link")
+* [기획서](https://google.com, "google link")
+* [회의록](https://google.com, "google link")
 
 ## 프로젝트 설계
-[WBS](https://google.com, "google link")
-[요구사항 정의서](https://google.com, "google link")
-[ERD](https://google.com, "google link")
-[화면 설계서](https://google.com, "google link")
+* [WBS](https://google.com, "google link")
+* [요구사항 정의서](https://google.com, "google link")
+* [ERD](https://google.com, "google link")
+* [화면 설계서](https://google.com, "google link")
 
 ## 기능 시연
 * 메인페이지
