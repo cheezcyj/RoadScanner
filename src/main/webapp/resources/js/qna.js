@@ -24,7 +24,6 @@ const main = {
                     const totalItems = checkedItems.length;
                     let deletedItems = 0;
 
-
                 checkedItems.each(function(index) {
                     const no = $(this).val();
                     _this.deleteItem(no, function() {
@@ -51,11 +50,26 @@ const main = {
         // 페이지 로드시 체크박스 선택 상태에 따른 버튼 표시 상태 초기화
         showDeleteBtn();
 
-        // toggle-notice 버튼에 대한 클릭 이벤트 리스너 추가
-        $('#toggle-notice').on('click', function () {
-            $('.notice-row').toggle();  // 공지사항 섹션의 표시 상태를 토글
+        $('#btn-toggle-notice').on('click', function () {
+            $('.notice-row').toggle(); // 공지 테이블의 표시/숨김을 전환
+
+            const isNoticeVisible = $('.notice-row').is(':visible');
+
+            // 로컬 스토리지에 토글 상태를 저장(테이블이 표시되면 'show', 숨겨지면 'hide')
+            sessionStorage.setItem('notice-toggle', isNoticeVisible ? 'show' : 'hide');
+
+            // 버튼의 텍스트를 변경. 테이블이 표시되면 '공지감추기', 숨겨지면 '공지보이기'
+            $(this).text(isNoticeVisible ? '공지 숨기기' : '공지 보기');
         });
 
+        // 페이지가 로드될 때 세션 스토리지에서 토글 상태를 불러와 설정
+        const toggleStatus = sessionStorage.getItem('notice-toggle');
+        if (toggleStatus === 'hide') {
+            $('.notice-row').hide();
+            $('#btn-toggle-notice').text('공지 보기'); // 페이지 로딩 시 버튼의 텍스트를 맞게 설정
+        } else {
+            $('#btn-toggle-notice').text('공지 숨기기'); // 페이지 로딩 시 버튼의 텍스트를 맞게 설정
+        }
     },
 
     save: function () {

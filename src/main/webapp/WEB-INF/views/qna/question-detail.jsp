@@ -36,9 +36,9 @@
             </div>
 
 
-            <!-- 로그인한 id와 question의 id값이 같을 때만 수정/삭제 버튼 보이기 -->
+            <!-- 로그인한 id와 question의 id값이 같고, 답변완료 상태가 아닐 때만 수정/삭제 버튼 보이기 -->
             <c:choose>
-                <c:when test="${user.id == question.id}">
+                <c:when test="${user.id == question.id && question.category != 20}">
                     <div class="row mx-2 mb-2">
                         <div class="col-auto">
 		                    <a href="/qna/update/${question.no}" class="btn" id="btn-mod">수정</a>

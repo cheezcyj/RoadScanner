@@ -13,10 +13,18 @@
                 </c:otherwise>
             </c:choose>
 
+        <!-- 필터링 조건이 존재하는지 확인하는 변수 -->
+        <c:set var="isFiltered" value="${category != null or searchType != '' or keyword != ''}" />
+
         <form class="mb-3" name="searchFrm" action="/qna" method="get">
             <div class="row g-1 d-flex justify-content-between mt-3 mb-3">
-                <div class="col-auto flex-fill justify-content-end d-flex">
-
+                <!-- 공지 버튼 추가 -->
+                <div class="col-auto d-flex align-items-start">
+                    <c:if test="${!isFiltered and user.grade != 2}">
+                        <button id="btn-toggle-notice" type="button" class="btn btn-outline-secondary">공지 보기</button>
+                    </c:if>
+                </div>
+                <div class="col-auto flex-fill d-flex justify-content-end">
                     <!-- 분류 셀렉트 박스 -->
                     <div class="col-auto mx-1">
                         <select name="category" id="category" class="form-select">
@@ -26,8 +34,6 @@
                             <option value="30" ${category == 30 ? 'selected' : ''}>답변대기</option>
                         </select>
                     </div>
-
-                    <!-- 검색 박스와 글쓰기 버튼을 포함한 레이아웃 -->
                     <!-- 검색 셀렉트 박스 (오른쪽 정렬) -->
                     <div class="col-auto">
                         <select name="searchType" class="form-select">
@@ -36,17 +42,14 @@
                             <option value="both" ${searchType == 'both' ? 'selected' : ''}>제목+내용</option>
                         </select>
                     </div>
-
                     <!-- 검색 박스 (우측 마진 추가) -->
                     <div class="col-auto mx-1">
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1">
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <span class="input-group-text" id="basic-addon1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-                            </svg>
-                            </span>
+                        </svg>
+                    </span>
                             <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
                         </div>
                     </div>
@@ -57,8 +60,7 @@
             </div>
         </form>
 
-
-       <table class="table table-hover">
+        <table class="table table-hover">
            <thead class="table-group-divider">
                <tr>
                    <!-- 체크박스 컬럼 추가 (관리자만 보이게) -->
@@ -74,15 +76,9 @@
                </tr>
             </thead>
 
-           <!-- 필터링 조건이 존재하는지 확인하는 변수 -->
-           <c:set var="isFiltered" value="${category != null or searchType != '' or keyword != ''}" />
-
             <tbody class="table-group-divider">
                 <!-- 공지사항 출력 -->
                 <c:if test="${!isFiltered and user.grade != 2}">
-                    <div class="mb-3">
-                        <button id="toggle-notice" class="btn btn-outline-secondary my-1">공지</button>
-                    </div>
                     <c:forEach items="${notice}" var="notice">
                         <tr class="table notice-row" id="gongTable">
                             <td class="text-center">${notice.no}</td>
@@ -110,7 +106,7 @@
                                 <span class="badge" id="gong">공지</span></td>
                                 <td><a href="/qna/${question.no}"
                                     class="text-dark qna-link notice-title">${question.title}</a></td>
-                                <td class="text-center">${question.id}</td>
+                                <td class="text-center author-column">${question.id}</td>
                                 <td class="text-center">${question.createDate}</td>
                                 <td class="text-center">${question.views}</td>
                             </tr>
@@ -134,7 +130,7 @@
                                     </c:choose>
                                 </td>
                                 <td><a href="/qna/${question.no}" class="text-dark qna-link">${question.title}</a></td>
-                                <td class="text-center">${question.id}</td>
+                                <td class="text-center author-column">${question.id}</td>
                                 <td class="text-center">${question.createDate}</td>
                                 <td class="text-center">${question.views}</td>
                             </tr>
