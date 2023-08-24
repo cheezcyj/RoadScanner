@@ -2,7 +2,6 @@
     text-decoration: none;
     color: inherit;
 }
-
 .qna-title-link:hover {
     color: inherit;
 }
@@ -11,10 +10,10 @@
 
 /* ------index.jsp------ */
 .qna-link {
-    text-decoration: none; /* ì–¸ë”ë¼ì¸ ì œê±° */
+    text-decoration: none; /* ¾ğ´õ¶óÀÎ Á¦°Å */
 }
 .notice-title {
-    font-weight: bold; /* ê³µì§€ ì œëª© êµµê²Œ í‘œì‹œ */
+    font-weight: bold; /* °øÁö Á¦¸ñ ±½°Ô Ç¥½Ã */
 }
 #category {
     border-color:secondary;
@@ -47,22 +46,22 @@
 .page-link {
     color: black;
 }
-.page-link:focus { /* ë²„íŠ¼  íŒŒë€í…Œë‘ë¦¬ ì”ìƒ ì œê±° */
+.page-link:focus { /* ¹öÆ°  ÆÄ¶õÅ×µÎ¸® ÀÜ»ó Á¦°Å */
     box-shadow: none;
     outline: none;
 }
 .page-item.active .page-link {
-    background-color: #6c757d; /* ì›í•˜ëŠ” ë°°ê²½ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
-    border-color: #6c757d; /* ì›í•˜ëŠ” í…Œë‘ë¦¬ ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
-    color: white; /* ì›í•˜ëŠ” ê¸€ììƒ‰ìœ¼ë¡œ ë³€ê²½ */
+    background-color: #6c757d; /* ¿øÇÏ´Â ¹è°æ»öÀ¸·Î º¯°æ */
+    border-color: #6c757d; /* ¿øÇÏ´Â Å×µÎ¸® »öÀ¸·Î º¯°æ */
+    color: white; /* ¿øÇÏ´Â ±ÛÀÚ»öÀ¸·Î º¯°æ */
 }
-.page-item.disabled .page-link {/* ë¹„í™œì„±í™”ëœ í˜ì´ì§€ ë„˜ê¸°ëŠ” ë²„íŠ¼ ë°°ê²½ìƒ‰ ë³€ê²½ */
-    background-color: #dcdcdc; /* ì›í•˜ëŠ” ë°°ê²½ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
-    border-color: #dcdcdc; /* ì›í•˜ëŠ” í…Œë‘ë¦¬ ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
-    color: #6c757d; /* ì›í•˜ëŠ” ê¸€ììƒ‰ìœ¼ë¡œ ë³€ê²½ */
+.page-item.disabled .page-link {/* ºñÈ°¼ºÈ­µÈ ÆäÀÌÁö ³Ñ±â´Â ¹öÆ° ¹è°æ»ö º¯°æ */
+    background-color: #dcdcdc; /* ¿øÇÏ´Â ¹è°æ»öÀ¸·Î º¯°æ */
+    border-color: #dcdcdc; /* ¿øÇÏ´Â Å×µÎ¸® »öÀ¸·Î º¯°æ */
+    color: #6c757d; /* ¿øÇÏ´Â ±ÛÀÚ»öÀ¸·Î º¯°æ */
 }
 .page-item.active .page-link:hover {
-    color: white; /* ì›í•˜ëŠ” ê¸€ììƒ‰ìœ¼ë¡œ ë³€ê²½ */
+    color: white; /* ¿øÇÏ´Â ±ÛÀÚ»öÀ¸·Î º¯°æ */
 }
 .page-item .page-link:hover {
     color: black;
@@ -110,6 +109,34 @@
 #attachFile {
     outline:none;
     box-shadow:none;
+}
+#fileText {
+	outline:none;
+    box-shadow:none;
+}
+#fileText:active, #fileText:focus {
+	outline:none;
+    box-shadow:none;
+    border-color:#ced4da;
+}
+#btn-select-file {
+	background-color: #DCDCDC;
+	color: #6c757d;
+	border-color: #c2c2c2;
+}
+#btn-select-file:hover {
+	background-color: #6c757d;
+	color: white;
+	border-color: #c2c2c2;
+}
+#btn-remove-file {
+	color: #6c757d;
+	border-color: #c2c2c2;
+}
+#btn-remove-file:hover {
+	background-color: #DCDCDC;
+	color: #6c757d;
+	border-color: #c2c2c2;
 }
 #content {
     outline:none;
