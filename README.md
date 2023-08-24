@@ -16,14 +16,21 @@
 |프로젝트 목표|ㅇ|
 
 ## 프로젝트 기획
-* [기획서](https://google.com, "google link")
-* [회의록](https://google.com, "google link")
+* 기획서
+  * [기획서 파일](, "기획서 파일")
+* 회의록
+  * [회의록 링크]([https://google.com](https://www.notion.so/47559501780c4ab7b9de468d675a032a?pvs=4), "회의록 링크")
 
 ## 프로젝트 설계
-* [WBS](https://google.com, "google link")
-* [요구사항 정의서](https://google.com, "google link")
-* [ERD](https://google.com, "google link")
-* [화면 설계서](https://google.com, "google link")
+* WBS
+  * [WBS 링크](https://docs.google.com/spreadsheets/d/1cpfKCO8qN1pHOQxYhH9kp7lFHN3XtHpGI-8TpyfH49Y/edit#gid=1288148872, "WBS 링크")
+  * [WBS 파일](, "WBS 파일")
+* 요구사항 정의서
+  * [요구사항 정의서 파일](https://google.com, "요구사항 정의서 파일")
+* ERD
+  * [ERD 링크](https://google.com, "ERD cloud 링크")
+* 화면 설계서
+  * [화면 설계서 파일](https://google.com, "화면 설계서 파일")
 
 ## 기능 시연
 * 메인페이지
