@@ -17,20 +17,25 @@
 
 ## 프로젝트 기획
 * 기획서
-  * [기획서 파일](, "기획서 파일")
+  * [기획서 파일](, "기획서 파일X")
+
 * 회의록
-  * [회의록 링크]([https://google.com](https://www.notion.so/47559501780c4ab7b9de468d675a032a?pvs=4), "회의록 링크")
+  * [회의록 링크](https://www.notion.so/47559501780c4ab7b9de468d675a032a?pvs=4, "회의록 링크")
 
 ## 프로젝트 설계
 * WBS
   * [WBS 링크](https://docs.google.com/spreadsheets/d/1cpfKCO8qN1pHOQxYhH9kp7lFHN3XtHpGI-8TpyfH49Y/edit#gid=1288148872, "WBS 링크")
-  * [WBS 파일](, "WBS 파일")
+  * [WBS 파일](, "WBS 파일X")
+
 * 요구사항 정의서
-  * [요구사항 정의서 파일](https://google.com, "요구사항 정의서 파일")
+  * [요구사항 정의서 링크](https://www.notion.so/99cb4358beac4124a001dd01fe16bb2f?v=95fe5a76e3cb4770adc62192141ca265&pvs=4, "요구사항 정의서 링크")
+
 * ERD
-  * [ERD 링크](https://google.com, "ERD cloud 링크")
+  * [ERD 링크](, "ERD cloud 링크X")
+![image](https://github.com/cheezcyj/F1_JAGUP/assets/133944035/9b7faeb3-82eb-44b0-861f-d9f37f94e7be)
+
 * 화면 설계서
-  * [화면 설계서 파일](https://google.com, "화면 설계서 파일")
+  * [화면 설계서 파일](, "화면 설계서 파일X")
 
 ## 기능 시연
 * 메인페이지
