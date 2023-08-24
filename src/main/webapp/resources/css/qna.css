@@ -1,6 +1,127 @@
+.qna-title-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.qna-title-link:hover {
+    color: inherit;
+}
+    
+
+
+/* ------index.jsp------ */
 .qna-link {
     text-decoration: none; /* 언더라인 제거 */
 }
 .notice-title {
     font-weight: bold; /* 공지 제목 굵게 표시 */
 }
+#category {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#searchType {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#keyword {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+.table-group-divider {border-color: #DCDCDC;}
+#gongTable {background-color: #F0F0F0;}
+#gong {background-color: #F87217;}
+#wan {background-color: #024089;}
+#dae {
+    background-color: #E0EAF5;
+    color: black;
+}
+/* ------//index.jsp end------ */
+
+
+
+/* ------paging------ */   
+.page-link {
+    color: black;
+}
+.page-link:focus { /* 버튼  파란테두리 잔상 제거 */
+    box-shadow: none;
+    outline: none;
+}
+.page-item.active .page-link {
+    background-color: #6c757d; /* 원하는 배경색으로 변경 */
+    border-color: #6c757d; /* 원하는 테두리 색으로 변경 */
+    color: white; /* 원하는 글자색으로 변경 */
+}
+.page-item.disabled .page-link {/* 비활성화된 페이지 넘기는 버튼 배경색 변경 */
+    background-color: #dcdcdc; /* 원하는 배경색으로 변경 */
+    border-color: #dcdcdc; /* 원하는 테두리 색으로 변경 */
+    color: #6c757d; /* 원하는 글자색으로 변경 */
+}
+.page-item.active .page-link:hover {
+    color: white; /* 원하는 글자색으로 변경 */
+}
+.page-item .page-link:hover {
+    color: black;
+}
+/* ------//paging end------ */
+
+
+
+/* ------question-detail.jsp------ */
+#detailImage {width: 500px;}
+.card-image {
+    max-width: 100%;
+    height: auto;
+}
+#answer-content {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#answer-update-content {
+    border-color:secondary;
+    outline:none;
+    box-shadow:none;
+}
+#href {
+    text-decoration: none;
+    color: inherit;
+}
+#btn-mod {background-color: #DCDCDC;}
+#btn-delete {background-color: #DCDCDC;}
+#btn-answer-update-form {background-color: #DCDCDC;}
+#btn-answer-delete {background-color: #DCDCDC;}
+#btn-answer-save {background-color: #DCDCDC;}
+#btn-answer-cancel {background-color: #DCDCDC;}
+#btn-answer-updated {background-color: #DCDCDC;}
+/* ------//question-detail.jsp end------ */
+
+
+
+/* ------question-save,update.jsp------ */
+#title {
+    outline:none;
+    box-shadow:none;
+}
+#attachFile {
+    outline:none;
+    box-shadow:none;
+}
+#content {
+    outline:none;
+    box-shadow:none;
+}
+#btn-save {
+    background-color: #024089;
+    color: white;
+    outline:none;
+}
+#btn-update {
+    background-color: #024089;
+    color:white;
+}
+/* ------//question-save,update.jsp end------ */

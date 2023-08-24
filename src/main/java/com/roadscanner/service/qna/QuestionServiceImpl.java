@@ -25,15 +25,45 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     private final QuestionDAO questionDAO;
 
     @Override
-    public List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch) {
-        List<QuestionVO> questionList = questionDAO.findAll(pagination, questionSearch);
-        List<QuestionListResponseDTO> dto = new ArrayList<>();
+    public List<QuestionListResponseDTO> findMyQuestion(String id, PaginationDTO pagination, QuestionSearchCond searchCond) {
+        List<QuestionVO> questionList = questionDAO.findMyQuestion(id, pagination, searchCond);
+        List<QuestionListResponseDTO> dtoList = new ArrayList<>();
 
         for (QuestionVO question : questionList) {
-            dto.add(new QuestionListResponseDTO(question));
+            dtoList.add(new QuestionListResponseDTO(question));
         }
 
-        return dto;
+        return dtoList;
+    }
+
+    @Override
+    public int countMyQuestions(QuestionSearchCond searchCond) {
+            return questionDAO.countMyQuestions(searchCond);
+
+    }
+
+    @Override
+    public List<QuestionListResponseDTO> findNotice() {
+        List<QuestionVO> questionNoticeList = questionDAO.findNotice();
+        List<QuestionListResponseDTO> dtoList = new ArrayList<>();
+
+        for (QuestionVO question : questionNoticeList) {
+            dtoList.add(new QuestionListResponseDTO(question));
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch) {
+        List<QuestionVO> questionList = questionDAO.findAll(pagination, questionSearch);
+        List<QuestionListResponseDTO> dtoList = new ArrayList<>();
+
+        for (QuestionVO question : questionList) {
+            dtoList.add(new QuestionListResponseDTO(question));
+        }
+
+        return dtoList;
     }
 
     /**
@@ -60,8 +90,8 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
         vo.setContent(request.getContent());
 
         if (attachFile != null) {
-            vo.setOriginalFilename(attachFile.getUploadFileName());
-            vo.setStoreFilename(attachFile.getStoreFileName());
+            vo.setOriginalFilename(attachFile.getUploadFilename());
+            vo.setStoreFilename(attachFile.getStoreFilename());
             vo.setImageUrl(attachFile.getUrl());
         }
 
@@ -80,12 +110,37 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     }
 
     @Override
-    public Long update(Long no, QuestionUpdateRequestDTO dto) {
-        // findById 메서드를 완성 시켜야함 단건 조회후 수정
-        QuestionVO vo = questionDAO.findByNo(no);
-        questionDAO.update(vo);
+    @Transactional
+    public Long update(Long no, QuestionUpdateRequestDTO request) throws IOException {
+
+        QuestionVO question = questionDAO.findByNo(no);
+
+        LOG.debug("데이터베이스에 있던 게시글 ={}", question);
+
+        if (request.isFileChanged()) {
+            fileStore.deleteFile(question.getStoreFilename());
+            if (request.getAttachFile() == null) {
+                question.setOriginalFilename(null);
+                question.setStoreFilename(null);
+                question.setImageUrl(null);
+            } else if (request.getAttachFile() != null && !request.getAttachFile().isEmpty()) {
+                UploadFile attachFile;
+                attachFile = fileStore.storeFile(request.getAttachFile());
+                question.setOriginalFilename(attachFile.getUploadFilename());
+                question.setStoreFilename(attachFile.getStoreFilename());
+                question.setImageUrl(attachFile.getUrl());
+            }
+        }
+
+        LOG.debug("사용자 요청={}", request);
+        // 제목 및 내용 수정
+        question.setTitle(request.getTitle());
+        question.setContent(request.getContent());
+        LOG.debug("데이터베이스에 수정될 내용={}", question);
+        questionDAO.update(question);
         return no;
     }
+
     @Override
     public Long delete(Long no) {
         questionDAO.delete(no);
@@ -101,12 +156,5 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     public void increaseViews(Long no) {
         questionDAO.increaseViews(no);
     }
-
-    // 게시글 분류(category) 변경
-//    @Override
-//    public Long updateCategory(Long no) {
-//        questionDAO.updateCategory(no);
-//        return no;
-//    }
 
 }

@@ -7,7 +7,7 @@
         insert into QUESTION(category, id, title, content, original_filename, store_filename, image_url)
         VALUES (#{category}, #{id}, #{title}, #{content}, #{originalFilename}, #{storeFilename}, #{imageUrl})
     </insert>
-
+    
     <!-- no로 질문 조회 오라클 O-->
     <select id="findByNo" resultType="QuestionVO">
         SELECT
@@ -19,18 +19,21 @@
             content,
             create_date AS createDate,
             update_date AS updateDate,
+            original_filename AS originalFilename,
+            store_filename AS storeFilename,
             image_url AS imageUrl
         FROM QUESTION
         WHERE no = #{no}
     </select>
 
+
     <!-- 모든 질문 조회 -->
     <select id="findAll" resultType="QuestionVO">
-        SELECT *
+    SELECT *
+    FROM (
+        SELECT a.*, rownum rnum
         FROM (
-            SELECT a.*, rownum rnum
-            FROM (
-                SELECT
+            SELECT
                 no,
                 category,
                 views,
@@ -39,82 +42,64 @@
                 content,
                 create_date AS createDate,
                 update_date AS updateDate
-                FROM QUESTION
-<!--        <where>-->
-<!--            <if test="searchCond.searchType == 'title'">-->
-<!--                title LIKE '%' || #{searchCond.keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchCond.searchType == 'content'">-->
-<!--                content LIKE '%' || #{searchCond.keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchCond.searchType == 'both'">-->
-<!--                (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')-->
-<!--            </if>-->
-<!--            <if test="searchCond.category != null">-->
-<!--                AND category = #{searchCond.category}-->
-<!--            </if>-->
-<!--        </where>-->
-                WHERE 1=1
-                <if test="searchCond.category != null">
-                    AND category = #{searchCond.category}
-                </if>
-                <if test="searchCond.searchType == 'title' and searchCond.keyword != null">
-                    AND title LIKE '%' || #{searchCond.keyword} || '%'
-                </if>
-                <if test="searchCond.searchType == 'content' and searchCond.keyword != null">
-                    AND content LIKE '%' || #{searchCond.keyword} || '%'
-                </if>
-                <if test="searchCond.searchType == 'both' and searchCond.keyword != null">
-                    AND (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')
-                </if>
-                ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC
-            ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
-        ) WHERE rnum &gt; #{pagination.start}
+            FROM QUESTION
+
+            WHERE 1=1
+
+            <if test="searchCond.category == null">
+                AND category != 10
+            </if>
+            <if test="searchCond.category != null">
+                AND category = #{searchCond.category}
+            </if>
+            <if test="searchCond.searchType == 'title' and searchCond.keyword != null">
+                AND title LIKE '%' || #{searchCond.keyword} || '%'
+            </if>
+            <if test="searchCond.searchType == 'content' and searchCond.keyword != null">
+                AND content LIKE '%' || #{searchCond.keyword} || '%'
+            </if>
+            <if test="searchCond.searchType == 'both' and searchCond.keyword != null">
+                AND (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')
+            </if>
+
+            ORDER BY no DESC
+        ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
+    ) WHERE rnum &gt; #{pagination.start}
     </select>
+
 
     <!-- 질문 업데이트 -->
     <update id="update">
         UPDATE QUESTION
         SET
             category = #{category},
---             image_url = #{imageURL},
             title = #{title},
             content = #{content},
-            update_date = CURRENT_TIMESTAMP
+            update_date = CURRENT_TIMESTAMP,
+            image_url = #{imageUrl},
+            original_filename = #{originalFilename},
+            store_filename = #{storeFilename}
         WHERE no = #{no}
     </update>
+
 
     <!-- 질문 삭제 -->
     <delete id="delete">
         DELETE FROM QUESTION WHERE no = #{no}
     </delete>
 
-    <!-- 페이징 구현 -->
-<!--    <select id="findAllWithPaging" resultType="QuestionVO">-->
-<!--        SELECT *-->
-<!--        FROM (SELECT a.*, rownum rnum-->
-<!--              FROM (SELECT-->
-<!--                        no,-->
-<!--                        category,-->
-<!--                        views,-->
-<!--                        title,-->
-<!--                        id,-->
-<!--                        create_date AS createDate,-->
-<!--                        update_date AS updateDate-->
-<!--                    FROM QUESTION-->
-<!--                    ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC-->
-<!--                   ) a WHERE rownum &lt;= #{start} + #{size}-->
-<!--             ) WHERE rnum &gt; #{start}-->
-<!--    </select>-->
 
-<!--    <select id="countQuestions" resultType="int">-->
-<!--        SELECT count(*) FROM question-->
-<!--    </select>-->
-
+    <!-- 조건에 해당하는 게시글 개수 -->
     <select id="countQuestions" resultType="int">
         SELECT count(*) FROM question
         WHERE 1=1
+        <if test="category == null">
+            AND category != 10
+        </if>
         <if test="category != null">
+            <if test="category != 10">
+                AND category != 10
+            </if>
             AND category = #{category}
         </if>
         <if test="searchType == 'title' and keyword != null">
@@ -126,19 +111,9 @@
         <if test="searchType == 'both' and keyword != null">
             AND (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')
         </if>
-<!--        <where>-->
-<!--            <if test="searchType == 'title'">-->
-<!--                title LIKE '%' || #{keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchType == 'content'">-->
-<!--                content LIKE '%' || #{keyword} || '%'-->
-<!--            </if>-->
-<!--            <if test="searchType == 'both'">-->
-<!--                (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')-->
-<!--            </if>-->
-<!--        </where>-->
-
     </select>
+
+
 
     <!-- 조회수 증가 -->
     <update id="increaseViews">
@@ -146,6 +121,7 @@
         SET views = views + 1
         WHERE no = #{no}
     </update>
+
 
     <!-- 답변 등록 시 카테고리 변경 -->
     <update id="updateCategory">
@@ -159,5 +135,85 @@
             )
         WHERE no = #{no}
     </update>
+
+
+    <!-- 공지사항 조회 -->
+    <select id="findNotice" resultType="QuestionVO">
+        SELECT
+            no,
+            category,
+            views,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
+        FROM QUESTION
+        WHERE category = 10
+        ORDER BY no DESC
+        FETCH FIRST 3 ROWS ONLY
+    </select>
+
+    <!-- 내 글 보기 -->
+    <select id="findMyQuestion" resultType="QuestionVO">
+        SELECT *
+        FROM (
+            SELECT a.*, rownum rnum
+            FROM (
+                SELECT
+                    no,
+                    category,
+                    views,
+                    id,
+                    title,
+                    content,
+                    create_date AS createDate,
+                    update_date AS updateDate
+                FROM QUESTION
+                WHERE id = #{id}
+
+                <if test="searchCond.category == null">
+                    AND category != 10
+                </if>
+                <if test="searchCond.category != null">
+                    AND category = #{searchCond.category}
+                </if>
+                <if test="searchCond.searchType == 'title' and searchCond.keyword != null">
+                    AND title LIKE '%' || #{searchCond.keyword} || '%'
+                </if>
+                <if test="searchCond.searchType == 'content' and searchCond.keyword != null">
+                    AND content LIKE '%' || #{searchCond.keyword} || '%'
+                </if>
+                <if test="searchCond.searchType == 'both' and searchCond.keyword != null">
+                    AND (title LIKE '%' || #{searchCond.keyword} || '%' OR content LIKE '%' || #{searchCond.keyword} || '%')
+                </if>
+                ORDER BY no DESC
+            ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
+        ) WHERE rnum &gt; #{pagination.start}
+    </select>
+
+    <!-- 본인 글 개수 count -->
+    <select id="countMyQuestions" resultType="int">
+        SELECT count(*) FROM question
+        WHERE id = #{id}
+        <if test="category == null">
+            AND category != 10
+        </if>
+        <if test="category != null">
+            <if test="category != 10">
+                AND category != 10
+            </if>
+            AND category = #{category}
+        </if>
+        <if test="searchType == 'title' and keyword != null">
+            AND title LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'content' and keyword != null">
+            AND content LIKE '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'both' and keyword != null">
+            AND (title LIKE '%' || #{keyword} || '%' OR content LIKE '%' || #{keyword} || '%')
+        </if>
+    </select>
 
 </mapper>

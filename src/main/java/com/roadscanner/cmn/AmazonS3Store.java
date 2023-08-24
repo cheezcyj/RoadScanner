@@ -85,4 +85,14 @@ public class AmazonS3Store {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
     }
+
+    /**
+     * 서버에 저장된 파일명으로 파일을 찾고 해당 파일을 삭제
+     * @param storeFileName
+     */
+    public void deleteFile(String storeFileName) {
+        if (storeFileName != null) {
+            amazonS3.deleteObject(bucket, storeFileName);
+        }
+    }
 }

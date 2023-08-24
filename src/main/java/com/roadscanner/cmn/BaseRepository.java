@@ -33,7 +33,6 @@ public interface BaseRepository<T> {
      * 데이터 삭제
      * @param no
      */
-
     void delete(Long no);
 
 }

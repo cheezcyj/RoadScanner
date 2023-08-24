@@ -2,6 +2,7 @@ package com.roadscanner.dao.user;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.sql.SQLException;
 
@@ -12,6 +13,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,8 @@ import com.roadscanner.domain.user.MemberVO;
 		})	//테스트 컨텍스트가 자동으로 만들어줄 applicationContext 위치
 @Transactional
 public class MemberDaoTest {
+	
+	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();	
 	
 	@Autowired
 	UserDao dao;
@@ -42,8 +47,14 @@ public class MemberDaoTest {
 		vo02 = new MemberVO("DaoTest02", "password02", "test02@gmail.com", 1);
 		vo03 = new MemberVO("DaoTest03", "password03", "test03@gmail.com", 1);
 		
+		vo01.setPassword(passwordEncoder.encode(vo01.getPassword()));
+		vo02.setPassword(passwordEncoder.encode(vo02.getPassword()));
+		vo03.setPassword(passwordEncoder.encode(vo03.getPassword()));
+		
+		System.out.println("vo01.setPassword ::" + vo01.getPassword());
+		System.out.println("vo02.setPassword ::" + vo02.getPassword());
+		System.out.println("vo03.setPassword ::" + vo03.getPassword());
 	}
-	
 	
 	@Test
 	public void daoTest() throws SQLException {
@@ -59,7 +70,9 @@ public class MemberDaoTest {
 		dao.insertOne(vo03);
 		
 		// Retrieve
+		
 		MemberVO out01 = dao.selectOne(vo01);
+		
 		CompareData(out01, vo01);
 		System.out.println("dao test out value : "+out01);
 		System.out.println("dao test vo value : "+vo01);
@@ -76,9 +89,9 @@ public class MemberDaoTest {
 		out02.setPassword(out02.getPassword()+updatestr02);
 		out03.setPassword(out03.getPassword()+updatestr03);
 		
-		dao.updateUser(out01);
-		dao.updateUser(out02);
-		dao.updateUser(out03);
+		dao.updatePw(out01);
+		dao.updatePw(out02);
+		dao.updatePw(out03);
 		
 		MemberVO update01 = dao.selectOne(vo01);
 		MemberVO update02 = dao.selectOne(vo02);

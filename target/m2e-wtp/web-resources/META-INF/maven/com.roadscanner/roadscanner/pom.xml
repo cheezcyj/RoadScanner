@@ -41,6 +41,11 @@
 
 
 	<dependencies>
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-crypto</artifactId>
+	    <version>5.7.1</version>
+	</dependency>
 	<!-- 추가본 -->
 	<dependency>
 	    <groupId>org.apache.commons</groupId>
@@ -325,7 +330,36 @@
 			<version>2.3.1</version>
 		</dependency>
 
+		<!-- 서비스 레이어 테스트 코드 작성을 위한 의존성 추가 -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>4.5.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 서버 측 유효성 검증을 위한 추가 Bean Validation -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.5.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<!-- CKEditor 도입 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.16.1</version>
+		</dependency>
+
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

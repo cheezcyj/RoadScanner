@@ -1,9 +1,6 @@
 package com.roadscanner.domain.qna;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
  * Domain 클래스, 데이터베이스와 매칭
  */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class QuestionVO {
 

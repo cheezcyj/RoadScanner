@@ -6,11 +6,13 @@ import com.roadscanner.dto.qna.*;
 import java.io.IOException;
 import java.util.List;
 
-public interface QuestionService{
+public interface QuestionService {
 
-    /**
-     * 게시글 작성
-     */
+    List<QuestionListResponseDTO> findMyQuestion(String id, PaginationDTO pagination, QuestionSearchCond searchCond);
+
+    int countMyQuestions(QuestionSearchCond searchCond);
+
+    List<QuestionListResponseDTO> findNotice();
 
     List<QuestionListResponseDTO> findAll(PaginationDTO pagination, QuestionSearchCond questionSearch);
 
@@ -18,20 +20,12 @@ public interface QuestionService{
 
     QuestionResponseDTO findByNo(Long no);
 
-//    List<QuestionListResponseDTO> findAll();
-
-    Long update(Long no, QuestionUpdateRequestDTO dto);
+    Long update(Long no, QuestionUpdateRequestDTO dto) throws IOException;
 
     Long delete(Long no);
-
-    // 안녕하세요. 저는 페이징을 위해 태어났어요.
-//    List<QuestionListResponseDTO> findAllWithPaging(PaginationDTO pagination);
 
     int countQuestions(QuestionSearchCond searchCond);
 
     void increaseViews(Long no);
-
-    // 질문글 분류 변경
-//    Long updateCategory(Long no);
 
 }
