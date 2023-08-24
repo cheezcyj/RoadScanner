@@ -33,14 +33,18 @@
             </div>
         </div>
 
-        <div class="d-flex mb-3 row align-items-center">
+        <div class="row align-items-center mb-3">
             <div class="col">
-                <input type="file" id="attachFile" name="attachFile" class="form-control" accept="image/*">
-                <div id="attachFile-error"></div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input type="file" id="attachFile" name="attachFile" class="form-control" accept="image/*" style="display:none;">
+                        <button class="btn btn-outline-secondary" type="button" id="btn-select-file">파일 선택</button>
+                        <input type="text" id="fileText" class="form-control" readonly>
+                        <button id="btn-remove-file" class="btn btn-outline-secondary" type="button">삭제</button>
+                    </div>
             </div>
-            <!-- 취소 버튼 -->
-            <button type="button" id="btn-cancel" class="btn-close"></button>
         </div>
+<%--        <img id="preview-image" src="" alt="Image preview" style="display: none;">--%>
 
         <div class="mb-3 row">
             <div class="col">

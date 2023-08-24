@@ -48,7 +48,7 @@ public class list_admin {
 	public int getdpPost() {
 	 return dpPost;
 	}
-
+	
 	public int getpageNumCnt() {
 	 return pageNumCnt;
 	}

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+  
+	#container {
+	  margin-top: 60px;
+	  margin: auto;
+	  width: 800px;
+	}
+	
+	#none-border > fieldset {
+	   border:0 solid black;
+	}
+	
+	label {
+	  font-size: 20px;
+	}
+	
+	input {
+	  height: 50px;
+	}
+	
+	li {
+	  margin-top: 20px;
+	}
+	
+	.update_btn, .qna_btn, .draw_btn {
+	   text-align: center;
+	}
+	
+	#changePw, #cancle {
+	   margin-top: 40px;
+	   width: 150px;
+	}

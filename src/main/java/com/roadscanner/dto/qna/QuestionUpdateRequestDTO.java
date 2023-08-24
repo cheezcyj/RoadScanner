@@ -1,6 +1,7 @@
 package com.roadscanner.dto.qna;
 
 import com.roadscanner.cmn.validation.ImageFile;
+import com.roadscanner.cmn.validation.NotBlankWithoutHtml;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,11 @@ public class QuestionUpdateRequestDTO {
     @ImageFile
     private MultipartFile attachFile;
 
-    @NotBlank(message = "내용은 필수입니다.")
+//    @NotBlank(message = "내용은 필수입니다.")
+    @NotBlankWithoutHtml(message = "내용은 필수입니다.")
     private String content;
+
+    // 기본값 : false, 업데이트 되었는지 확인
+    private boolean isFileChanged;
 
 }

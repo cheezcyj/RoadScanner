@@ -113,42 +113,31 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
     @Transactional
     public Long update(Long no, QuestionUpdateRequestDTO request) throws IOException {
 
-        QuestionVO vo = questionDAO.findByNo(no);
+        QuestionVO question = questionDAO.findByNo(no);
 
-        LOG.debug("데이터베이스에 있던 이미지 이름={}", vo.getStoreFilename());
+        LOG.debug("데이터베이스에 있던 게시글 ={}", question);
 
-        /**
-         * 2023.08.22(화) S3에 파일 삭제하는것에 문제가 있음 확인 필요.
-         * 주석으로 처리해둠
-         */
-
-//        if (vo.getStoreFilename() != null) {
-//            fileStore.deleteFile(vo.getStoreFilename());
-//        }
-
-        // 파일을 S3에 업로드
-        UploadFile attachFile = null;
-        if (request.getAttachFile() != null && !request.getAttachFile().isEmpty()) {
-            attachFile = fileStore.storeFile(request.getAttachFile());
-            vo.setOriginalFilename(attachFile.getUploadFilename());
-            vo.setStoreFilename(attachFile.getStoreFilename());
-            vo.setImageUrl(attachFile.getUrl());
+        if (request.isFileChanged()) {
+            fileStore.deleteFile(question.getStoreFilename());
+            if (request.getAttachFile() == null) {
+                question.setOriginalFilename(null);
+                question.setStoreFilename(null);
+                question.setImageUrl(null);
+            } else if (request.getAttachFile() != null && !request.getAttachFile().isEmpty()) {
+                UploadFile attachFile;
+                attachFile = fileStore.storeFile(request.getAttachFile());
+                question.setOriginalFilename(attachFile.getUploadFilename());
+                question.setStoreFilename(attachFile.getStoreFilename());
+                question.setImageUrl(attachFile.getUrl());
+            }
         }
-
-
-//        if (attachFile != null) {
-//            vo.setOriginalFilename(attachFile.getUploadFilename());
-//            vo.setStoreFilename(attachFile.getStoreFilename());
-//            vo.setImageUrl(attachFile.getUrl());
-//        }
 
         LOG.debug("사용자 요청={}", request);
         // 제목 및 내용 수정
-        vo.setTitle(request.getTitle());
-        vo.setContent(request.getContent());
-
-        LOG.debug("데이터베이스에 수정될 내용={}", vo);
-        questionDAO.update(vo);
+        question.setTitle(request.getTitle());
+        question.setContent(request.getContent());
+        LOG.debug("데이터베이스에 수정될 내용={}", question);
+        questionDAO.update(question);
         return no;
     }
 

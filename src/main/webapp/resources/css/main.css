@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+  
+  .section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .intro_logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* 텍스트 색상을 원하는 대로 설정해주세요 */
+    font-size: 100px; /* 원하는 폰트 크기로 설정해주세요 */
+    font-family: 'Bruno Ace', cursive;
+    font-style: italic;
+    text-shadow: 5px 5px 6px black;
+  }
+  
+  .intro_video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    z-index: -1;
+  }
+  
+  #second {
+    border-radius: 10px; 
+    border: 2px solid black; 
+    margin: 0px 300px; 
+    height: 600px;
+  
+  }
+  
+  #third {
+    font-family: 'NanumSquareNeoBold';
+    font-size: 55px;
+    text-align: center;
+    padding: 110px; 
+    border-radius: 10px; 
+    border: 6px solid white;
+    color: white; 
+    height: 600px; 
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  #fourth {
+    text-align: center;
+    margin: auto; 
+    font-size: 25px;
+  }
+  
+  #section-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-size: cover; 
+    width: 100%; 
+    height: 100%; 
+    background-position: center;
+  }
+  
+  #start-button {
+    text-align:center; 
+    font-size: 150px; 
+    color: black; 
+    text-decoration: none; 
+    font-family: 'Bruno Ace SC', cursive; 
+    margin-top: 30px;
+  }

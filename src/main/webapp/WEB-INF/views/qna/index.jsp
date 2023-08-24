@@ -62,26 +62,26 @@
 
         <table class="table table-hover">
         <colgroup>
-            <c:choose>
-                <c:when test="${user.grade == 2}">
-                    <col style="width: 5%;">
-                    <col style="width: 5%;">
-                    <col style="width: 15%;">
-                    <col style="width: 35%;">
-                    <col style="width: 15%;">
-                    <col style="width: 15%;">
-                    <col style="width: 15%;">
-                </c:when>
-                <c:otherwise>
-                    <col style="width: 5%;">
-                    <col style="width: 15%;">
-                    <col style="width: 35%;">
-                    <col style="width: 15%;">
-                    <col style="width: 15%;">
-                    <col style="width: 15%;">
-                </c:otherwise>
-            </c:choose>
-        </colgroup>
+		    <c:choose>
+		        <c:when test="${user.grade == 2}">
+		            <col style="width: 5%;">
+		            <col style="width: 5%;">
+		            <col style="width: 15%;">
+		            <col style="width: 35%;">
+		            <col style="width: 15%;">
+		            <col style="width: 15%;">
+		            <col style="width: 15%;">
+		        </c:when>
+		        <c:otherwise>
+		            <col style="width: 5%;">
+		            <col style="width: 15%;">
+		            <col style="width: 35%;">
+		            <col style="width: 15%;">
+		            <col style="width: 15%;">
+		            <col style="width: 15%;">
+		        </c:otherwise>
+		    </c:choose>
+		</colgroup>
            <thead class="table-group-divider">
                <tr>
                    <!-- 체크박스 컬럼 추가 (관리자만 보이게) -->

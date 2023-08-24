@@ -73,6 +73,10 @@
 
 /* ------question-detail.jsp------ */
 #detailImage {width: 500px;}
+.card-image {
+    max-width: 100%;
+    height: auto;
+}
 #answer-content {
     border-color:secondary;
     outline:none;

@@ -91,7 +91,8 @@ public class AmazonS3Store {
      * @param storeFileName
      */
     public void deleteFile(String storeFileName) {
-        amazonS3.deleteObject(bucket, storeFileName);
+        if (storeFileName != null) {
+            amazonS3.deleteObject(bucket, storeFileName);
+        }
     }
-
 }

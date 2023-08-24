@@ -65,7 +65,14 @@ public class QuestionApiController implements PcwkLogger {
 
     // 수정
     @PostMapping("/api/qna/{no}")
-    public ResponseEntity<?> update(@PathVariable Long no, @Validated @ModelAttribute QuestionUpdateRequestDTO request, BindingResult bindingResult) throws IOException {
+    public ResponseEntity<?> update(@PathVariable Long no,
+                                    @Validated @ModelAttribute QuestionUpdateRequestDTO request,
+                                    @RequestParam(value = "isFileChanged") String isFileChangedString,
+                                    BindingResult bindingResult) throws IOException {
+
+        if ("true".equalsIgnoreCase(isFileChangedString)) {
+            request.setFileChanged(true);
+        }
 
         LOG.debug("request={}", request);
         if (bindingResult.hasErrors()) {

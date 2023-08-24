@@ -2,92 +2,90 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.roadscanner.dao.upload.FileUploadDao">
   
-  <!-- 피드백 분기별 그래프 -->
-  <select id="quarterlyFeedback" parameterType="FileUploadVO" resultType="FileUploadVO">
+  <!-- 피드백 월별 그래프 -->
+  <select id="monthlyFeedback" parameterType="FileUploadVO" resultType="FileUploadVO">
     SELECT
-        TO_CHAR(upload_date, 'Q') AS uploadDate,
+        TO_CHAR(upload_date, 'MM/DD') AS uploadDate,
         COUNT(DECODE(u1, 1, 1)) AS u1,
-        COUNT(DECODE(u2, 1, 1)) AS u2
+        COUNT(DECODE(u2, 1, 1)) AS u2,
+        COUNT(DECODE(u3, 1, 1)) AS u3
     FROM
         upload_image
-    GROUP BY TO_CHAR(upload_date, 'Q')
+    WHERE TO_CHAR(upload_date, 'MM') = TO_CHAR(TO_DATE(#{uploadDate}), 'MM')
+    GROUP BY TO_CHAR(upload_date, 'MM/DD')
+    ORDER BY uploadDate
   </select>
   
   <!-- 피드백 누적 그래프, 표 -->
   <select id="totalFeedback" resultType="FileUploadVO">
     SELECT
         COUNT(DECODE(u1, 1, 1)) AS u1,
-        COUNT(DECODE(u2, 1, 1)) AS u2
+        COUNT(DECODE(u2, 1, 1)) AS u2,
+        COUNT(DECODE(u3, 1, 1)) AS u3
     FROM
         upload_image
   </select>
   
-  <!-- 사진 목록 조회 -->
-  <select id="doRetrieve" parameterType="FileUploadVO" resultType="FileUploadVO">
-    <choose>
-      <when test="category == 10 || category == 20 || category == 30">
-        SELECT A.*, B.*
-        FROM(
+  <!-- 카테고리별 사진 목록 조회 -->
+  <select id="doRetrieveByCategory" parameterType="FileUploadVO" resultType="FileUploadVO">
+    SELECT A.*, B.*
+        FROM (
             SELECT
-                TT1.idx,
-                TT1.id,
-                TO_CHAR(TT1.upload_date, 'YYYY-MM-DD HH24:MI:SS') AS upload_date,
+                TT1.rnum AS num,
                 TT1.category,
                 TT1.name,
-                TT1.url,
-                TT1.checked
-            FROM(
-                SELECT T1.*
-                FROM(
+                TT1.url
+            FROM (
+                SELECT ROWNUM AS rnum, T1.*
+                FROM (
                     SELECT *
                     FROM upload_image
                     WHERE category = #{category}
-                    AND NOT(checked = 1)
+                    AND checked = 0
                     ORDER BY upload_date DESC
                 )T1
                 <![CDATA[ WHERE ROWNUM <= #{pageSize} * (#{pageNo} - 1) + #{pageSize} ]]>
             )TT1
-            <![CDATA[ WHERE ROWNUM >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
+            <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
         )A
         CROSS JOIN
         (
             SELECT COUNT(*) AS totalCnt
             FROM upload_image
             WHERE category = #{category}
-            AND NOT(checked = 1)
+            AND checked = 0
         )B
-      </when>
-      <otherwise>
-        SELECT A.*, B.*
-        FROM(
+  </select>
+  
+  <!-- 업로드된 사진 전체 목록 조회 (카테고리: 10, 20, 30) -->
+  <select id="doRetrieve" parameterType="FileUploadVO" resultType="FileUploadVO">
+    SELECT A.*, B.*
+        FROM (
             SELECT
-                TT1.idx,
-                TT1.id,
-                TO_CHAR(TT1.upload_date, 'YYYY-MM-DD HH24:MI:SS') AS upload_date,
+                TT1.rnum AS num,
                 TT1.category,
                 TT1.name,
-                TT1.url,
-                TT1.checked
-            FROM(
-                SELECT T1.*
-                FROM(
-                    SELECT *
+                TT1.url
+            FROM (
+                SELECT ROWNUM AS rnum, T1.*
+                FROM (
+                SELECT *
                     FROM upload_image
-                    WHERE NOT(checked = 1)
+                    WHERE category in (10, 20, 30)
+                    AND checked = 0
                     ORDER BY upload_date DESC
                 )T1
                 <![CDATA[ WHERE ROWNUM <= #{pageSize} * (#{pageNo} - 1) + #{pageSize} ]]>
             )TT1
-            <![CDATA[ WHERE ROWNUM >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
+            <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo} - 1) + 1 ]]>
         )A
         CROSS JOIN
         (
             SELECT COUNT(*) AS totalCnt
             FROM upload_image
-            WHERE NOT(checked = 1)
+            WHERE category in (10, 20, 30)
+            AND checked = 0
         )B
-      </otherwise>
-    </choose>  
   </select>
   
   <!-- 사진 상세 조회 -->
@@ -102,7 +100,8 @@
         file_size AS fileSize,
         checked,
         u1,
-        u2
+        u2,
+        u3
     FROM
         upload_image
     WHERE
@@ -117,7 +116,8 @@
       category = #{category},
       checked  = #{checked},
       u1       = #{u1},
-      u2       = #{u2}
+      u2       = #{u2},
+      u3       = #{u3}
     WHERE
       name = #{name}
   </update>
