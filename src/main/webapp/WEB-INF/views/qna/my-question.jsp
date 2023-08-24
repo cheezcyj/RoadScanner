@@ -12,7 +12,7 @@
 
                     <!-- 분류 셀렉트 박스 -->
                     <div class="col-auto mx-1">
-                        <select name="category" id="category" class="form-select" style="border-color:secondary; outline:none; box-shadow:none;">
+                        <select name="category" id="category" class="form-select">
                             <option value="">전체</option>
                             <option value="20" ${category == 20 ? 'selected' : ''}>답변완료</option>
                             <option value="30" ${category == 30 ? 'selected' : ''}>답변대기</option>
@@ -22,7 +22,7 @@
                     <!-- 검색 박스와 글쓰기 버튼을 포함한 레이아웃 -->
                     <!-- 검색 셀렉트 박스 (오른쪽 정렬) -->
                     <div class="col-auto">
-                        <select name="searchType" class="form-select" style="border-color:secondary; outline:none; box-shadow:none;">
+                        <select name="searchType" class="form-select">
                             <option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
                             <option value="content" ${searchType == 'content' ? 'selected' : ''}>내용</option>
                             <option value="both" ${searchType == 'both' ? 'selected' : ''}>제목+내용</option>
@@ -39,7 +39,7 @@
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
                             </svg>
                             </span>
-                            <input type="text" name="keyword" class="form-control" style="border-color:secondary; outline:none; box-shadow:none;" placeholder="검색어를 입력하세요">
+                            <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
                         </div>
                     </div>
                     <div>
@@ -49,9 +49,16 @@
             </div>
         </form>
 
-
        <table class="table table-hover">
-           <thead class="table-group-divider" style="border-color: #DCDCDC;">
+        <colgroup>
+            <col style="width: 5%;">
+            <col style="width: 15%;">
+            <col style="width: 35%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+        </colgroup>
+           <thead class="table-group-divider">
                <tr>
                    <th class="text-center">번호</th>
                    <th class="text-center">분류</th>
@@ -65,7 +72,7 @@
            <!-- 필터링 조건이 존재하는지 확인하는 변수 -->
            <c:set var="isFiltered" value="${category != null or searchType != '' or keyword != ''}" />
 
-            <tbody class="table-group-divider" style="border-color: #DCDCDC;">
+            <tbody class="table-group-divider">
                 <!-- 기존 질문 목록 출력 -->
                 <c:forEach items="${questions}" var="question">
                     <c:choose>
@@ -75,12 +82,10 @@
                                 <td class="text-center">
                                     <c:choose>
                                         <c:when test="${question.category == 20}">
-                                            <span class="badge"
-                                                style="background-color: #024089; color: white;">답변완료</span>
+                                            <span class="badge" id="wan">답변완료</span>
                                         </c:when>
                                         <c:when test="${question.category == 30}">
-                                            <span class="badge"
-                                                style="background-color: #E0EAF5; color: black;">답변대기</span>
+                                            <span class="badge" id="dae">답변대기</span>
                                         </c:when>
                                     </c:choose>
                                 </td>
