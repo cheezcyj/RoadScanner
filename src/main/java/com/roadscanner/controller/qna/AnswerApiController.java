@@ -1,6 +1,5 @@
 package com.roadscanner.controller.qna;
 
-import com.roadscanner.domain.user.MemberVO;
 import com.roadscanner.dto.qna.AnswerResponseDTO;
 import com.roadscanner.dto.qna.AnswerSaveRequestDTO;
 import com.roadscanner.dto.qna.AnswerUpdateRequestDTO;
@@ -16,9 +15,7 @@ public class AnswerApiController {
 
     // 등록
     @PostMapping("/api/qna/{no}/answer")
-    public Long save(@PathVariable Long no, @RequestBody AnswerSaveRequestDTO dto, @SessionAttribute("user") MemberVO memberVO) {
-        dto.setId(memberVO.getId()); // 로그인한 사용자의 id를 DTO에 세팅
-
+    public Long save(@PathVariable Long no, @RequestBody AnswerSaveRequestDTO dto) {
         return answerService.save(dto);
     }
 

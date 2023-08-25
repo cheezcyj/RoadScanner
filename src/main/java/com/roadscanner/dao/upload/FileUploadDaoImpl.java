@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.roadscanner.cmn.PcwkLogger;
@@ -23,16 +24,16 @@ public class FileUploadDaoImpl implements PcwkLogger, FileUploadDao {
 	public FileUploadDaoImpl() {
 	}
 
-	// 피드백 월별 그래프
+	// 피드백 분기별 그래프
 	@Override
-	public List<FileUploadVO> monthlyFeedback(FileUploadVO inVO) throws SQLException {
+	public List<FileUploadVO> quarterlyFeedback(FileUploadVO inVO) throws SQLException {
 		LOG.debug("┌────────────────────────┐");
-		LOG.debug("│    monthlyFeedback()   │");
+		LOG.debug("│   quarterlyFeedback(   │");
 		LOG.debug("│          inVO          │" + inVO);
-		LOG.debug("│        statement       │" + NAMESPACE + DOT + "monthlyFeedback");
+		LOG.debug("│        statement       │" + NAMESPACE + DOT + "quarterlyFeedback");
 		LOG.debug("└────────────────────────┘");
 
-		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "monthlyFeedback", inVO);
+		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "quarterlyFeedback", inVO);
 
 	}
 
@@ -48,19 +49,7 @@ public class FileUploadDaoImpl implements PcwkLogger, FileUploadDao {
 		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "totalFeedback", inVO);
 	}
 
-	// 카테고리별 사진 목록 조회
-	@Override
-	public List<FileUploadVO> doRetrieveByCategory(FileUploadVO inVO) throws SQLException {
-		LOG.debug("┌────────────────────────┐");
-		LOG.debug("│ doRetrieveByCategory() │");
-		LOG.debug("│          inVO          │" + inVO);
-		LOG.debug("│        statement       │" + NAMESPACE + DOT + "doRetrieveByCategory");
-		LOG.debug("└────────────────────────┘");
-		
-		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieveByCategory", inVO);
-	}
-	
-	// 업로드된 사진 전체 목록 조회 (카테고리: 10, 20, 30)
+	// 사진 목록 조회
 	@Override
 	public List<FileUploadVO> doRetrieve(FileUploadVO inVO) throws SQLException {
 		LOG.debug("┌────────────────────────┐");

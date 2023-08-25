@@ -1,6 +1,7 @@
 package com.roadscanner.service.user;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.roadscanner.domain.user.MemberVO;
 
@@ -12,15 +13,20 @@ public interface UserService {
 	 * @return 
 	 * @throws SQLException
 	 */
-	public MemberVO selectUser(MemberVO user) throws SQLException;	
+	public MemberVO selectUser(MemberVO user) throws SQLException;
+	
+	
+	public MemberVO selectOneMypage(MemberVO user) throws SQLException;
 	
 	/**
 	 * 로그인
 	 * @param user
-	 * @return 10: id 없음, 20: 비밀번호 오류, 30: 로그인 성공, 40: 정지된 회원
+	 * @return 10: id 없음, 20: 비밀번호 오류, 30: 로그인 성공 
 	 * @throws SQLException
 	 */
 	public int doLogin(MemberVO user) throws SQLException;
+	
+	public int doPwCheck(MemberVO user) throws SQLException;
 	
 	/**
 	 * 회원가입
@@ -46,22 +52,30 @@ public interface UserService {
 	 */
 	public int doEmailDuplCheck(MemberVO user) throws SQLException;
 	
+	
 	/**
 	 * 아이디 여부 확인 id 반환
 	 * @param user
-	 * @return 1: ID 있음, -1: ID 없음
+	 * @return 1: 있음, 0: 없음
 	 * @throws SQLException
 	 */
 	public String doSearchId(MemberVO user) throws SQLException;
 	
 	/**
-	 * 비밀번호 중복 확인 후, 비밀번호 수정
+	 * 비밀번호 여부 확인 pw 수정
 	 * @param user
-	 * @return 1: 중복 PW 있음, 0: 중복 PW 없음
+	 * @return 1: 있음, 0: 없음
 	 * @throws SQLException
 	 */
 	public String doSearchPw(MemberVO user) throws SQLException;
 	
+	/**
+	 * 회원 정보 삭제
+	 * @param user
+	 * @return 1: 성공 , 0: 실패
+	 * @throws SQLException
+	 */
+	public int deleteOne(MemberVO user) throws SQLException;
 	/**
 	 * 회원정보 변경
 	 * @param user
@@ -70,15 +84,10 @@ public interface UserService {
 	 */
 	public int doChangeInfo(MemberVO user) throws SQLException;
 
-	/**
-	 * 회원탈퇴
-	 * @param user
-	 * @return 1: 탈퇴 성공 / 0: 탈퇴 실패
-	 * @throws SQLException
-	 */
+
 	public int doWithdraw(MemberVO user) throws SQLException;
+
 	
-	public int delete(MemberVO user) throws SQLException;
 	/**
 	 * 등급 변경
 	 * @param user
@@ -94,13 +103,5 @@ public interface UserService {
 	 * @throws SQLException
 	 */
 	public int clearGrade(MemberVO user) throws SQLException;
-	
-	/**
-	 * 비밀번호 재설정 전용 수정
-	 * @param user
-	 * @return 1: 성공 , -1: 실패 
-	 * @throws SQLException
-	 */
-	public int changePw(MemberVO user) throws SQLException;
 		
 }

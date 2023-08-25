@@ -17,13 +17,11 @@ import com.roadscanner.domain.user.list_member;
 import com.roadscanner.service.user.AdminService;
 
 @Controller
-@RequestMapping("/login")
 public class AdminpageController {
 
 @Inject
 AdminService service;
 	
-	// 일반 회원 페이징
 	@RequestMapping(value = "/list_member", method = RequestMethod.GET)
 	public void list_member (Model model, 
 			@RequestParam(value = "num",required = false, defaultValue = "1") int num,
@@ -45,8 +43,7 @@ AdminService service;
 		model.addAttribute("select", num);
 				
 		}
-	
-	// 관리자 계정 페이징
+
 	@RequestMapping(value = "/list_admin", method = RequestMethod.GET)
 	public void list_admin (Model model, 
 			@RequestParam(value = "num",required = false, defaultValue = "1") int num,
@@ -70,8 +67,7 @@ AdminService service;
 		model.addAttribute("select", num);
 		
 		}
-	
-	// 정지 회원 페이징
+
 	@RequestMapping(value = "/list_banned", method = RequestMethod.GET)
 	public void list_banned(Model model, 
 			@RequestParam(value = "num",required = false, defaultValue = "1") int num,

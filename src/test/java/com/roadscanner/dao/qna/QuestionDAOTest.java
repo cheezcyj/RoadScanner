@@ -27,9 +27,6 @@ public class QuestionDAOTest {
     @Autowired
     private QuestionDAO dao;
 
-    Long no = 681L;
-
-
     /**
      * 각 메서드 마다 실행 전 게시물 작성
      */
@@ -37,6 +34,7 @@ public class QuestionDAOTest {
     public void save() {
 
         QuestionVO question = new QuestionVO();
+        question.setNo(1L);
         question.setCategory(30);
         question.setId("admin");
         question.setTitle("테스트 제목1");
@@ -51,6 +49,7 @@ public class QuestionDAOTest {
      */
     @Test
     public void findByNo() {
+        Long no = 1L; // 시퀀스 포기
         QuestionVO question = dao.findByNo(no);
         assertThat(question).isNotNull();
         assertThat(question.getNo()).isEqualTo(no);
@@ -65,20 +64,20 @@ public class QuestionDAOTest {
 
     @Test
     public void update() {
+        Long no = 1L; // 예시로 1번을 업데이트
         QuestionVO question = dao.findByNo(no);
         question.setTitle("Updated title");
         question.setContent("Updated content");
-        question.setOriginalFilename("수정된 이미지");
 
         dao.update(question);
         QuestionVO updatedQuestion = dao.findByNo(no);
         assertThat(updatedQuestion.getTitle()).isEqualTo("Updated title");
         assertThat(updatedQuestion.getContent()).isEqualTo("Updated content");
-        assertThat(updatedQuestion.getOriginalFilename()).isEqualTo("수정된 이미지");
     }
 
     @Test
-    public void delete() { // 예시로 1번을 삭제
+    public void delete() {
+        Long no = 1L; // 예시로 1번을 삭제
         dao.delete(no);
         QuestionVO deletedQuestion = dao.findByNo(no);
         assertThat(deletedQuestion).isNull();

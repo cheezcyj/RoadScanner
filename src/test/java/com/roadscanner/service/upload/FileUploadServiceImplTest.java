@@ -62,7 +62,7 @@ public class FileUploadServiceImplTest implements PcwkLogger {
         );
 
         // 업로드할 파일과 관련된 정보 설정
-        uploadVO = new FileUploadVO(1, "admin", 10, "20000215143200", "", "", 0, 0, 0, 0, 0);
+        uploadVO = new FileUploadVO(1, "admin", 10, "20000215143200", "", "", 0, 0, 0, 0);
         
         inVO = new FileUploadVO();
 	}

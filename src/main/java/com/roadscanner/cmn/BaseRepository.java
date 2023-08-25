@@ -8,7 +8,6 @@ public interface BaseRepository<T> {
 
     /**
      * 데이터 저장
-     * 저장이 몇개 되었는지 반환함.
      * @param vo
      * @return
      */
@@ -33,6 +32,7 @@ public interface BaseRepository<T> {
      * 데이터 삭제
      * @param no
      */
+
     void delete(Long no);
 
 }

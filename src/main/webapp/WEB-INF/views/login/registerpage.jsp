@@ -1,17 +1,52 @@
-  <%@include file ="head.jsp" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<c:set var="CP" value="${pageContext.request.contextPath }"/>  
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <!-- CSS -->
 <link  href="${CP}/resources/css/membership-style.css" rel="stylesheet">
+<link  href="${CP}/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+<script src="${CP}/resources/js/bootstrap/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+<script src="${CP}/resources/js/jquery-3.7.0.js"></script>
 <title>로드스캐너 회원가입</title>
-
-  <%@include file ="navbar.jsp" %>
-
+</head>
+<nav class="navbar navbar-expand-md mb-4" style="background-color: white;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">RoadScanner</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <!-- 로그인 세션 X -->
+        <c:if test="${user eq null}">
+          <button type="button" id="login" onclick="location.href='${CP}/login'" class="btn btn-outline-primary" style="margin-right: 50px;">Login</button>
+        </c:if>
+        <!-- 로그인 세션 O -->
+        <c:if test="${user ne null}">
+          <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='${CP}/mypage'">MyPage</button>
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='${CP}/logout'" style="margin-right: 50px;">LogOut</button>
+        </c:if>
+      </form>
+    </div>
+  </div>
+</nav>
 <body class="d-flex flex-column min-vh-100">
-<div class ="reg_container" id="font-id">
+<div class ="reg_container">
     <h1>RoadScanner 회원가입</h1>
     &nbsp;
 	       <form action="" method="post" name="membership" style="margin: auto;">         
@@ -90,20 +125,22 @@
          </div>
      </form>
     
-		<form method="POST" name="register_form">
-	    <input type="hidden" name="grade" id="grade" value="1">
-	    <input type="hidden" name="id" id="id">
-	    <input type="hidden" name="pw" id="pw">
-	    <input type="hidden" name="email" id="email">         
-		</form>
-			<input type="hidden" name="emailok" id="emailok"> 
-			<input type="hidden" name="idok" id="idok"> 
-  </div>    
+	<form method="POST" name="register_form">
+	      <input type="hidden" name="grade" id="grade" value="1">
+	      <input type="hidden" name="id" id="id">
+	      <input type="hidden" name="pw" id="pw">
+	      <input type="hidden" name="email" id="email">         
+	</form>
+	<input type="hidden" name="emailok" id="emailok"> 
+	<input type="hidden" name="idok" id="idok"> 
+</div>    
 </body>
-
-  <%@include file ="footer.jsp" %>
-
-<script>
+<footer class="py-3 my-4 mt-auto">
+  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+  </ul>
+  <p class="text-center text-body-secondary">&copy; 2023 F1 RoadScanner Project, All rights reserved.</p>
+</footer>
+    <script>
        
         function check_pw() {
             var pw = document.getElementById('pw_form').value;
@@ -114,15 +151,12 @@
             if(pw.length<8 || pw.length>20) {
                window.alert('비밀번호는 8글자 이상, 20글자 이하만 이용 가능합니다.');
                document.getElementById('pw_form').value='';
-               document.getElementById('pw_form').focus();
             } else if(pw.search(/\s/) != -1) {
                window.alert('비밀번호는 공백 없이 이용 가능합니다');
                document.getElementById('pw_form').value='';
-               document.getElementById('pw_form').focus();
             } else if(num < 0 || eng < 0 || spe < 0) {
                window.alert('영문, 숫자, 특수문자를 최소 1글자 이상씩 사용하여 입력해주세요');
                document.getElementById('pw_form').value='';
-               document.getElementById('pw_form').focus();
             }           
             
             if(document.getElementById('pw_form').value !='' && document.getElementById('pw2_form').value!='') {
@@ -130,13 +164,11 @@
                 if(document.getElementById('pw_form').value == document.getElementById('pw2_form').value) {
                     document.getElementById('pw_check').innerHTML='비밀번호가 일치합니다.'
                     document.getElementById('pw_check').style.color='blue';
-                    document.getElementById('pw_check').style.fontSize='15px';
                 } else {
                     document.getElementById('pw_check').innerHTML='비밀번호가 일치하지 않습니다.';
                     document.getElementById('pw_check').style.color='red';
-                    document.getElementById('pw_check').style.fontSize='15px';
+                    document.getElementById('pw_form').value='';
                     document.getElementById('pw2_form').value='';
-                    document.getElementById('pw2_form').focus();
                 }
                 
             }
@@ -191,7 +223,7 @@
             let registerId = document.getElementById('id_form').value;
             let registerPw = document.getElementById('pw2_form').value;
             let registerEmail =  $('#email_front').val()+"@"+ $('#email_back').val()
-          
+            console.log(registerEmail);
            
             
             document.register_form.id.value = registerId;
@@ -272,7 +304,7 @@
             console.log("idDulpCheck ready");
             
             var id_str = document.getElementById('id_form').value;
-           
+            console.log(id_str);
             
             if(""==$('#id_form').val() || 0==$('#id_form').val().length){
               alert("아이디를 입력하세요");  // javascript 메시지 다이얼 로그
@@ -355,7 +387,9 @@
                   //console.log("success data:"+data);
                   // JSON.parse() 메서드는 JSON 문자열의 구문을 분석하고, 그 결과에서 JavaScript 값이나 객체를 생성합니다.
                   let parsedJSON = JSON.parse(data);
+                  console.log("parsedJSON.msgId:"+parsedJSON.msgId);
                                    
+                  
                   if("10" == parsedJSON.msgId){
                     alert(parsedJSON.msgContents);  // javascript 메시지 다이얼 로그
                     $("#email_front").focus();
@@ -416,7 +450,7 @@ $('#checkInput').blur(function() {
     const $resultMsg = $('#mail-check-warn');
 
     if (inputCode == code) {
-        $resultMsg.html('인증번호 일치');
+        $resultMsg.html('인증번호가 일치합니다.');
         $resultMsg.css('color', 'green');
         $resultMsg.css('display', 'block');
         $resultMsg.css('font-size', '13px');
@@ -426,7 +460,7 @@ $('#checkInput').blur(function() {
         certified_Email = true;
     } else {
         certified_Email = false;
-        $resultMsg.html('인증번호 불일치');
+        $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!');
         $resultMsg.css('color', 'red');
         $resultMsg.css('display', 'block');
         $resultMsg.css('font-size', '13px');

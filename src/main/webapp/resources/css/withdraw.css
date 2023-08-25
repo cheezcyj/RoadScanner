@@ -1,28 +1,30 @@
 @charset "UTF-8";
 
-#withdraw {
-margin-top: 20px;
-width: 900px;
-height: 60px;
-}
+  #withdraw {
+       margin-top: 20px;
+       
+        width: 900px;
+  		height: 60px;
+  }
+  .wbut{
+  text-align: center;
+  }
+  
+  form{
+   text-align: center;
+  }
 
-.wbut{
-text-align: center;
-}
-
-form{
- text-align: center;
-}
-
-#container {
-  margin-top: 60px;
-  margin: auto;
-  width: 800px;
-}
-
-#doWithdraw {
-	margin-top: 50px;
-}
+	#container {
+	  margin-top: 60px;
+	  margin: auto;
+	  width: 800px;
+	  
+	}
+	
+	#doWithdraw {
+		margin-top: 50px;
+		
+	}
 
 /* 비밀번호 입력란 스타일 */
 input[type="password"] {

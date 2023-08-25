@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +29,6 @@ import com.roadscanner.domain.result.ResultImgVO;
 import com.roadscanner.domain.upload.FileUploadVO;
 import com.roadscanner.service.result.ResultImgService;
 import com.roadscanner.service.upload.FileUploadService;
-import com.roadscanner.service.upload.RestTemplateService;
 
 @Controller
 @RequestMapping("/main")
@@ -36,9 +39,6 @@ public class UploadController implements PcwkLogger {
 	
 	@Autowired
 	ResultImgService imgService;
-	
-	@Autowired
-	RestTemplateService restTemplateService;
 	
 	//@Autowired
 	MessageVO messageVO;
@@ -60,39 +60,25 @@ public class UploadController implements PcwkLogger {
 	//@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public String upload(@RequestParam(name = "imgName", required = false) String imageName, Model model,
 					FileUploadVO inVO, ResultImgVO resultVO) throws SQLException {
-		String flaskResult = "";
-		int imgNo = 0;
-		
 		//직전 업로드한 파일url
 		if (imageName != null) {
 			model.addAttribute("thisName", imageName);
 			String url = "https://roadscanner-test-bucket.s3.ap-northeast-2.amazonaws.com/"+imageName;
 			model.addAttribute("thisUrl", url);
-			
-			// Flask API와 통신하여 결과값 받아오기
-			flaskResult = restTemplateService.callFlaskApi(url);
-			flaskResult = flaskResult.trim(); // 공백 및 줄바꿈 문자 제거
-	        
-			// 결과값 int로 변환
-	        imgNo = Integer.parseInt(flaskResult);
-	        model.addAttribute("imgNo", imgNo);
-			
 		} else {
 			LOG.debug("session Connect Failed!");
 		}
 		
 		//피드백 원인을 리스트로
-		List<String> reasonList = new ArrayList<String>(Arrays.asList("모양 인식 오류", "색깔 인식 오류", "그림/숫자 인식 오류"));
+		List<String> reasonList = new ArrayList<String>(Arrays.asList("싫어요 이유1", "싫어요 이유2"));
 		model.addAttribute("reasons", reasonList);
 		
 		//결과 이미지
-		if (imgNo >= 0 && imgNo <= 42) {
-			resultVO.setNo(imgNo);
-		} else {
-			resultVO.setNo(404);
-		}
+		Random rand = new Random();
+		int randImg = rand.nextInt(10)+1;  // 1 <= randImg < 11
+		resultVO.setNo(randImg);
 		ResultImgVO resultImg = imgService.getResultImg(resultVO);
-		model.addAttribute("resultImg", resultImg);
+		model.addAttribute("resultImg", resultImg.getUrl());
 		
 		return "upload";
 	}
@@ -148,7 +134,6 @@ public class UploadController implements PcwkLogger {
 		newVO.setCategory(inVO.getCategory());
 		newVO.setU1(inVO.getU1());
 		newVO.setU2(inVO.getU2());
-		newVO.setU3(inVO.getU3());
 		
 		String result = "";
 		LOG.debug("┌───────────────────────────────┐");

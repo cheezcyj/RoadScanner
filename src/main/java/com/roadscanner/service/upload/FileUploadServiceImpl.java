@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.io.Resources;
@@ -24,6 +26,7 @@ import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.roadscanner.cmn.PcwkLogger;
 import com.roadscanner.dao.upload.FileUploadDao;
+import com.roadscanner.dao.upload.FileUploadDaoImpl;
 import com.roadscanner.domain.upload.FileUploadVO;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -105,9 +108,9 @@ public class FileUploadServiceImpl implements PcwkLogger, FileUploadService {
 	}
 
 	@Override
-	public List<FileUploadVO> monthlyFeedback(FileUploadVO inVO) throws SQLException {
+	public List<FileUploadVO> quarterlyFeedback(FileUploadVO inVO) throws SQLException {
 
-		return dao.monthlyFeedback(inVO);
+		return dao.quarterlyFeedback(inVO);
 	}
 
 	@Override
@@ -116,12 +119,6 @@ public class FileUploadServiceImpl implements PcwkLogger, FileUploadService {
 		return dao.totalFeedback(inVO);
 	}
 
-	@Override
-	public List<FileUploadVO> doRetrieveByCategory(FileUploadVO inVO) throws SQLException {
-
-		return dao.doRetrieveByCategory(inVO);
-	}
-	
 	@Override
 	public List<FileUploadVO> doRetrieve(FileUploadVO inVO) throws SQLException {
 
