@@ -22,7 +22,7 @@
 <br/><br/><br/><br/><br/>
 
 ## 프로젝트 기획
-<br/><br/>
+<br/>
 ### 기획서
   * [기획서 파일X](, "기획서 파일X")
 <br/><br/>
@@ -32,7 +32,7 @@
 <br/><br/><br/><br/><br/>
 
 ## 프로젝트 설계
-<br/><br/>
+<br/>
 ### WBS
   * [WBS 링크](https://docs.google.com/spreadsheets/d/1cpfKCO8qN1pHOQxYhH9kp7lFHN3XtHpGI-8TpyfH49Y/edit#gid=1288148872, "WBS 링크")
   * [WBS 파일X](, "WBS 파일X")
@@ -50,6 +50,7 @@
 <br/><br/><br/><br/><br/>
 
 ## 기능 시연
+</br>
 * 메인페이지
 * 로그인
 * 회원가입
