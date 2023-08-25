@@ -30,7 +30,12 @@ CKEDITOR.replace('content', {
         { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] }
     ],
     // 필요하지 않은 플러그인 제거
-    removePlugins: 'image,flash,tabletools,smiley'
+    // removePlugins: 'image,flash,tabletools,smiley',
+
+    // HTML 필터 설정 추가
+    // allowedContent: true,
+    // disallowedContent: 'script; *[on*]',
+    // htmlEncodeOutput: true
 });
 
 const main = {
@@ -168,7 +173,6 @@ const main = {
                 $('#attachFile-error').text(errors.attachFile).addClass('field-error');
             }
         })
-        console.error(error);
     },
 
     update : function () {
@@ -186,7 +190,6 @@ const main = {
         data.append('content', content);
 
         const isFileChanged = $('#isFileChanged').val();
-        alert(isFileChanged);
         data.append('isFileChanged', isFileChanged);
 
         const file = $('#attachFile')[0].files[0];

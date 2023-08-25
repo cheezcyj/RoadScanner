@@ -5,3 +5,7 @@ body {
 h1, h2, h3, thead, .badge {
     font-weight: bold;
 }
+
+.nav-item {
+    font-size: 15px;
+}
