@@ -1,11 +1,6 @@
 @charset "UTF-8";
   
-  header {
-  
-  }
-  
 	#container {
-	  margin-top: 60px;
 	  margin: auto;
 	  width: 800px;
 	}
@@ -18,7 +13,7 @@
 	  height: 50px;
 	}
 	
-	.margin_li {
+	#for-margin-id li {
 	  margin-top: 20px;
 	}
 	
@@ -27,16 +22,15 @@
 	}
 	
 	#update, #cancel {
-	   margin-top: 40px;
 	   width: 150px;
 	}
 	
 	#myQnAboard {
-       margin-top: 60px;
-       width: 200px;
+     margin-top: 60px;
+     width: 200px;
   }
     
   #withdraw {
-       margin-top: 20px;
-       width: 200px;
+     margin-top: 20px;
+     width: 200px;
   }

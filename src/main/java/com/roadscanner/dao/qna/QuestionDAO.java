@@ -2,9 +2,7 @@ package com.roadscanner.dao.qna;
 
 import com.roadscanner.cmn.BaseRepository;
 import com.roadscanner.domain.qna.QuestionVO;
-import com.roadscanner.dto.qna.PaginationDTO;
-import com.roadscanner.dto.qna.QuestionSearchCond;
-import org.apache.ibatis.annotations.Param;
+import com.roadscanner.dto.PaginationDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,18 +17,10 @@ public interface QuestionDAO extends BaseRepository<QuestionVO> {
      */
 
     // findAll을 수정하면 되는거 아닌가 했지만 페이징을 위해 따로 구현하는게 더 좋은 접근방식 이라고 한다..
-//    List<QuestionVO> findAllWithPaging(PaginationDTO pagination);
+    List<QuestionVO> findAllWithPaging(PaginationDTO pagination);
 
-    int countQuestions(QuestionSearchCond searchCond); // 전체 게시글 수 반환
+
+    int countQuestions(); // 전체게시글 수 반환
 
     void increaseViews(Long no); // 조회수 증가 메서드
-
-    void updateCategory(Long no);  // 질문글 분류 변경
-
-    /**
-     * 페이징과 검색 조건을 적용하여 데이터 조회
-     * @param pagination 페이징 정보
-     * @param searchCond 검색조건, 검색어
-     */
-    List<QuestionVO> findAll(@Param("pagination") PaginationDTO pagination, @Param("searchCond") QuestionSearchCond searchCond);
 }

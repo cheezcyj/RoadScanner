@@ -10,27 +10,29 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     
-
-         <!-- JavaMailSenderImpl -->
-		  <bean id="mailSenderImpl"
-		    class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		    <property name="host" value="smtp.naver.com" />
-		    <property name="port" value="465" />
-		    <property name="username" value="sitery@naver.com" />
-		    <property name="password" value="LD6RFT6GH3MB" />
-		    <property name="defaultEncoding" value="utf-8" />
-		    <property name="javaMailProperties">
-		      <props>
-		        <prop key="mail.smtp.host">smtp.naver.com</prop>
-		        <prop key="mail.smtp.port">465</prop>
-		        <prop key="mail.smtp.auth">true</prop>
-		        <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
-		        <prop key="mail.smtp.ssl.enable">true</prop>
-		        <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
-		        <prop key="mail.debug">true</prop>
-		      </props>
-		    </property>
-  </bean>
+	  <!-- RestTemplate -->
+	  <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+	        
+		<!-- JavaMailSenderImpl -->
+		<bean id="mailSenderImpl"
+		  class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		  <property name="host" value="smtp.naver.com" />
+		  <property name="port" value="465" />
+		  <property name="username" value="sitery@naver.com" /> <!-- sitery@naver.com -->
+		  <property name="password" value="LD6RFT6GH3MB" /> <!-- LD6RFT6GH3MB -->
+		  <property name="defaultEncoding" value="utf-8" />
+		  <property name="javaMailProperties">
+		    <props>
+		      <prop key="mail.smtp.host">smtp.naver.com</prop>
+		      <prop key="mail.smtp.port">465</prop>
+		      <prop key="mail.smtp.auth">true</prop>
+		      <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+		      <prop key="mail.smtp.ssl.enable">true</prop>
+		      <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+		      <prop key="mail.debug">true</prop>
+		    </props>
+		  </property>
+	  </bean>
 
     <!-- 마이바티스 설정, 매퍼 정의 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

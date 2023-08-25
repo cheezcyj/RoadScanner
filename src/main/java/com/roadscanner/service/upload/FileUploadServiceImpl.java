@@ -108,9 +108,9 @@ public class FileUploadServiceImpl implements PcwkLogger, FileUploadService {
 	}
 
 	@Override
-	public List<FileUploadVO> quarterlyFeedback(FileUploadVO inVO) throws SQLException {
+	public List<FileUploadVO> monthlyFeedback(FileUploadVO inVO) throws SQLException {
 
-		return dao.quarterlyFeedback(inVO);
+		return dao.monthlyFeedback(inVO);
 	}
 
 	@Override
@@ -119,6 +119,12 @@ public class FileUploadServiceImpl implements PcwkLogger, FileUploadService {
 		return dao.totalFeedback(inVO);
 	}
 
+	@Override
+	public List<FileUploadVO> doRetrieveByCategory(FileUploadVO inVO) throws SQLException {
+
+		return dao.doRetrieveByCategory(inVO);
+	}
+	
 	@Override
 	public List<FileUploadVO> doRetrieve(FileUploadVO inVO) throws SQLException {
 

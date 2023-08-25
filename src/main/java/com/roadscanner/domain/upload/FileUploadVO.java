@@ -14,15 +14,16 @@ public class FileUploadVO extends DTO {
 	private String url; // URL : S3 저장 링크
 	private int fileSize; // 파일크기
 	private int checked; // 검토여부
-	private int u1; // 싫어요 이유1
-	private int u2; // 싫어요 이유2
+	private int u1; // 싫어요 이유1 (다른 모양)
+	private int u2; // 싫어요 이유2 (다른 색깔)
+	private int u3; // 싫어요 이유3 (다른 그림 혹은 숫자)
 
 	// Default 생성자
 	public FileUploadVO() {
 	}
 
 	public FileUploadVO(int idx, String id, int category, String uploadDate, String name, String url, int fileSize,
-			int checked, int u1, int u2) {
+			int checked, int u1, int u2, int u3) {
 		super();
 		this.idx = idx;
 		this.id = id;
@@ -34,6 +35,7 @@ public class FileUploadVO extends DTO {
 		this.checked = checked;
 		this.u1 = u1;
 		this.u2 = u2;
+		this.u3 = u3;
 	}
 
 	public int getIdx() {
@@ -116,11 +118,19 @@ public class FileUploadVO extends DTO {
 		this.u2 = u2;
 	}
 
+	public int getU3() {
+		return u3;
+	}
+
+	public void setU3(int u3) {
+		this.u3 = u3;
+	}
+
 	@Override
 	public String toString() {
 		return "FileUploadVO [idx=" + idx + ", id=" + id + ", category=" + category + ", uploadDate=" + uploadDate
 				+ ", name=" + name + ", url=" + url + ", fileSize=" + fileSize + ", checked=" + checked + ", u1=" + u1
-				+ ", u2=" + u2 + ", toString()=" + super.toString() + "]";
+				+ ", u2=" + u2 + ", u3=" + u3 + ", toString()=" + super.toString() + "]";
 	}
 	
 }
