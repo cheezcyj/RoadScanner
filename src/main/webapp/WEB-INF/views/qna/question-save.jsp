@@ -44,12 +44,10 @@
                     </div>
             </div>
         </div>
-<%--        <img id="preview-image" src="" alt="Image preview" style="display: none;">--%>
 
         <div class="mb-3 row">
             <div class="col">
                 <textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요."></textarea>
-                <div id="content-error"></div>
             </div>
         </div>
         <div class="text-center">
