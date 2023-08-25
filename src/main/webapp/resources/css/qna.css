@@ -10,10 +10,13 @@
 
 /* ------index.jsp------ */
 .qna-link {
-    text-decoration: none; /* ¾ğ´õ¶óÀÎ Á¦°Å */
+    text-decoration: none; /* ì–¸ë”ë¼ì¸ ì œê±° */
 }
 .notice-title {
-    font-weight: bold; /* °øÁö Á¦¸ñ ±½°Ô Ç¥½Ã */
+    font-weight: bold; /* ê³µì§€ ì œëª© êµµê²Œ í‘œì‹œ */
+}
+.notice-row {
+    background-color: #DCDCDC;
 }
 #category {
     border-color:secondary;
@@ -31,7 +34,7 @@
     box-shadow:none;
 }
 .table-group-divider {border-color: #DCDCDC;}
-#gongTable {background-color: #F0F0F0;}
+#gongTable {background-color: #DCDCDC;}
 #gong {background-color: #F87217;}
 #wan {background-color: #024089;}
 #dae {
@@ -46,22 +49,22 @@
 .page-link {
     color: black;
 }
-.page-link:focus { /* ¹öÆ°  ÆÄ¶õÅ×µÎ¸® ÀÜ»ó Á¦°Å */
+.page-link:focus { /* ë²„íŠ¼  íŒŒë€í…Œë‘ë¦¬ ì”ìƒ ì œê±° */
     box-shadow: none;
     outline: none;
 }
 .page-item.active .page-link {
-    background-color: #6c757d; /* ¿øÇÏ´Â ¹è°æ»öÀ¸·Î º¯°æ */
-    border-color: #6c757d; /* ¿øÇÏ´Â Å×µÎ¸® »öÀ¸·Î º¯°æ */
-    color: white; /* ¿øÇÏ´Â ±ÛÀÚ»öÀ¸·Î º¯°æ */
+    background-color: #6c757d; /* ì›í•˜ëŠ” ë°°ê²½ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
+    border-color: #6c757d; /* ì›í•˜ëŠ” í…Œë‘ë¦¬ ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
+    color: white; /* ì›í•˜ëŠ” ê¸€ììƒ‰ìœ¼ë¡œ ë³€ê²½ */
 }
-.page-item.disabled .page-link {/* ºñÈ°¼ºÈ­µÈ ÆäÀÌÁö ³Ñ±â´Â ¹öÆ° ¹è°æ»ö º¯°æ */
-    background-color: #dcdcdc; /* ¿øÇÏ´Â ¹è°æ»öÀ¸·Î º¯°æ */
-    border-color: #dcdcdc; /* ¿øÇÏ´Â Å×µÎ¸® »öÀ¸·Î º¯°æ */
-    color: #6c757d; /* ¿øÇÏ´Â ±ÛÀÚ»öÀ¸·Î º¯°æ */
+.page-item.disabled .page-link {/* ë¹„í™œì„±í™”ëœ í˜ì´ì§€ ë„˜ê¸°ëŠ” ë²„íŠ¼ ë°°ê²½ìƒ‰ ë³€ê²½ */
+    background-color: #dcdcdc; /* ì›í•˜ëŠ” ë°°ê²½ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
+    border-color: #dcdcdc; /* ì›í•˜ëŠ” í…Œë‘ë¦¬ ìƒ‰ìœ¼ë¡œ ë³€ê²½ */
+    color: #6c757d; /* ì›í•˜ëŠ” ê¸€ììƒ‰ìœ¼ë¡œ ë³€ê²½ */
 }
 .page-item.active .page-link:hover {
-    color: white; /* ¿øÇÏ´Â ±ÛÀÚ»öÀ¸·Î º¯°æ */
+    color: white; /* ì›í•˜ëŠ” ê¸€ììƒ‰ìœ¼ë¡œ ë³€ê²½ */
 }
 .page-item .page-link:hover {
     color: black;
@@ -123,6 +126,7 @@
 	background-color: #DCDCDC;
 	color: #6c757d;
 	border-color: #c2c2c2;
+	border-radius: 5px 0 0 5px;
 }
 #btn-select-file:hover {
 	background-color: #6c757d;
