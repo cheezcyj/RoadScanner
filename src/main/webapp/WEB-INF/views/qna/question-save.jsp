@@ -38,19 +38,20 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <input type="file" id="attachFile" name="attachFile" class="form-control" accept="image/*" style="display:none;">
-                        <button class="btn btn-outline-secondary" type="button" id="btn-select-file">파일 선택</button>
-                        <input type="text" id="fileText" class="form-control" readonly>
-                        <button id="btn-remove-file" class="btn btn-outline-secondary" type="button">삭제</button>
+                        <button class="btn btn-secondary rounded-start" type="button" id="btn-select-file">파일 선택</button>
+                        <input type="text" id="fileText" class="form-control" placeholder="선택된 파일 없음" readonly>
+                        <button id="btn-remove-file" class="btn btn-outline" type="button">삭제</button>
                     </div>
             </div>
         </div>
+<%--        <img id="preview-image" src="" alt="Image preview" style="display: none;">--%>
 
         <div class="mb-3 row">
             <div class="col">
                 <textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요."></textarea>
+                <div id="content-error"></div>
             </div>
         </div>
-
         <div class="text-center">
             <a href="/qna" role="button" class="btn btn-secondary">취소</a>
             <button type="submit" id="btn-save" class="btn" value="저장">등록</button>
