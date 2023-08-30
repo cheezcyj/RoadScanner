@@ -1,6 +1,7 @@
-<%@include file ="login/head.jsp" %>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<header>
+  <%@include file ="/WEB-INF/views/layout/header.jsp" %>
+ </header>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     // 서버 측에서 사용자 세션을 확인하고, 세션이 없으면 기본 페이지로 리다이렉트합니다.
@@ -8,23 +9,11 @@
       response.sendRedirect("/login");
     }
 %>
-<%
- String strReferer = request.getHeader("referer");
- if(strReferer == null){
-%>
- <script language="javascript">
-  alert("접속을 차단합니다.");
-  document.location.href="${CP}/login";
- </script>
-<%
- return;
- }
-%>  
-<!DOCTYPE html>
-<html>
-<title>Feedback Graph</title>
+<!-- CSS -->
+<link rel="stylesheet" href="/resources/css/graph.css" >
+<script src="https://kit.fontawesome.com/726783c905.js" crossorigin="anonymous"></script>
 
-<%@include file ="login/navbar.jsp" %>
+  <%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
 
 <body id="font-id">
   <div class="container main-content">
@@ -34,11 +23,11 @@
 		  <div class="accordion-item">
 		    <div class="accordion-header">
 		      <span>싫어요 피드백 누적 개수</span>
-		      <span class="accordion-icon">∨</span>
+		      <span class="accordion-icon"><i class="fa-solid fa-chevron-down fa-lg" id="logo-fix1" style="color: #000000;"></i></span>
 		    </div>
 		    <div class="accordion-content">
 		      <div class="d-flex justify-content-center align-items-center flex-column">
-			      <div class="barchart">
+			      <div class="barchart" style="margin-top:20px;">
 			        <canvas id="feedback_barchart"></canvas>
 			      </div>
 			      <table class="table table-bordered text-center" style="width: 60%;">
@@ -73,7 +62,7 @@
 		  <div class="accordion-item">
 		    <div class="accordion-header">
           <span>월별 싫어요 피드백 개수 변화</span>
-          <span class="accordion-icon">∨</span>
+          <span class="accordion-icon"><i class="fa-solid fa-chevron-down fa-lg" id="logo-fix2" style="color: #000000;"></i></span>
 		    </div>
 		    <div class="accordion-content">
 		      <div class="container" style="width:60%; margin-bottom:10px;">
@@ -87,13 +76,16 @@
 		  </div> <!-- accordion-item -->
 		</div>   
   </div> <!--container -->
+  
+  <%-- 세션이 없이 해당 페이지 진입하면 로그인 페이지로 이동 --%>
+  <c:if test="${user.grade != 2}">
+    <script>     
+        window.location.href = "/login";
+    </script>   
+  </c:if>
 
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1"></script>
-	<script src="${CP}/resources/js/graph.js"></script>
-
+  <script src="/resources/js/graph.js"></script>
 </body>
-
-  <%@include file ="login/footer.jsp" %>
-	<link rel="stylesheet" href="${CP}/resources/css/graph.css" >
-	
-</html>

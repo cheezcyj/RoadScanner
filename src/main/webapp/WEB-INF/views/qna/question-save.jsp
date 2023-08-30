@@ -1,9 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<header>
 <%@include file ="/WEB-INF/views/layout/header.jsp" %>
-<body>
 <%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
-    <form class="container mt-4" id="question-form">
+</header>
+<body>
+    <form class="container mt-5" id="question-form">
         <h1 class="mb-4"><a href="/qna" class="qna-title-link">Q&A 게시판</a></h1>
         <div class="row align-items-center">
 	        <c:choose>
@@ -21,7 +23,7 @@
 
         <div class="row" style="display: none;">
             <label for="id" class="col-sm-2 col-form-label">작성자</label>
-            <div class="col-sm-10">자
+            <div class="col-sm-10">
                 <input type="text" class="form-control" id="id" value="${user.id}" readonly>
             </div>
         </div>
@@ -36,12 +38,13 @@
         <div class="row align-items-center mb-3">
             <div class="col">
                 <div class="col">
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <input type="file" id="attachFile" name="attachFile" class="form-control" accept="image/*" style="display:none;">
-                        <button class="btn btn-secondary rounded-start" type="button" id="btn-select-file">파일 선택</button>
-                        <input type="text" id="fileText" class="form-control" placeholder="선택된 파일 없음" readonly>
-                        <button id="btn-remove-file" class="btn btn-outline" type="button">삭제</button>
+                        <button class="btn btn-outline-secondary" type="button" id="btn-select-file">파일 선택</button>
+                        <input type="text" id="fileText" class="form-control" placeholder="첨부 파일 없음" readonly>
+                        <button id="btn-remove-file" class="btn btn-outline-secondary" type="button">삭제</button>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -50,9 +53,12 @@
                 <textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요."></textarea>
             </div>
         </div>
+
         <div class="text-center">
             <a href="/qna" role="button" class="btn btn-secondary">취소</a>
             <button type="submit" id="btn-save" class="btn" value="저장">등록</button>
         </div>
     </form>
-    <%@include file ="/WEB-INF/views/layout/footer.jsp" %>
+
+<%@include file ="/WEB-INF/views/layout/footer.jsp" %>
+

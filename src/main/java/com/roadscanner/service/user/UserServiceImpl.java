@@ -138,12 +138,19 @@ public class UserServiceImpl implements UserService {
         
 		int flag =0;
 		flag = this.userDao.searchIdCheck(user);
+		String grade = String.valueOf(this.userDao.findIdGrade(user).getGrade());
 		
-        if(0==flag) {
-            result = "-1";
-        }else if(1==flag) {
-            result = this.userDao.searchId(user).getId(); 
-        } 
+		if(grade.equals("3")) {
+			result = "2";
+		} else {
+			 if(0==flag) {
+	            result = "-1";
+	        } else if(1==flag) {
+	            result = this.userDao.searchId(user).getId(); 
+	        } 
+		}
+		
+       
         return result;
 	}
 	
@@ -156,12 +163,23 @@ public class UserServiceImpl implements UserService {
 		
 		int checkStatus = 0;
         checkStatus = this.userDao.searchPwCheck(user);
+        String grade = String.valueOf(this.userDao.findPwGrade(user).getGrade());
         
-        if(0==checkStatus) {
-        	pwresult = "-1";
-        } else if(1==checkStatus) {
-        	pwresult = this.userDao.searchPw(user).getPassword(); 
-        } 
+        if(grade.equals("3")) {
+        	
+        	pwresult = "2";
+        	
+        } else {
+        	
+        	if(0==checkStatus) {
+            	pwresult = "-1";
+            } else if(1==checkStatus) {
+            	pwresult = this.userDao.searchPw(user).getPassword(); 
+            } 
+        	
+        }
+        
+        
         return pwresult;
     }
 

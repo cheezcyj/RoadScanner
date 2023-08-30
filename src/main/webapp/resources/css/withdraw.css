@@ -6,6 +6,10 @@ width: 900px;
 height: 60px;
 }
 
+#for-margin-center {
+	margin: 250px auto;
+}
+
 .wbut{
 text-align: center;
 }

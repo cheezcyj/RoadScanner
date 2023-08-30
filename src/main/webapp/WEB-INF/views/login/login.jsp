@@ -1,7 +1,6 @@
-  <%@include file ="head.jsp" %>
+  <%@include file ="/WEB-INF/views/layout/header.jsp" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- CSS -->
@@ -10,7 +9,7 @@
 
 <body id="font-id" class="d-flex flex-column min-vh-100">
 <c:if test="${user eq null}"> 
-   <a href="${CP}/main" id="head-logo" style="font-weight: 900;">RoadScanner</a>
+   <a href="${CP}/main" id="head-logo">RoadScanner</a>
     <div class="roadscannercontainer">
 	    <form onsubmit="return false;"> 
 	        <div class="loginbox">
@@ -47,66 +46,7 @@
         <h4><a href="${CP}/logout">Go To 로그아웃</a></h4>
     </div>            
 </c:if> <!-- 유저 정보O-end -->
-</body>
 
-  <%@include file ="footer.jsp" %>
 
-<script>
-    //jquery 이벤트 감지 (#은 id를 감지한는것이다.)
-    $("#doLogin").on("click",function(){
-      
-      
-      if(confirm('로그인 하시겠습니까?')==false) return;
-        
-      if(""==$("#id").val() || 0==$("#id").val().length){
-          alert("아이디를 입력하세요");  // javascript 메시지 다이얼 로그
-          $("#id").focus();          // jquery로 포커스를 이동시킨다.
-          return;
-      }
-      if(""==$("#pd").val() || 0==$("#pw").val().length){
-        alert("비밀번호를 입력하세요");  // javascript 메시지 다이얼 로그
-        $("#pw").focus();
-        return;
-      }
-      
-      $.ajax({
-            type: "POST",
-            url:"${CP}/login",
-            /* asyn:"true", */
-            dataType:"html",
-            data:{
-              id: $("#id").val(),
-              password: $("#pw").val()
-            },
-            success:function(data){//통신 성공
-                //console.log("success data:"+data);
-                // JSON.parse() 메서드는 JSON 문자열의 구문을 분석하고, 그 결과에서 JavaScript 값이나 객체를 생성합니다.
-                let paredJSON = JSON.parse(data);
-            
-                
-                if("1"==paredJSON.msgId || "10"==paredJSON.msgId){
-                  alert(paredJSON.msgContents);  // javascript 메시지 다이얼 로그
-                  $("#id").focus();          // jquery로 포커스를 이동시킨다.
-                  return;
-                }
-                if("2"==paredJSON.msgId || "20"==paredJSON.msgId){
-                  alert(paredJSON.msgContents);
-                  $("#pw").focus();
-                  return;
-                }
-                if("30"==paredJSON.msgId){//로그인 성공
-                  window.location.href="${CP}/main/preUpload";
-                }
-                if("40"==paredJSON.msgId) {
-                	alert(paredJSON.msgContents);
-                	document.getElementById('id').value='';
-                	document.getElementById('pw').value='';
-                }
-              },
-              error:function(data){//실패시 처리
-                console.log("error:"+data);
-              }
-          });
-    });    
-</script>
-</html>
+  <%@include file ="/WEB-INF/views/layout/footer.jsp" %>
+  <script src="/resources/js/login/login.js"></script>

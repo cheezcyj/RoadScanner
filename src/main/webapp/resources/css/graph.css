@@ -13,42 +13,31 @@
   }
   
 	h2 {
-	  margin: 20px;
+	  margin-bottom: 10px;
 	}
-	.accordion-button {
-	  font-size: 20px;
-	  font-weight: bold;
-	  background-color: #F5F5F5;
-	  border: none;
-	}
-	.accordion-button:hover {
-	  background-color: #EEEEEE;
-	}
-	.accordion-button:not(.collapsed), .accordion-button:focus {
-	  background-color: #E0E0E0;
-	  border: none;
-	  color: black;
-	  box-shadow: none;
-	}
-	.accordion-item {
-	  border: none; /* 선 제거 */
-	}
+
 	.barchart {
 	  width: 60%;
-	  margin-bottom: 20px;
+	  margin: 30px 0px;
+	}
+	
+	.form-select {
+    cursor: pointer;
+    margin: 20px 0px;	
 	}
 	.form-select:focus {
 	  box-shadow: none;
 	  border-color: #c1c1c1;
 	}
+	
 	.linechart {
 	  width: 60%;
 	  margin: 0 auto; /* 가운데 정렬 */
+	  margin-bottom: 30px;
 	}
 	
  /* 아코디언 스타일 */
  .accordion-item {
-   border: 1px solid #ccc;
    margin-bottom: 10px;
  }
  
@@ -69,6 +58,11 @@
    font-size: 18px;
  }
  
+#logo-fix1, #logo-fix2{
+	 font-size: 1.25em;
+   line-height: 1.05em;
+}
+
  /* 열린 아코디언 스타일 */
  .accordion-item.open .accordion-content {
    display: block;

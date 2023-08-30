@@ -159,7 +159,7 @@ public class LoginController {
             
         } else {
             message.setMsgId("99");
-            message.setMsgContents("알수 없는 오류");            
+            message.setMsgContents("알 수 없는 오류");            
         }
         
         jsonString = new Gson().toJson(message);
@@ -187,10 +187,13 @@ public class LoginController {
             message.setMsgId("10");
             message.setMsgContents("이메일을 확인해주세요.");
             
-        } else {                    
-            message.setMsgId("30");
-            message.setMsgContents(result);
+        } else if("2".equals(result)) {       
+        	message.setMsgId("20");
+            message.setMsgContents("정지된 회원입니다. 관리자에게 문의해주세요");
             
+        } else {
+        	message.setMsgId("30");
+            message.setMsgContents(result);
         }
         
         jsonString = new Gson().toJson(message);        
@@ -217,8 +220,11 @@ public class LoginController {
             message.setMsgId("10");
             message.setMsgContents("아이디와 이메일을 확인해주세요.");
             
-        } else {                    
-            message.setMsgId("30");
+        } else if("2".equals(pwresult)) {                    
+        	message.setMsgId("20");
+            message.setMsgContents("정지된 회원입니다. 관리자에게 문의해주세요");
+        } else {
+        	message.setMsgId("30");
             message.setMsgContents("비밀번호 재설정 페이지로 이동합니다.");
         }
         

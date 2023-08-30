@@ -12,7 +12,7 @@ public class FileUploadVO extends DTO {
 	private String uploadDate; // 등록일
 	private String name; // 저장파일명 : YYMMDDHH24MISS_원본파일명
 	private String url; // URL : S3 저장 링크
-	private int fileSize; // 파일크기
+	private double fileSize; // 파일크기
 	private int checked; // 검토여부
 	private int u1; // 싫어요 이유1 (다른 모양)
 	private int u2; // 싫어요 이유2 (다른 색깔)
@@ -22,7 +22,7 @@ public class FileUploadVO extends DTO {
 	public FileUploadVO() {
 	}
 
-	public FileUploadVO(int idx, String id, int category, String uploadDate, String name, String url, int fileSize,
+	public FileUploadVO(int idx, String id, int category, String uploadDate, String name, String url, double fileSize,
 			int checked, int u1, int u2, int u3) {
 		super();
 		this.idx = idx;
@@ -86,11 +86,11 @@ public class FileUploadVO extends DTO {
 		this.url = url;
 	}
 
-	public int getFileSize() {
+	public double getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(int fileSize) {
+	public void setFileSize(double fileSize) {
 		this.fileSize = fileSize;
 	}
 

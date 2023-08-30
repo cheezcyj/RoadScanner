@@ -45,7 +45,7 @@
   
   #third {
     font-family: 'NanumSquareNeoBold';
-    font-size: 55px;
+    font-size: 2.9vw;
     text-align: center;
     padding: 110px; 
     border-radius: 10px; 
@@ -58,7 +58,7 @@
   #fourth {
     text-align: center;
     margin: auto; 
-    font-size: 25px;
+    font-size: 1.3vw;
   }
   
   #section-button {

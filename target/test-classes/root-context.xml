@@ -51,9 +51,9 @@
     <!-- 팀 기본 데이터 베이스 설정 데이터 소스 변동유무 X -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@129.154.204.240:1521:hibdbcs"/>
+        <property name="url" value="jdbc:oracle:thin:@192.168.0.123:1521:XE"/>
         <property name="username" value="f1"/>
-        <property name="password" value="HBI#_pcwk4444"/>
+        <property name="password" value="4444"/>
     </bean>
 
     <!-- 매퍼 스캔할 수 있도록 지정 변동유무 O-->

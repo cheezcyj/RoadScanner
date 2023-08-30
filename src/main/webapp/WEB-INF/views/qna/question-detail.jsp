@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file ="/WEB-INF/views/layout/header.jsp" %>
-<body>
+<header>
 <%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
-    <div class="container mt-4">
+</header>
+<body>
+    <div class="container mt-5">
         <h1 class="mb-4"><a href="/qna" class="qna-title-link">Q&A 게시판</a></h1>
         <div class="card mb-5">
             <input type="hidden" id="no" value="${question.no}">
@@ -82,7 +84,7 @@
                     </div>
                     <div class="row m-2">
                         <div class="col">
-                            <p class="card-text"><b>작성자: ${user.id}</b>&emsp;작성일: ${answer.createDate}
+                            <p class="card-text"><b>작성자: projectmaster</b>&emsp;작성일: ${answer.createDate}
                                 <c:if test="${answer.updateDate != null}">&nbsp;|&nbsp;&nbsp;최종 수정일: ${answer.updateDate}</c:if>
                             </p>
                         </div>
@@ -163,4 +165,24 @@
             </form>
         </c:if>
     </div>
-<%@include file ="/WEB-INF/views/layout/footer.jsp" %>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/js/qna.js"></script>
+</body>
+<c:choose>
+    <c:when test="${question.imageUrl != null}">
+      <footer class="pt-3 mt-4" style="font-family: 'NanumSquareNeo'; position: relative; width: 100%;">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          </ul>
+          <p class="text-center text-body-secondary">&copy; 2023 F1 RoadScanner Project, All rights reserved.</p>
+      </footer>
+    </c:when>
+    <c:otherwise>
+      <footer class="pt-3 mt-4" style="font-family: 'NanumSquareNeo'; position: absolute; bottom: 0; width: 100%;">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          </ul>
+          <p class="text-center text-body-secondary">&copy; 2023 F1 RoadScanner Project, All rights reserved.</p>
+      </footer>
+    </c:otherwise>
+</c:choose>

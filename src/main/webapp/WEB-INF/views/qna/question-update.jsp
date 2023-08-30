@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file ="/WEB-INF/views/layout/header.jsp" %>
-<body>
 <%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
-    <form class="container mt-4" id="question-edit-form">
+
+<body>
+    <form class="container mt-5" id="question-edit-form">
         <h1 class="mb-4"><a href="/qna" class="qna-title-link">Q&A 게시판</a></h1>
         <!-- 이 부분에 히든 필드 추가 -->
         <input type="hidden" id="no" value="${question.no}">
-
+        
         <div class="mb-2 row align-items-center" style="display: none;">
             <label for="category" class="form-label col-auto pe-1 m-0">답변 상태</label>
             <div class="col">
@@ -29,10 +30,10 @@
 
         <div class="d-flex mb-3 row align-items-center">
             <div class="col">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input type="file" id="attachFile" name="attachFile" class="form-control" accept="image/*" style="display:none;">
                     <button class="btn btn-outline-secondary" type="button" id="btn-select-file">파일 선택</button>
-                    <input type="text" id="fileText" class="form-control" value="${question.originalFilename}" readonly>
+                    <input type="text" id="fileText" class="form-control" value="${question.originalFilename}" placeholder="첨부 파일 없음" readonly>
                     <button id="btn-remove-file" class="btn btn-outline-secondary" type="button">삭제</button>
                     <input type="hidden" id="isFileChanged" name="isFileChanged" value="false">
                 </div>
@@ -51,4 +52,5 @@
             <button type="button" id="btn-update" class="btn" value="수정">수정</button>
         </div>
     </form>
+
 <%@include file ="/WEB-INF/views/layout/footer.jsp" %>

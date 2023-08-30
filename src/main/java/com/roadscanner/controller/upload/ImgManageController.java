@@ -298,10 +298,26 @@ public class ImgManageController implements PcwkLogger {
 	    // 총 페이지 수
 	    int totalPages = (int) Math.ceil((double) totalCnt / inVO.getPageSize());
 	    
-	    // 페이지당 첫 번째 링크, 마지막 링크
-	    int startPage = ((pageNo - 1) / 10) * 10 + 1;
-        int endPage = startPage + 9;
+
+	    int blockSize = 10; // 블록 크기
+	    int startPage = ((pageNo - 1) / blockSize) * blockSize + 1; // 블록 시작페이지
+	    int endPage = startPage + blockSize - 1; // 블록 끝페이지
 	    
+        if (endPage > totalPages) {
+            endPage = totalPages;
+        }
+        
+        int currentBlock = (pageNo - 1) / blockSize; // 현재 페이지가 속한 블록 번호
+        int prevBlock = startPage - 1; // 이전 블럭의 마지막 페이지
+        int nextBlock = endPage + 1; // 다음 블럭의 첫 페이지
+        
+        if (prevBlock < 1) {
+            prevBlock = 1; // 이전 블록이 없는 경우 1로 설정
+        }
+        if (nextBlock > totalPages) {
+            nextBlock = totalPages + 1; // 다음 블록이 없는 경우 totalPages + 1로 설정
+        }
+        
 	    // 모델에 속성 추가
 	    model.addAttribute("list", list);
 	    model.addAttribute("inVO", inVO);
@@ -310,6 +326,8 @@ public class ImgManageController implements PcwkLogger {
 	    model.addAttribute("totalPages", totalPages);
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("prevBlock", prevBlock); 
+	    model.addAttribute("nextBlock", nextBlock);    
 	    
 		return "imgManagement";
 	}

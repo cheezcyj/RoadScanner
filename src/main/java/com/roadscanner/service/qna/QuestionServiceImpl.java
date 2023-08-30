@@ -143,6 +143,8 @@ public class QuestionServiceImpl implements QuestionService, PcwkLogger {
 
     @Override
     public Long delete(Long no) {
+        QuestionVO findByQuestion = questionDAO.findByNo(no);
+        fileStore.deleteFile(findByQuestion.getStoreFilename());
         questionDAO.delete(no);
         return no;
     }

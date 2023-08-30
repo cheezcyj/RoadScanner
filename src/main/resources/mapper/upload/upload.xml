@@ -4,16 +4,16 @@
   
   <!-- 피드백 월별 그래프 -->
   <select id="monthlyFeedback" parameterType="FileUploadVO" resultType="FileUploadVO">
-    SELECT
-        TO_CHAR(upload_date, 'MM/DD') AS uploadDate,
-        COUNT(DECODE(u1, 1, 1)) AS u1,
-        COUNT(DECODE(u2, 1, 1)) AS u2,
-        COUNT(DECODE(u3, 1, 1)) AS u3
-    FROM
-        upload_image
-    WHERE TO_CHAR(upload_date, 'MM') = TO_CHAR(TO_DATE(#{uploadDate}), 'MM')
-    GROUP BY TO_CHAR(upload_date, 'MM/DD')
-    ORDER BY uploadDate
+		SELECT
+		    TO_CHAR(upload_date, 'MM/DD') AS uploadDate,
+		    COUNT(DECODE(u1, 1, 1)) AS u1,
+		    COUNT(DECODE(u2, 1, 1)) AS u2,
+		    COUNT(DECODE(u3, 1, 1)) AS u3
+		FROM
+		    upload_image
+		WHERE TO_CHAR(upload_date, 'MM') = TO_CHAR(TO_DATE(#{uploadDate}, 'YYYY-MM-DD'), 'MM')
+		GROUP BY TO_CHAR(upload_date, 'MM/DD')
+		ORDER BY uploadDate
   </select>
   
   <!-- 피드백 누적 그래프, 표 -->
@@ -94,7 +94,7 @@
         idx,
         id,
         category,
-        TO_CHAR(upload_date, 'YYYY-MM-DD HH24:MI:SS') AS uploadDate,
+        TO_CHAR(upload_date, 'YYYY-MM-DD') AS uploadDate,
         name,
         url,
         file_size AS fileSize,

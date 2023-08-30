@@ -1,9 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<header>
 <%@include file ="/WEB-INF/views/layout/header.jsp" %>
-<body>
 <%@include file ="/WEB-INF/views/layout/navbar.jsp" %>
-    <div class="container mt-4">
+</header>
+<body>
+    <div class="container mt-5">
         <h1 class="mb-4"><a href="/qna/my" class="qna-title-link">내 문의글 보기</a></h1>
 
         <form class="mb-3" name="searchFrm" action="/qna/my" method="get">
@@ -141,4 +143,6 @@
         </nav>
         <!-- 페이징 끝 -->
     </div>
+</body>
+
 <%@include file ="/WEB-INF/views/layout/footer.jsp" %>

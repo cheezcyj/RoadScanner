@@ -1,36 +1,43 @@
 @charset "UTF-8";
   
-	#container {
-	  margin: auto;
-	  width: 800px;
-	}
-	
-	label {
-	  font-size: 20px;
-	}
-	
-	input {
-	  height: 50px;
-	}
-	
-	#for-margin-id li {
-	  margin-top: 20px;
-	}
-	
-	.update_btn, .qna_btn, .draw_btn {
-	   text-align: center;
-	}
-	
-	#update, #cancel {
-	   width: 150px;
-	}
-	
-	#myQnAboard {
-     margin-top: 60px;
-     width: 200px;
-  }
-    
-  #withdraw {
-     margin-top: 20px;
-     width: 200px;
-  }
+#container {
+  margin: 0px auto;
+  width: 800px;
+}
+
+label {
+  font-size: 20px;
+}
+
+input {
+  height: 50px;
+}
+
+#for-margin-id li {
+  margin-top: 20px;
+}
+
+.update_btn, .qna_btn, .draw_btn {
+   text-align: center;
+}
+
+#update {
+   width: 150px;
+}
+
+#cancle {
+	width: 150px;
+	margin-left: 20px;
+}
+
+#myQnAboard {
+   margin-top: 40px;
+   width: 320px;
+}
+  
+#withdraw {
+   margin-top: 20px;
+   width: 320px;
+}
+
+ 

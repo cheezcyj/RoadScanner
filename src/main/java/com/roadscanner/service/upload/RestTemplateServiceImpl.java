@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RestTemplateServiceImpl implements RestTemplateService {
 	
-	private String apiUrl = "http://192.168.0.18:5000/predict";
+	private String apiUrl = "http://172.31.44.211:5000/predict";
     
     private RestTemplate restTemplate = new RestTemplate();
 

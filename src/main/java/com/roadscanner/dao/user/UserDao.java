@@ -133,5 +133,21 @@ public interface UserDao {
 	 * @throws SQLException
 	 */
 	public int changePw(MemberVO user) throws SQLException;
+	
+	/**
+	 * ID찾기 페이지 아이디찾기 때 등급 반환
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public MemberVO findIdGrade(MemberVO user) throws SQLException;
+	
+	/**
+	 * PW찾기 페이지 비밀번호 찾기 때 등급 반환
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public MemberVO findPwGrade(MemberVO user) throws SQLException;
 
 }

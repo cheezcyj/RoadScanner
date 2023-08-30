@@ -65,7 +65,22 @@
 	  SELECT grade
 	  FROM member
 	  WHERE id  = #{id}
-</select>    
+</select>
+
+<!-- ID찾기 때 정지된 회원 등급 검색 -->   
+<select id="findIdGrade" parameterType="MemberVO" resultMap="MemberMap">
+      SELECT grade
+      FROM member
+      WHERE email  = #{email}
+</select>
+
+<!-- PW찾기 때 정지된 회원 등급 검색 -->   
+<select id="findPwGrade" parameterType="MemberVO" resultMap="MemberMap">
+      SELECT grade
+      FROM member
+      WHERE email  = #{email}
+      AND id = #{id}
+</select>        
        
 <!-- id + 이메일  비밀번호 여부 검색 -->
 <select id="searchPwCheck" parameterType="MemberVO" resultType="int">

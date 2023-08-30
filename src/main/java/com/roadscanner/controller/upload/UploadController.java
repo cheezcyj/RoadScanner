@@ -72,10 +72,6 @@ public class UploadController implements PcwkLogger {
 			// Flask API와 통신하여 결과값 받아오기
 			flaskResult = restTemplateService.callFlaskApi(url);
 			flaskResult = flaskResult.trim(); // 공백 및 줄바꿈 문자 제거
-	        
-			// 결과값 int로 변환
-	        imgNo = Integer.parseInt(flaskResult);
-	        model.addAttribute("imgNo", imgNo);
 			
 		} else {
 			LOG.debug("session Connect Failed!");
@@ -85,11 +81,12 @@ public class UploadController implements PcwkLogger {
 		List<String> reasonList = new ArrayList<String>(Arrays.asList("모양 인식 오류", "색깔 인식 오류", "그림/숫자 인식 오류"));
 		model.addAttribute("reasons", reasonList);
 		
-		//결과 이미지
-		if (imgNo >= 0 && imgNo <= 42) {
-			resultVO.setNo(imgNo);
-		} else {
-			resultVO.setNo(404);
+		//결과 이미지 (결과를 정수
+		try {
+		    imgNo = Integer.parseInt(flaskResult);
+		    resultVO.setNo(imgNo);
+		} catch (NumberFormatException e) {
+		    resultVO.setNo(404);
 		}
 		ResultImgVO resultImg = imgService.getResultImg(resultVO);
 		model.addAttribute("resultImg", resultImg);

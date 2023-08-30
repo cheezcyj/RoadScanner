@@ -183,11 +183,11 @@
         $("#name").text(data.name);
         $("#id").text(data.id);
         $("#uploadDate").text(data.uploadDate);
-        $("#fileSize").text(data.fileSize);
+        $("#fileSize").text(data.fileSize + 'KB');
         $("#category").text(category_val);
-        $("#u1").text((data.u1 === 0 || data.u1 === null) ? "오류없음" : "오류있음");
-        $("#u2").text((data.u2 === 0 || data.u1 === null) ? "오류없음" : "오류있음");
-        $("#u3").text((data.u3 === 0 || data.u1 === null) ? "오류없음" : "오류있음");
+        $("#u1").text((data.u1 === 0 || data.u1 === null) ? "X" : "O");
+        $("#u2").text((data.u2 === 0 || data.u1 === null) ? "X" : "O");
+        $("#u3").text((data.u3 === 0 || data.u1 === null) ? "X" : "O");
       },
       error: function(data) { //실패시 처리
         console.log("error:" + data);

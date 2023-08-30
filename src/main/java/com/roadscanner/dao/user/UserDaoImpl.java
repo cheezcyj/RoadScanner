@@ -274,5 +274,28 @@ public class UserDaoImpl implements UserDao {
 
 		return flag;
 	}
+
+	@Override
+	public MemberVO findIdGrade(MemberVO user) throws SQLException {
+		String statement = this.NAMESPACE + DOT + "findIdGrade";
+		LOG.debug("┌────────────────────────────────────────────────────────┐");
+		LOG.debug("│ statement : " + statement);
+		LOG.debug("└────────────────────────────────────────────────────────┘");
+		MemberVO outVO = this.sqlSessionTemplate.selectOne(statement, user);
+
+		return outVO;
+	}
+
+
+	@Override
+	public MemberVO findPwGrade(MemberVO user) throws SQLException {
+		String statement = this.NAMESPACE + DOT + "findPwGrade";
+		LOG.debug("┌────────────────────────────────────────────────────────┐");
+		LOG.debug("│ statement : " + statement);
+		LOG.debug("└────────────────────────────────────────────────────────┘");
+		MemberVO outVO = this.sqlSessionTemplate.selectOne(statement, user);
+
+		return outVO;
+	}
 	
 }

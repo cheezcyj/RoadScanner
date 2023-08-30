@@ -22,7 +22,7 @@
 	          backgroundColor: [
 	            '#C8E6C9',
 	            '#BBDEFB',
-	            '#FFFACD'
+	            '#FFCDD2'
 	          ],
 	          barThickness: 75
 	        }]
@@ -113,6 +113,9 @@
 		      for (var i = 0; i < data.length; i++) {
 		        u2List.push(data[i].u2);
 		      }
+		      for (var i = 0; i < data.length; i++) {
+		    	u3List.push(data[i].u3);
+		      }
 		      
 		      // 이전 차트 파괴
 		      if (window.myChart) {
@@ -127,21 +130,21 @@
 		          datasets: [{
 		            data: u1List,
 		            label: '모양 오류',
-		            borderColor: '#C8E6C9',
+		            borderColor: '#00c853',
 		            fill: false,
 		            tension: 0
 		          },
 		          {
 		            data: u2List,
 		            label: '색깔 오류',
-		            borderColor: '#BBDEFB',
+		            borderColor: '#304ffe',
 		            fill: false,
 		            tension: 0
 		          },
 		          {
 		        	  data: u3List,
 		        	  label: '그림/숫자 오류',
-		        	  borderColor: '#FFFACD',
+		        	  borderColor: '#f44336',
 		        	  fill: false,
 		        	  tension: 0
 		          }]
@@ -216,6 +219,9 @@
 			  for (var i = 0; i < data.length; i++) {
 			    u2List.push(data[i].u2);
 			  }
+		      for (var i = 0; i < data.length; i++) {
+		    	u3List.push(data[i].u3);
+			  }		  
 			  
 			  // 이전 차트 파괴
 			  if (window.myChart) {
@@ -230,21 +236,21 @@
 			          datasets: [{
 			            data: u1List,
 			            label: '모양 오류',
-			            borderColor: '#C8E6C9',
+			            borderColor: '#00c853',
 			            fill: false,
 			            tension: 0
 			          },
 			          {
 			            data: u2List,
 			            label: '색깔 오류',
-			            borderColor: '#BBDEFB',
+			            borderColor: '#304ffe',
 			            fill: false,
 			            tension: 0
 			          },
 			          {
 			        	  data: u3List,
 			        	  label: '그림/숫자 오류',
-			        	  borderColor: '#FFFACD',
+			        	  borderColor: '#f44336',
 			        	  fill: false,
 			        	  tension: 0
 			          }]
