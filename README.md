@@ -22,28 +22,24 @@
 
 ## 프로젝트 기획
 * 기획서
-  * [기획서 파일X](, "기획서 파일X")
+  * [기획서 (googledocs) 링크](https://docs.google.com/document/d/1sKtKhZsoXr5elhkLTBXpK9rHaV8kaXSkLo0KICu15aE/edit?usp=sharing, "기획서 링크")
 <br/><br/>
 * 회의록
-  * [회의록 링크](https://www.notion.so/47559501780c4ab7b9de468d675a032a?pvs=4, "회의록 링크")
-
-<br/><br/><br/><br/><br/>
+  * [회의록 (notion) 링크](https://www.notion.so/47559501780c4ab7b9de468d675a032a?pvs=4, "회의록 링크")
+<br/><br/>
 
 ## 프로젝트 설계
 * WBS
-  * [WBS 링크](https://docs.google.com/spreadsheets/d/1cpfKCO8qN1pHOQxYhH9kp7lFHN3XtHpGI-8TpyfH49Y/edit#gid=1288148872, "WBS 링크")
-  * [WBS 파일X](, "WBS 파일X")
+  * [WBS (googledocs) 링크](https://docs.google.com/spreadsheets/d/1cpfKCO8qN1pHOQxYhH9kp7lFHN3XtHpGI-8TpyfH49Y/edit#gid=1288148872, "WBS 링크")
+  * [WBS (notion) 링크](https://ten-fossa-1be.notion.site/WBS-85097e7e81de47878f7129ada7a16084, "WBS 링크")
 <br/><br/>
 * 요구사항 정의서
-  * [요구사항 정의서 링크](https://www.notion.so/99cb4358beac4124a001dd01fe16bb2f?v=95fe5a76e3cb4770adc62192141ca265&pvs=4, "요구사항 정의서 링크")
+  * [요구사항 정의서 (notion) 링크](https://www.notion.so/99cb4358beac4124a001dd01fe16bb2f?v=95fe5a76e3cb4770adc62192141ca265&pvs=4, "요구사항 정의서 링크")
 <br/><br/>
 * ERD
-  * [ERD 링크X](, "ERD cloud 링크X")
-![image](https://github.com/cheezcyj/F1_JAGUP/assets/133944035/9b7faeb3-82eb-44b0-861f-d9f37f94e7be)
 <br/><br/>
-* 화면 설계서
-  * [화면 설계서 파일X](, "화면 설계서 파일X")
-
+![RoadScannerERD](https://github.com/cheezcyj/RoadScanner/assets/133944035/069348d1-a064-4d47-8497-1bbfea945413)
+  
 <br/><br/><br/><br/><br/>
 
 ## 기능 목록
