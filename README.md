@@ -31,7 +31,7 @@
 ## 프로젝트 설계
 * WBS
   * [WBS (googledocs) 링크](https://docs.google.com/spreadsheets/d/1cpfKCO8qN1pHOQxYhH9kp7lFHN3XtHpGI-8TpyfH49Y/edit#gid=1288148872, "WBS 링크")
-  * [WBS (notion) 링크](https://ten-fossa-1be.notion.site/WBS-85097e7e81de47878f7129ada7a16084, "WBS 링크")
+  * [WBS (notion) 링크](https://www.notion.so/WBS-85097e7e81de47878f7129ada7a16084?pvs=4, "WBS 링크")
 <br/><br/>
 * 요구사항 정의서
   * [요구사항 정의서 (notion) 링크](https://www.notion.so/99cb4358beac4124a001dd01fe16bb2f?v=95fe5a76e3cb4770adc62192141ca265&pvs=4, "요구사항 정의서 링크")
