@@ -38,8 +38,8 @@
 <br/><br/>
 * ERD
 <br/><br/>
-![RoadScannerERD](https://github.com/cheezcyj/RoadScanner/assets/133944035/069348d1-a064-4d47-8497-1bbfea945413)
-  
+![image](https://github.com/cheezcyj/RoadScanner/assets/133944035/419e148d-6c13-4146-81d0-d59550a66fa4)
+
 <br/><br/><br/><br/><br/>
 
 ## 기능 목록
