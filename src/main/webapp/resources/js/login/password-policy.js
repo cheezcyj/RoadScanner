@@ -14,7 +14,7 @@
     function isValidPassword(password) {
         var characters = typeof password === "string" ? Array.from(password) : [];
         if (typeof password !== "string" || characters.length < 8 || characters.length > 20
-                || /\s/.test(password)) {
+                || utf8ByteLength(characters) > 72 || /\s/.test(password)) {
             return false;
         }
 
@@ -33,8 +33,24 @@
         return hasLetter && hasDigit && hasSpecial;
     }
 
+    function utf8ByteLength(characters) {
+        return characters.reduce(function (length, character) {
+            var codePoint = character.codePointAt(0);
+            if (codePoint <= 0x7F) {
+                return length + 1;
+            }
+            if (codePoint <= 0x7FF) {
+                return length + 2;
+            }
+            if (codePoint <= 0xFFFF) {
+                return length + 3;
+            }
+            return length + 4;
+        }, 0);
+    }
+
     window.RoadScannerCredentialPolicy = Object.freeze({
         isValidPassword: isValidPassword,
-        passwordMessage: "비밀번호는 공백 없이 영문, 숫자, 특수문자를 각각 포함한 8~20자여야 합니다."
+        passwordMessage: "비밀번호는 공백 없이 문자, 숫자, 특수문자를 각각 포함한 8~20자이며 UTF-8 기준 72바이트 이하여야 합니다."
     });
 })(window);

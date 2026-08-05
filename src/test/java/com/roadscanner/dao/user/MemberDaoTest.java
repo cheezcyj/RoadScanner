@@ -74,6 +74,19 @@ public class MemberDaoTest {
     }
 
     @Test
+    public void rejectsPasswordBeyondBcryptByteLimit() throws Exception {
+        String password72Bytes = repeat("a", 72);
+        MemberVO longPasswordMember = new MemberVO(
+                "bcryptlimit", password72Bytes, "bcrypt-limit@roadscanner.test", 1);
+        dao.insertOne(longPasswordMember);
+
+        assertThat(dao.passCheck(new MemberVO(
+                longPasswordMember.getId(), password72Bytes, null, 0))).isEqualTo(1);
+        assertThat(dao.passCheck(new MemberVO(
+                longPasswordMember.getId(), password72Bytes + "x", null, 0))).isZero();
+    }
+
+    @Test
     public void searchesMemberByEmailAndId() throws Exception {
         dao.insertOne(member);
         MemberVO search = new MemberVO(member.getId(), null, member.getEmail(), 0);
@@ -85,6 +98,14 @@ public class MemberDaoTest {
         assertThat(dao.searchgrade(search).getGrade()).isEqualTo(1);
         assertThat(dao.findIdGrade(search).getGrade()).isEqualTo(1);
         assertThat(dao.findPwGrade(search).getGrade()).isEqualTo(1);
+    }
+
+    private String repeat(String value, int count) {
+        StringBuilder repeated = new StringBuilder(value.length() * count);
+        for (int index = 0; index < count; index++) {
+            repeated.append(value);
+        }
+        return repeated.toString();
     }
 
     @Test
