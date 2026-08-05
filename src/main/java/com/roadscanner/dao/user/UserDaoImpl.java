@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.roadscanner.cmn.validation.CredentialPolicy;
 import com.roadscanner.domain.user.MemberVO;
 
 @Repository("userDao")
@@ -86,10 +87,10 @@ public class UserDaoImpl implements UserDao {
 		boolean matches;
 		try {
 			// A missing account still performs the same deliberately expensive BCrypt comparison.
-			matches = passwordEncoder.matches(submittedPassword, storedHash);
+			matches = matchesPassword(submittedPassword, storedHash);
 		} catch (IllegalArgumentException exception) {
 			// Corrupt legacy hashes must fail closed without restoring a fast failure path.
-			passwordEncoder.matches(submittedPassword, DUMMY_PASSWORD_HASH);
+			matchesPassword(submittedPassword, DUMMY_PASSWORD_HASH);
 			matches = false;
 		}
 		if (!hasStoredHash || !matches) {
@@ -105,7 +106,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int insertOne(MemberVO user) throws SQLException {
-		String encoder = passwordEncoder.encode(user.getPassword());
+		String encoder = encodePassword(user.getPassword());
 		user.setPassword(encoder);
 		LOG.debug("┌────────────────────────────────────────────────────────┐");
 		LOG.debug("│ MembershipDaoImpl addUser()");
@@ -130,7 +131,7 @@ public class UserDaoImpl implements UserDao {
 		LOG.debug("┌────────────────────────────────────────────────────────┐");
 		LOG.debug("│ statement : " + statement);
 		LOG.debug("└────────────────────────────────────────────────────────┘");
-		user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+		user.setPassword(encodePassword(UUID.randomUUID().toString()));
 		flag = this.sqlSessionTemplate.update(statement, user);
 
 		return flag;
@@ -215,7 +216,7 @@ public class UserDaoImpl implements UserDao {
 			return flag;
 		}
 
-		if(passwordEncoder.matches(user.getPassword(),encoderpw.getPassword())) {
+		if(matchesPassword(user.getPassword(),encoderpw.getPassword())) {
 			LOG.debug("┌────────────────────────────────────────────────────────┐");
 			LOG.debug("│ UserDaoImpl updatePw() error");
 			LOG.debug("└────────────────────────────────────────────────────────┘");
@@ -226,7 +227,7 @@ public class UserDaoImpl implements UserDao {
 			LOG.debug("┌────────────────────────────────────────────────────────┐");
 			LOG.debug("│ UserDaoImpl updatePw() success");
 
-			String encoder = passwordEncoder.encode(user.getPassword());
+			String encoder = encodePassword(user.getPassword());
 			user.setPassword(encoder);
 
 			LOG.debug("└────────────────────────────────────────────────────────┘");
@@ -243,7 +244,7 @@ public class UserDaoImpl implements UserDao {
 	    LOG.debug("┌────────────────────────────────────────────────────────┐");
 	    LOG.debug("│ statement : " + statement);
 	    LOG.debug("└────────────────────────────────────────────────────────┘");
-	    user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+	    user.setPassword(encodePassword(UUID.randomUUID().toString()));
 	    flag = this.sqlSessionTemplate.update(statement, user);
 
 	    return flag;
@@ -276,7 +277,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int changePw(MemberVO user) throws SQLException {
 		
-		String encoder = passwordEncoder.encode(user.getPassword());
+		String encoder = encodePassword(user.getPassword());
 		user.setPassword(encoder);
 		
 		int flag = 0;
@@ -310,6 +311,18 @@ public class UserDaoImpl implements UserDao {
 		MemberVO outVO = this.sqlSessionTemplate.selectOne(statement, user);
 
 		return outVO;
+	}
+
+	private boolean matchesPassword(String rawPassword, String encodedPassword) {
+		return CredentialPolicy.isBcryptLengthValid(rawPassword)
+				&& passwordEncoder.matches(rawPassword, encodedPassword);
+	}
+
+	private String encodePassword(String rawPassword) {
+		if (!CredentialPolicy.isBcryptLengthValid(rawPassword)) {
+			throw new IllegalArgumentException("Password exceeds BCrypt's 72-byte limit.");
+		}
+		return passwordEncoder.encode(rawPassword);
 	}
 	
 }

@@ -178,7 +178,7 @@ public class UserInfoController {
         LOG.debug("└────────────────────────────────────────────────────────┘");
              
         if (!CredentialPolicy.isValidPassword(member.getPassword())) {
-            return messageJson("20", "비밀번호는 8~20자의 문자, 숫자, 특수문자를 포함해야 합니다.");
+            return messageJson("20", "비밀번호는 8~20자의 문자, 숫자, 특수문자를 포함하고 UTF-8 기준 72바이트 이하여야 합니다.");
         }
 
         member.setId(authenticatedUser.getId());
@@ -238,7 +238,7 @@ public class UserInfoController {
         LOG.debug("└────────────────────────────────────────────────────────┘");
 
 		if (!CredentialPolicy.isValidPassword(member.getPassword())) {
-			return messageJson("20", "비밀번호는 8~20자의 문자, 숫자, 특수문자를 포함해야 합니다.");
+			return messageJson("20", "비밀번호는 8~20자의 문자, 숫자, 특수문자를 포함하고 UTF-8 기준 72바이트 이하여야 합니다.");
 		}
 
 		String normalizedEmail;

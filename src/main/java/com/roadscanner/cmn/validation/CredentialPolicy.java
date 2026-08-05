@@ -1,9 +1,12 @@
 package com.roadscanner.cmn.validation;
 
+import java.nio.charset.StandardCharsets;
+
 public final class CredentialPolicy {
 
     private static final int MIN_PASSWORD_LENGTH = 8;
     private static final int MAX_PASSWORD_LENGTH = 20;
+    private static final int BCRYPT_MAX_PASSWORD_BYTES = 72;
 
     private CredentialPolicy() {
     }
@@ -18,7 +21,8 @@ public final class CredentialPolicy {
         }
         int codePointLength = password.codePointCount(0, password.length());
         if (codePointLength < MIN_PASSWORD_LENGTH
-                || codePointLength > MAX_PASSWORD_LENGTH) {
+                || codePointLength > MAX_PASSWORD_LENGTH
+                || !isBcryptLengthValid(password)) {
             return false;
         }
 
@@ -42,5 +46,10 @@ public final class CredentialPolicy {
             }
         }
         return hasLetter && hasDigit && hasSpecial;
+    }
+
+    public static boolean isBcryptLengthValid(String password) {
+        return password != null
+                && password.getBytes(StandardCharsets.UTF_8).length <= BCRYPT_MAX_PASSWORD_BYTES;
     }
 }
