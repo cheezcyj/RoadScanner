@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "artifact": "traffic_sign_detector.onnx",
+  "artifact_sha256": "D1EC740200141D1BB6D96935ACC947216CFA28911A6D8F4F56F2832E7B30CF03",
+  "dataset_manifest": "data/detector/open-images-v7/manifest.json",
+  "dataset_manifest_sha256": "E110064123FEF5FA001C148A67ADADBE03A234205D30A911693FDCB8E0DAEE71",
+  "model": "ssdlite320_mobilenet_v3_large",
+  "input": {
+    "name": "images",
+    "shape": [
+      1,
+      3,
+      320,
+      320
+    ],
+    "dtype": "float32",
+    "color": "RGB",
+    "range": [
+      0.0,
+      1.0
+    ],
+    "resize": "aspect-preserving letterbox",
+    "letterbox_fill_rgb": [
+      114,
+      114,
+      114
+    ]
+  },
+  "outputs": {
+    "boxes": {
+      "shape": [
+        "N",
+        4
+      ],
+      "format": "xyxy_letterboxed_pixels"
+    },
+    "scores": {
+      "shape": [
+        "N"
+      ],
+      "range": [
+        0.0,
+        1.0
+      ]
+    },
+    "labels": {
+      "shape": [
+        "N"
+      ],
+      "traffic_sign": 1
+    }
+  },
+  "validation": {
+    "onnx_checker": "pass",
+    "onnxruntime_parity": {
+      "boxes_max_abs_difference": 6.103515625e-05,
+      "scores_max_abs_difference": 1.4156103134155273e-07,
+      "labels_max_abs_difference": 0.0
+    }
+  },
+  "versions": {
+    "torch": "2.12.1+cu126",
+    "torchvision": "0.27.1+cu126",
+    "onnx": "1.22.0",
+    "onnxruntime": "1.27.0"
+  }
+}

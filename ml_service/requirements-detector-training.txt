@@ -1,0 +1,4 @@
+# Install the CUDA 12.6 PyTorch wheels first; see docs/ml-detector.md.
+onnx==1.22.0
+onnxruntime==1.27.0
+Pillow==12.3.0

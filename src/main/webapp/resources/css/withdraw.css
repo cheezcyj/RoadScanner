@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+.withdraw-page {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(194, 65, 75, 0.09), transparent 34%),
+    var(--rs-canvas);
+}
+
+.withdraw-shell {
+  display: grid;
+  width: min(calc(100% - 32px), 620px);
+  margin: auto;
+  padding: 30px 0 56px;
+}
+
+.withdraw-card {
+  padding: clamp(28px, 6vw, 48px);
+  border: 1px solid rgba(194, 65, 75, 0.16);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--rs-shadow);
+  text-align: center;
+}
+
+.withdraw-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 18px;
+  place-items: center;
+  border-radius: 16px;
+  background: #fff0f1;
+  color: var(--rs-danger);
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.withdraw-eyebrow {
+  margin: 0 0 6px;
+  color: var(--rs-danger);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.15em;
+}
+
+.withdraw-card h1 {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 38px);
+  letter-spacing: -0.045em;
+}
+
+.withdraw-description,
+.withdraw-login-state p {
+  max-width: 470px;
+  margin: 12px auto 28px;
+  color: var(--rs-muted);
+  font-size: 14px;
+}
+
+.withdraw-form {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.withdraw-form label {
+  color: var(--rs-ink-soft);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#rawPassword {
+  width: 100%;
+  min-height: 50px;
+  padding: 11px 13px;
+  border: 1px solid var(--rs-line);
+  border-radius: 12px;
+  outline: 0;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+#rawPassword:focus {
+  border-color: var(--rs-danger);
+  box-shadow: 0 0 0 4px rgba(194, 65, 75, 0.12);
+}
+
+.withdraw-submit {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 14px;
+  border: 1px solid var(--rs-danger);
+  background: var(--rs-danger);
+  color: #fff;
+  font-weight: 850;
+}
+
+.withdraw-submit:hover,
+.withdraw-submit:focus-visible {
+  border-color: #a8323c;
+  background: #a8323c;
+  color: #fff;
+}
+
+.withdraw-login-state {
+  display: grid;
+  justify-items: center;
+}
+
+.withdraw-login-state .btn {
+  min-width: 180px;
+}
+
+@media (max-width: 480px) {
+  .withdraw-card {
+    border-radius: 20px;
+  }
+}

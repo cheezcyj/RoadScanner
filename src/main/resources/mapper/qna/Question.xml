@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roadscanner.dao.qna.QuestionDAO">
+
+<!-- 질문 작성/저장 -->
+    <!--insert id="save" useGeneratedKeys="true" keyProperty="no">
+        INSERT INTO QUESTION (category, id, title, content)
+        VALUES (#{category}, #{id}, #{title}, #{content})
+    </insert>-->
+
+    <!-- 오라클 insert 확인 O-->
+<!--    <insert id="save">-->
+<!--        INSERT INTO QUESTION (no, category, id, title, content)-->
+<!--        VALUES (QUESTION_SEQ.NEXTVAL, #{category}, #{id}, #{title}, #{content})-->
+<!--    </insert>-->
+
+    <insert id="save">
+        INSERT INTO QUESTION (category, idx, id, title, content)
+        VALUES (#{category}, #{idx}, #{id}, #{title}, #{content})
+    </insert>
+
+
+    <!-- no로 질문 조회 오라클 O-->
+    <select id="findByNo" resultType="QuestionVO">
+        SELECT
+            no,
+            category,
+            views,
+            idx,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
+--         update_date AS updateDate
+        FROM QUESTION
+        WHERE no = #{no}
+    </select>
+
+    <select id="findBoardByNo" resultType="QuestionVO">
+        SELECT
+            no,
+            category,
+            views,
+            idx,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
+        FROM QUESTION
+        WHERE no = #{no}
+          AND category IN (10, 40)
+    </select>
+
+    <select id="findInquiryByNo" resultType="QuestionVO">
+        SELECT
+            no,
+            category,
+            views,
+            idx,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
+        FROM QUESTION
+        WHERE no = #{no}
+          AND category IN (20, 30)
+    </select>
+
+    <select id="findInquiryByNoAndAuthor" resultType="QuestionVO">
+        SELECT
+            no,
+            category,
+            views,
+            idx,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
+        FROM QUESTION
+        WHERE no = #{no}
+          AND id = #{id}
+          AND category IN (20, 30)
+    </select>
+
+    <!-- 모든 질문 조회 getAllQuestions에서 수정 -->
+    <select id="findAll" resultType="QuestionVO">
+        SELECT
+            no,
+            category,
+            views,
+            idx,
+            id,
+            title,
+            content,
+            create_date AS createDate,
+            update_date AS updateDate
+        FROM QUESTION
+    </select>
+
+    <!-- 질문 업데이트 -->
+    <update id="update">
+        UPDATE QUESTION
+        SET
+            category = #{category},
+            idx = #{idx},
+            title = #{title},
+            content = #{content},
+            update_date = CURRENT_TIMESTAMP
+        WHERE no = #{no}
+    </update>
+
+    <!-- 질문 삭제 -->
+    <delete id="delete">
+        DELETE FROM QUESTION WHERE no = #{no}
+    </delete>
+
+    <!-- 페이징 구현 -->
+    <sql id="searchFilters">
+        <if test="category != null">
+            AND category = #{category}
+        </if>
+        <if test="keywordPattern != null">
+            <choose>
+                <when test='searchType == "title"'>
+                    AND LOWER(title) LIKE LOWER(#{keywordPattern}) ESCAPE '\'
+                </when>
+                <when test='searchType == "content"'>
+                    AND LOWER(content) LIKE LOWER(#{keywordPattern}) ESCAPE '\'
+                </when>
+                <otherwise>
+                    AND (
+                        LOWER(title) LIKE LOWER(#{keywordPattern}) ESCAPE '\'
+                        OR LOWER(content) LIKE LOWER(#{keywordPattern}) ESCAPE '\'
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <!-- Oracle ROWNUM pagination is also exercised under H2's Oracle mode. -->
+    <select id="findBoardWithPaging" resultType="QuestionVO">
+        SELECT *
+        FROM (SELECT a.*, rownum rnum
+              FROM (SELECT
+                        no,
+                        category,
+                        views,
+                        title,
+                        id,
+                        create_date AS createDate,
+                        update_date AS updateDate
+                    FROM QUESTION
+                    WHERE 1 = 1
+                    AND category IN (10, 40)
+                    <include refid="searchFilters"/>
+                    ORDER BY CASE WHEN category = 10 THEN 1 ELSE 2 END, no DESC
+                   ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
+             ) WHERE rnum &gt; #{pagination.start}
+    </select>
+
+    <select id="findInquiriesWithPaging" resultType="QuestionVO">
+        SELECT *
+        FROM (SELECT a.*, rownum rnum
+              FROM (SELECT
+                        no,
+                        category,
+                        views,
+                        title,
+                        id,
+                        create_date AS createDate,
+                        update_date AS updateDate
+                    FROM QUESTION
+                    WHERE category IN (20, 30)
+                    <include refid="searchFilters"/>
+                    ORDER BY no DESC
+                   ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
+             ) WHERE rnum &gt; #{pagination.start}
+    </select>
+
+    <select id="findInquiriesByAuthorWithPaging" resultType="QuestionVO">
+        SELECT *
+        FROM (SELECT a.*, rownum rnum
+              FROM (SELECT
+                        no,
+                        category,
+                        views,
+                        title,
+                        id,
+                        create_date AS createDate,
+                        update_date AS updateDate
+                    FROM QUESTION
+                    WHERE id = #{id}
+                    AND category IN (20, 30)
+                    <include refid="searchFilters"/>
+                    ORDER BY no DESC
+                   ) a WHERE rownum &lt;= #{pagination.start} + #{pagination.size}
+             ) WHERE rnum &gt; #{pagination.start}
+    </select>
+
+    <select id="countBoard" resultType="int">
+        SELECT COUNT(*)
+        FROM QUESTION
+        WHERE category IN (10, 40)
+        <include refid="searchFilters"/>
+    </select>
+
+    <select id="countInquiries" resultType="int">
+        SELECT COUNT(*)
+        FROM QUESTION
+        WHERE category IN (20, 30)
+        <include refid="searchFilters"/>
+    </select>
+
+    <select id="countInquiriesByAuthor" resultType="int">
+        SELECT COUNT(*)
+        FROM QUESTION
+        WHERE id = #{id}
+        AND category IN (20, 30)
+        <include refid="searchFilters"/>
+    </select>
+
+    <select id="countByAttachmentId" parameterType="long" resultType="int">
+        SELECT COUNT(*) FROM question WHERE idx = #{attachmentId}
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="increaseViews">
+        UPDATE QUESTION
+        SET views = views + 1
+        WHERE no = #{no}
+    </update>
+
+    <update id="transitionCategory">
+        UPDATE QUESTION
+        SET category = #{newCategory},
+            update_date = CURRENT_TIMESTAMP
+        WHERE no = #{no}
+          AND category = #{expectedCategory}
+    </update>
+
+</mapper>
