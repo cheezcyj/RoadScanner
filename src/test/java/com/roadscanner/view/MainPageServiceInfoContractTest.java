@@ -50,12 +50,46 @@ public class MainPageServiceInfoContractTest {
         String jsp = read("src/main/webapp/WEB-INF/views/login/main.jsp");
         String css = read("src/main/webapp/resources/css/main.css");
 
-        assertTrue(jsp.contains("/resources/css/main.css?v=12"));
+        assertTrue(jsp.contains("/resources/css/main.css?v=14"));
         assertTrue(jsp.contains("class=\"metric-value-compact\">12,630</strong>"));
         assertTrue(jsp.contains("class=\"metric-value-compact\">99.01%</strong>"));
         assertTrue(css.contains(".metric-card .metric-value-compact {"));
         assertTrue(css.contains("font-variant-numeric: tabular-nums;"));
         assertTrue(css.contains("white-space: nowrap;"));
+    }
+
+    @Test
+    public void serviceIntroductionUsesACompactSpacingRhythm() throws IOException {
+        String css = read("src/main/webapp/resources/css/main.css");
+
+        assertTrue(css.contains(".hero-content > .eyebrow {\n  margin-bottom: 16px;\n}"));
+        assertTrue(css.contains(".hero-content h2 span {\n  display: inline-block;\n  margin-top: 6px;"));
+        assertTrue(css.contains(".hero-description {\n  max-width: 660px;\n  margin: 22px 0 0;"));
+        assertTrue(css.contains(".hero-actions {\n  margin-top: 26px;\n}"));
+        assertTrue(css.contains("gap: 12px 26px;\n  margin: 30px 0 0;"));
+        assertTrue(css.contains(".hero-content > .eyebrow {\n    margin-bottom: 14px;\n  }"));
+        assertTrue(css.contains(".hero-content h2 span {\n    margin-top: 4px;\n  }"));
+        assertTrue(css.contains(".hero-description {\n    margin-top: 18px;\n    font-size: 15px;"));
+        assertTrue(css.contains(".hero-actions {\n    margin-top: 22px;\n  }"));
+        assertTrue(css.contains("gap: 9px 18px;\n    margin-top: 24px;"));
+    }
+
+    @Test
+    public void howItWorksUsesACompactSpacingRhythm() throws IOException {
+        String css = read("src/main/webapp/resources/css/main.css");
+
+        assertTrue(css.contains(".about-copy > .eyebrow {\n  margin-bottom: 16px;\n}"));
+        assertTrue(css.contains(".about-copy > p:not(.eyebrow) {\n  max-width: 650px;\n  margin: 20px 0 0;"));
+        assertTrue(css.contains("grid-template-columns: repeat(3, minmax(0, 1fr));\n  gap: 12px;\n  margin: 26px 0 0;"));
+        assertTrue(css.contains(".about-copy > .eyebrow {\n    margin-bottom: 14px;\n  }"));
+        assertTrue(css.contains(".about-copy > p:not(.eyebrow) {\n    margin-top: 18px;\n  }"));
+        assertTrue(css.contains("grid-template-columns: 1fr;\n    margin-top: 24px;"));
+        assertTrue(css.contains(".about-layout {\n    gap: 30px;\n  }"));
+        assertTrue(css.contains("display: grid;\n  align-content: start;\n  row-gap: 8px;"));
+        assertTrue(css.contains("content: \"0\" counter(process);\n  display: block;\n  margin-bottom: 0;"));
+        assertTrue(css.contains(".process-list strong {\n  margin-bottom: 0;"));
+        assertTrue(css.contains("flex-direction: column;\n  gap: 8px;\n  margin: 18px 0 0;"));
+        assertTrue(css.contains(".process-list li {\n    row-gap: 7px;\n    padding: 16px;"));
     }
 
     private String read(String relativePath) throws IOException {

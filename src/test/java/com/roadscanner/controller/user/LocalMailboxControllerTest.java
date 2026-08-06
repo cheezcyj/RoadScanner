@@ -3,6 +3,7 @@ package com.roadscanner.controller.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.web.servlet.view.RedirectView;
@@ -29,7 +30,11 @@ public class LocalMailboxControllerTest {
     }
 
     @Test
-    public void localModelAdviceEnablesMailboxNavigation() {
-        assertThat(new LocalMailboxModelAdvice().localMailboxEnabled()).isTrue();
+    public void localModelAdviceEnablesMailboxNavigationWithoutAddingRedirectParameters() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        new LocalMailboxModelAdvice().exposeLocalMailboxNavigation(request);
+
+        assertThat(request.getAttribute("localMailboxEnabled")).isEqualTo(Boolean.TRUE);
     }
 }

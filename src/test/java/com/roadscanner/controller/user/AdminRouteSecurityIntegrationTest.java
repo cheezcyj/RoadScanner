@@ -2,9 +2,10 @@ package com.roadscanner.controller.user;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +47,17 @@ public class AdminRouteSecurityIntegrationTest {
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
+
+    @Test
+    public void localNavigationFlagDoesNotLeakIntoRedirectUrl() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/main"));
+
+        mockMvc.perform(get("/main"))
+                .andExpect(status().isOk())
+                .andExpect(request().attribute("localMailboxEnabled", Boolean.TRUE));
     }
 
     @Test

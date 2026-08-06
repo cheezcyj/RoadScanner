@@ -12,7 +12,7 @@
   <link rel="icon" type="image/svg+xml" href="${CP}/resources/img/favicon.svg">
   <link rel="preload" as="image" type="image/webp"
       href="${CP}/resources/picture/driving-hero-poster.webp?v=1" fetchpriority="high">
-  <link rel="stylesheet" href="${CP}/resources/css/main.css?v=12">
+  <link rel="stylesheet" href="${CP}/resources/css/main.css?v=14">
   <script src="${CP}/resources/js/main.js?v=1" defer></script>
   <title>RoadScanner</title>
 </head>
