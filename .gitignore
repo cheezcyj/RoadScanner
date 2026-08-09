@@ -1,0 +1,91 @@
+# Maven build output
+/target/
+**/target/
+/.mvn-local-repo/
+/.m2/
+/data/
+*.class
+*.war
+*.ear
+
+# Maven-generated metadata
+dependency-reduced-pom.xml
+.flattened-pom.xml
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Eclipse / Spring Tool Suite
+/.classpath
+/.project
+/.settings/
+/.springBeans
+/.factorypath
+/.sts4-cache/
+/.apt_generated/
+/.apt_generated_tests/
+/bin/
+
+# IntelliJ IDEA
+/.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code
+/.vscode/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs, temporary files, and runtime output
+*.log
+/logs/
+/log/
+/tmp/
+/temp/
+/uploads/
+.venv/
+.venv-*/
+__pycache__/
+.pytest_cache/
+pytest-cache-files-*/
+/test-python-write-dir/
+*.tmp
+*.swp
+*.swo
+*~
+
+# Environment files and private keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local override variants
+/src/main/resources/application-local.properties
+/src/main/resources/application-*.local.properties
+/src/main/resources/*-local.properties
+
+# Local recovery backup (may contain historical credentials and personal data)
+/RECOVERY_BACKUP_DO_NOT_DELETE/
+
+# Local-only work records
+/CODE_REVIEW_WORKLOG.md
+/docs/internal/code-review-worklog.md
+/.roadscanner-local/
+
+# Local detector training outputs and converted datasets
+/runs/
+
+# Unreferenced legacy media retained only in the local recovery workspace
+/src/main/webapp/resources/video/test02.mov
+/src/main/webapp/resources/video/cat.mp4
+/src/main/webapp/resources/js/img/

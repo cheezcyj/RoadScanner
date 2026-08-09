@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roadscanner.dao.user.UserDao">
+	<resultMap id="MemberMap" type="MemberVO">
+        <result column="id"            property="id"   />
+        <result column="password"      property="password"  />
+        <result column="email"         property="email"/>
+        <result column="grade"         property="grade"/>  
+        <result column="credential_version" property="credentialVersion"/>
+        <result column="reg_date"          property="regdate"/> 
+        <result column="no"        property="no"/>   
+    </resultMap>    
+    
+<!-- 아이디로 회원정보 반환 -->
+<select id="selectOne" parameterType="MemberVO"  resultMap="MemberMap" >
+    SELECT *
+    FROM member
+    WHERE id = #{id}
+</select>
+    
+<!-- 아이디 체크 -->
+<select id="idCheck" parameterType="MemberVO" resultType="int">
+	  SELECT COUNT(*)
+	  FROM member
+	  WHERE id = #{id}
+</select>
+     
+<!-- 이메일 체크 -->
+<select id="emailCheck" parameterType="MemberVO" resultType="int">
+	  SELECT COUNT(*) cnt
+	  FROM member
+	  WHERE email = #{email}
+</select>
+    
+<!-- 비밀번호 검사 -->
+<select id="encoder" parameterType="MemberVO" resultMap="MemberMap">
+	  SELECT password, grade, credential_version
+	  FROM member
+	  WHERE id = #{id}
+</select>
+    
+<!-- 아이디 + 패스워드 체크 -->
+<select id="passCheck" parameterType="MemberVO" resultType="int">
+	  SELECT COUNT(*) cnt
+	  FROM member
+	  WHERE id = #{id}
+	  AND password = #{password}
+</select>
+    
+<!-- 이메일로  계정 존재 여부 검색 -->
+<select id="searchIdCheck" parameterType="MemberVO" resultType="int">
+	  SELECT COUNT(*) cnt
+	  FROM member
+	  WHERE email  = #{email}
+</select>    
+    
+<!-- 이메일로  id 검색 -->
+<select id="searchId" parameterType="MemberVO" resultMap="MemberMap">
+	  SELECT id
+	  FROM member
+	  WHERE email  = #{email}
+</select>
+    
+<!-- 아이디로 유저의 등급 검색 -->   
+<select id="searchgrade" parameterType="MemberVO" resultMap="MemberMap">
+	  SELECT grade, credential_version
+	  FROM member
+	  WHERE id  = #{id}
+</select>
+
+<select id="lockActiveAdministratorIds" resultType="string">
+	  SELECT id
+	  FROM member
+	  WHERE grade = 2
+	  ORDER BY id
+	  FOR UPDATE
+</select>
+
+<!-- ID찾기 때 정지된 회원 등급 검색 -->   
+<select id="findIdGrade" parameterType="MemberVO" resultMap="MemberMap">
+      SELECT grade
+      FROM member
+      WHERE email  = #{email}
+</select>
+
+<!-- PW찾기 때 정지된 회원 등급 검색 -->   
+<select id="findPwGrade" parameterType="MemberVO" resultMap="MemberMap">
+      SELECT grade
+      FROM member
+      WHERE email  = #{email}
+      AND id = #{id}
+</select>        
+       
+<!-- id + 이메일  비밀번호 여부 검색 -->
+<select id="searchPwCheck" parameterType="MemberVO" resultType="int">
+	  SELECT COUNT(*) cnt
+	  FROM member
+	  WHERE email = #{email}
+	  AND id     = #{id}
+</select>
+    
+<!-- id + 이메일로  비밀번호 검색 -->
+<select id="searchPw" parameterType="MemberVO" resultMap="MemberMap">
+	  SELECT password
+	  FROM member
+	  WHERE email = #{email}
+	  AND id  = #{id}
+</select>
+      
+<!-- 회원가입  -->
+<insert id="insertOne" parameterType="MemberVO" >
+	  INSERT INTO member (    
+	        grade,     
+	              id,       
+	              password, 
+	              email,
+	              reg_date,
+	              no
+	   ) VALUES (
+	      #{grade},    
+	      #{id},       
+	      #{password},        
+	      #{email},
+	      SYSDATE,
+	      MEMBER_SEQ.NEXTVAL
+	   )      
+</insert>  
+    
+<!-- 사용자 비밀번호 변경 -->
+<update id="updatepassword" parameterType="MemberVO">
+	  UPDATE member         
+	  SET password = #{password},
+	      credential_version = credential_version + 1
+	  WHERE id = #{id}
+	  AND email  = #{email}
+	  AND credential_version = #{credentialVersion}
+</update>
+  
+<!-- 계정 정지 (등급 3은 아이디가 정지되어 로그인이 불가능) -->
+<update id="forbiddenUser" parameterType="MemberVO">
+	  UPDATE member         
+	  SET grade = 3,
+	      credential_version = credential_version + 1
+	  WHERE id = #{id}
+	    AND grade IN (1, 2)
+	    AND credential_version = #{credentialVersion}
+</update>
+	  
+<!-- 계정 정지 해제 (등급 3은 아이디가 정지되어 로그인이 불가능) -->
+<update id="clearUser" parameterType="MemberVO">
+	  UPDATE member         
+	  SET grade = 1,
+	      credential_version = credential_version + 1
+	  WHERE id = #{id}
+	    AND grade = 3
+</update>
+ 
+<!-- 회원 본인 탈퇴 -->
+<update id="withdrawOne" parameterType="MemberVO">
+	  UPDATE member
+	  SET password = #{password},
+	      email = 'withdrawn-' || no || '@invalid.roadscanner.local',
+	      grade = 4,
+	      credential_version = credential_version + 1
+	  WHERE id = #{id}
+	    AND grade = 1
+	    AND credential_version = #{credentialVersion}
+</update>
+
+<!-- 관리자에 의한 계정 은퇴 -->
+<update id="deleteOne" parameterType="MemberVO">
+	  UPDATE member
+	  SET password = #{password},
+	      email = 'withdrawn-' || no || '@invalid.roadscanner.local',
+	      grade = 4,
+	      credential_version = credential_version + 1
+	  WHERE id = #{id}
+	    AND grade IN (1, 2)
+	    AND credential_version = #{credentialVersion}
+</update>
+  
+<!-- 비밀번호 재설정 전용 수정문 -->
+<update id="changePw" parameterType="MemberVO">
+	  UPDATE member         
+	  SET password = #{password},
+	      credential_version = credential_version + 1
+	  WHERE email = #{email}
+	    AND grade IN (1, 2)
+</update>
+
+</mapper>

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "feature_layer": "batch_normalization_2",
+  "model_sha256": "7F9FD2D60F907FC346185B4CE62C4C50C2879DF4469906BBD10FBD26A4ECB0CE",
+  "training_archive_sha256": "D32AC4B5FA9A1CBD1994768413902E8193599D9434CF0A8EB9CFD00A6D3A290C",
+  "split": {
+    "unit": "GTSRB track",
+    "fold_count": 5,
+    "calibration_fold": 0,
+    "reference_tracks": "track_id modulo fold_count != calibration_fold"
+  },
+  "reject_quantile": 0.005,
+  "reference_samples": 30869,
+  "calibration_samples": 8340,
+  "calibration_classifier_accuracy": 0.9998800959232614,
+  "calibration_ood_acceptance": 0.9919664268585132,
+  "artifact_sha256": "B291EB750E33EFD59E27E09E5EA2236DE05E38624E2355EC0B42E653A3E43F4D",
+  "threshold_min": 0.3085603713989258,
+  "threshold_max": 0.8305055499076843
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc https://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--
+        DAO integration tests deliberately use an embedded, process-local database.
+        Oracle mode exercises the Oracle-flavoured SQL in the production mappers
+        without reading production properties or connecting to an external service.
+    -->
+    <jdbc:embedded-database id="dataSource" type="H2"
+                            database-name="roadscanner-dao;MODE=Oracle">
+        <jdbc:script location="classpath:/db/schema-h2.sql" encoding="UTF-8"/>
+        <jdbc:script location="classpath:/db/data-h2.sql" encoding="UTF-8"/>
+    </jdbc:embedded-database>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:/mapper/**/*.xml"/>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.roadscanner.dao.qna"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <context:component-scan base-package="com.roadscanner.dao.user,com.roadscanner.dao.upload,com.roadscanner.dao.result"/>
+    <context:component-scan base-package="com.roadscanner.service.qna"/>
+    <bean id="userService" class="com.roadscanner.service.user.UserServiceImpl">
+        <constructor-arg ref="userDao"/>
+    </bean>
+</beans>

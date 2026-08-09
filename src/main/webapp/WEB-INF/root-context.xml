@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:application.properties"
+	                              system-properties-mode="OVERRIDE" />
+    
+	  <!-- Analysis API client: bounded connection and response wait times. -->
+	  <bean id="analysisApiRequestFactory"
+	        class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+	    <property name="connectTimeout" value="${roadscanner.flask.connect-timeout-ms}" />
+	    <property name="readTimeout" value="${roadscanner.flask.read-timeout-ms}" />
+	  </bean>
+	  <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+	    <constructor-arg ref="analysisApiRequestFactory" />
+	    <property name="messageConverters">
+	      <list>
+	        <bean class="com.roadscanner.config.BoundedStringHttpMessageConverter" />
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+	      </list>
+	    </property>
+	    <property name="errorHandler">
+	      <bean class="com.roadscanner.config.StatusOnlyResponseErrorHandler" />
+	    </property>
+	  </bean>
+
+	  <!-- Shared by MultipartFilter (for CSRF form fields) and DispatcherServlet. -->
+	  <bean id="multipartResolver"
+	        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="maxUploadSize" value="6291456" />
+	    <property name="maxUploadSizePerFile" value="5242880" />
+	  </bean>
+
+	  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	    <property name="dataSource" ref="dataSource" />
+	  </bean>
+	        
+    <!-- 마이바티스 설정, 매퍼 정의 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value ="classpath:/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 팀 기본 데이터 베이스 설정 데이터 소스 변동유무 X -->
+    <!-- 매퍼 스캔할 수 있도록 지정 변동유무 O-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- Legacy DAO packages use explicit *DaoImpl repositories. Q&A alone uses mapper proxies. -->
+        <property name="basePackage" value="com.roadscanner.dao.qna" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+	<!-- Profile-specific beans must remain at the end of this XML document. -->
+	<beans profile="!local">
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="url" value="${ROADSCANNER_DB_URL}"/>
+			<property name="username" value="${ROADSCANNER_DB_USERNAME}"/>
+			<property name="password" value="${ROADSCANNER_DB_PASSWORD}"/>
+		</bean>
+
+		<bean id="mailSenderImpl"
+		      class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host" value="${ROADSCANNER_SMTP_HOST}" />
+			<property name="port" value="${ROADSCANNER_SMTP_PORT}" />
+			<property name="username" value="${ROADSCANNER_SMTP_USERNAME}" />
+			<property name="password" value="${ROADSCANNER_SMTP_PASSWORD}" />
+			<property name="defaultEncoding" value="utf-8" />
+			<property name="javaMailProperties">
+				<props>
+					<prop key="mail.smtp.host">${ROADSCANNER_SMTP_HOST}</prop>
+					<prop key="mail.smtp.port">${ROADSCANNER_SMTP_PORT}</prop>
+					<prop key="mail.smtp.auth">true</prop>
+					<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+					<prop key="mail.smtp.ssl.enable">true</prop>
+					<prop key="mail.smtp.ssl.trust">${ROADSCANNER_SMTP_HOST}</prop>
+					<prop key="mail.debug">false</prop>
+				</props>
+			</property>
+		</bean>
+	</beans>
+
+	<beans profile="local">
+		<!-- Process-local database for smoke testing; recreated on each start. -->
+		<jdbc:embedded-database id="dataSource" type="H2"
+		                        database-name="roadscanner-local;MODE=Oracle">
+			<jdbc:script location="classpath:/db/local-schema.sql" encoding="UTF-8"/>
+			<jdbc:script location="classpath:/db/local-data.sql" encoding="UTF-8"/>
+		</jdbc:embedded-database>
+	</beans>
+
+</beans>
